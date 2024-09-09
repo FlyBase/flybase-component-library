@@ -26,11 +26,13 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ text, Icon = CaretDownI
     }, [buttonRef, isOpen]);
 
     return (
-        <button className="dropdown-button" onClick={() => setIsOpen(!isOpen)} ref={buttonRef}>
-            {text && <span>{text}</span>}
-            <Icon />
-            {(true &&(isOpen && children)) && <section className="child-wrapper" onClick={e => e.stopPropagation()}>{children}</section>}
-        </button>
+        <section className="dropdown-button-container" ref={buttonRef}>
+            <button className="dropdown-button" onClick={() => setIsOpen(!isOpen)} >
+                {text && <span>{text}</span>}
+                <Icon />
+            </button>
+            {(isOpen && children) && <section className="child-wrapper" onClick={e => e.stopPropagation()}>{children}</section>}
+        </section>
     );
 };
 

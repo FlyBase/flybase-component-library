@@ -8,8 +8,8 @@ import SplitSystemCombinationSearchTable from "./components/interactive-tables/S
 
 function App() {
   return (
-    <div>
-        <SplitSystemCombinationSearchTable expression={{ anatomy: "alpha/beta surface Kenyon cell" }}/>
+    <div style={{ height: '90vh', width: "100vw", overflow: 'hidden' }}>
+        <SplitSystemCombinationSearchTable expression={{ anatomy: "Kenyon cell" }}/>
     </div>
   );
 }

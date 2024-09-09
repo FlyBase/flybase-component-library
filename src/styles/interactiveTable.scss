@@ -1,8 +1,12 @@
+@use "fonts";
+@use "colors";
 
 .interactive-table {
   max-width: 100%;
+  height: 100%;
   width: fit-content;
-  font-family: "clear_sansregular",sans-serif;
+  //font-family: "clear_sansregular",sans-serif;
+  font-family: fonts.$main;
 
   sup, up {
     vertical-align: baseline;
@@ -13,7 +17,6 @@
   }
 
   .main-toolbar {
-    width: calc(100% - 30px);
     border-top: 2px solid rgb(221, 221, 221);
     border-bottom: 2px solid rgb(221, 221, 221);
     padding: 5px 15px;
@@ -33,6 +36,65 @@
       white-space: nowrap;
       flex: 1;
 
+      .export-options {
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
+
+        form {
+          display: none;
+        }
+
+        li {
+          padding: 0;
+          margin: 0;
+          text-align: left;
+
+          .icon-button {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border: 2px solid colors.$fbInputBlue;
+            border-radius: 8px;
+            background-color: white;
+
+            cursor: pointer;
+
+            &:hover {
+              background-color: colors.$fbInputBlue;
+
+              svg {
+                fill: white;
+              }
+
+              span {
+                color: white;
+              }
+            }
+
+            svg {
+              width: 20px;
+              fill: colors.$fbInputBlue;
+            }
+
+            span {
+              font-family: fonts.$main;
+              font-size: 16px;
+              font-weight: bold;
+              color: colors.$fbInputBlue;
+            }
+          }
+
+
+        }
+      }
+
       .hidden-columns {
         font-size: 14px;
         color: #555555;
@@ -49,7 +111,7 @@
 
       .show-hide-list {
         list-style: none;
-        padding: 0;
+        padding: 15px;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -58,6 +120,10 @@
         li {
           display: flex;
           flex-direction: column;
+          input {
+            margin-right: 5px;
+            margin-top: 0;
+          }
 
           label {
             display: flex;
@@ -91,6 +157,13 @@
       align-items: center;
       justify-content: flex-end;
       gap: 15px;
+
+      .count {
+        font-size: 14px;
+        font-weight: 500;
+        color: #555555;
+        font-style: italic;
+      }
     }
 
     .button-bar {
@@ -107,6 +180,7 @@
 
       li {
         border-left: 1px solid #5bc0de;
+        height: 30px;
 
         &:first-child {
           border: none;
@@ -152,6 +226,7 @@
         cursor: pointer;
         padding: 0 5px;
         white-space: nowrap;
+        line-height: normal;
 
         &:not(:has(input:checked)):hover {
           background-color: darken(white, 10%);
@@ -174,13 +249,18 @@
   }
 
   .table-wrapper {
-    overflow-x: scroll;
+    overflow: scroll;
     width: 100%;
+    max-height: calc(100% - 50px);
 
     table {
       border-spacing: 0;
+      border-collapse: separate;
 
       thead {
+        position: sticky;
+        top: 0;
+        z-index: 200;
         tr {
 
           th {
@@ -191,11 +271,17 @@
             color: rgb(51, 51, 51);
             font-weight: 700;
             font-size: 15px;
+            line-height: normal;
+
+            &.right-aligned > svg {
+              margin-left: -20px;
+            }
 
             > svg {
               height: 15px;
-              padding: 0 3px;
+              padding: 1px 5px 0 5px;
               margin-bottom: -2px;
+              position: absolute;
             }
 
             svg.up-down-arrow-icon {
@@ -217,6 +303,7 @@
             }
           }
         }
+
         tr.group-header:first-child th {
           border: 1px solid rgb(221, 221, 221);
         }
@@ -227,10 +314,20 @@
       }
 
       tbody {
+        height: 100%;
+        overflow-x: scroll;
         tr {
           td {
             padding: 5px 15px;
             border-top: 1px solid rgb(221, 221, 221);
+
+            a {
+              color: colors.$fbBrightBlue;
+
+              &:not(:hover) {
+                text-decoration: none;
+              }
+            }
           }
         }
 

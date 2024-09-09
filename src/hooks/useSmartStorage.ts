@@ -19,8 +19,7 @@ const initializeReducer = (rootPath: string) => {
 
 //update the state based on a new value
 const reducer = (state: any, action: { rootPath: string, newValue: any, replaceAll?: boolean }) => {
-
-    console.log("SSC REDUCER", state, action);
+    console.log("NEW useSmartStorage reducer", state, action);
 
     if(JSON.stringify(state) === JSON.stringify(action.newValue)) return state;
 
@@ -34,7 +33,7 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
     let childPathObject: any = getByPath(fullValue, parentPath);
 
     if(action.replaceAll) { // replaces all the localStorage value, not just at a subpath
-        return parentPath === keyToUpdate ? childPathObject : childPathObject[keyToUpdate];
+         return parentPath === keyToUpdate ? action.newValue : childPathObject[keyToUpdate];
     } else {
         if(parentPath === keyToUpdate) {
             fullValue = action.newValue;
@@ -46,8 +45,6 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
             }
         }
     }
-
-    console.log("SSC REDUCER FINAL", action.newValue);
 
     return action.newValue;
 };
@@ -84,7 +81,7 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
     //TODO: add logic to prevent this when triggers because a different hook changes localStorage, firing the event
     //listener below, and thus this useEffect?
     useEffect(() => {
-        console.log("SSC useEFFECT", value, isSelfUpdating)
+        console.log("NEW useSmartStorage useEffect start", isSelfUpdating);
         if(isSelfUpdating) {
             return;
         }
@@ -102,8 +99,9 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
 
         const realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
 
+        console.log("NEW useSmartStorage useEffect end", realValue, value, fullValue);
 
-        if(JSON.stringify(realValue) !== JSON.stringify(value)) {
+        if(JSON.stringify(realValue) === JSON.stringify(value)) {
             return;
         }
 
@@ -121,13 +119,13 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
             realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
         }
 
-        console.log("SSC UPDATE VALUE", window.localStorage.getItem(localStorageKey), value, realValue);
+        console.log("NEW useSmartStorage updateValue", realValue, value);
 
         //Only refresh state if the new value is different. (prevents infinite loops)
         if(JSON.stringify(realValue) !== JSON.stringify(value)) {
             setValue({
                 rootPath,
-                newValue: window.localStorage.getItem(localStorageKey),
+                newValue: JSON.parse(window.localStorage.getItem(localStorageKey)!),
                 replaceAll: true
             });
         }
@@ -172,6 +170,8 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
                 pathObject[keyToUpdate] = newValue;
             }
         }
+
+        console.log("NEW useSmartStorage updateStorage", rootPath, newObject);
 
         setValue({rootPath, newValue: newObject});
     };

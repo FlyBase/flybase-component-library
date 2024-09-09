@@ -1,13 +1,13 @@
-import React, {CSSProperties, ReactNode} from 'react';
+import React, {CSSProperties, ReactNode, useRef} from 'react';
 import {
-    Cell,
+    Cell, CellContext,
     Column,
     ColumnDef,
     flexRender,
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-    Header
+    Header, Renderable, RowData
 } from "@tanstack/react-table";
 import {
     ChildRowEnabledRow,
@@ -38,11 +38,13 @@ import {
 import "../../styles/interactiveTable.scss";
 import classNames from "classnames";
 import UpDownArrowIcon from "../icons/UpDownArrowIcon";
-import {tab} from "@testing-library/user-event/dist/tab";
 import LeftAngleIcon from "../icons/LeftAngleIcon";
 import RightAngleIcon from "../icons/RightAngleIcon";
-import CaretDownIcon from "../icons/CaretDownIcon";
 import DropdownButton from "../form-elements/DropdownButton";
+import RectangleListIcon from "../icons/RectangleListIcon";
+import ExcelFileIcon from "../icons/ExcelFileIcon";
+import exportFromJSON, {ExportTypeWithTSV, ExportFromJSONWithTSVFunction} from "export-from-json";
+import TSVFileIcon from "../icons/TSVFileIcon";
 
 
 type InteractiveTableProps<DataType> = {
@@ -69,7 +71,7 @@ type DraggableHeaderProps = {
 };
 
 const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
-    const { attributes, isDragging, listeners, setNodeRef, transform } =
+    const { attributes, isDragging, listeners, setNodeRef, transform, transition } =
         useSortable({
             id: header.column.id,
         })
@@ -105,32 +107,31 @@ const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
 
 
     const isBottomMostHeader = header.subHeaders.length === 0;
+    const alignment = header.column.columnDef.meta?.align || "center";
 
     const style: CSSProperties = {
-        opacity: isDragging ? 0.8 : 1,
         position: 'relative',
         transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
-        transition: 'width transform 0.2s ease-in-out',
-        whiteSpace: 'nowrap',
-        cursor: isDragging ? "grabbing" : "pointer",
+        // transition: 'width transform 0.2s ease-in-out',
+        transition,
+        cursor: "default",
+        whiteSpace: header.depth === 1 ? 'normal' : 'nowrap',
+        ...(header.depth !== 1 ? {
+            cursor: isDragging ? "grabbing" : "pointer",
+            opacity: isDragging ? 0.8 : 1,
+        } : ""),
         zIndex: isDragging ? 1 : 0,
         textAlign: isBottomMostHeader ? "left" : "center",
         ...( showLeftBorder ? { borderLeft: "1px solid rgb(221, 221, 221)"} : ""),
         ...( showRightBorder ? { borderRight: "1px solid rgb(221, 221, 221)"} : ""),
         ...(
-            (header.column.columnDef.meta?.align && header.column.columnDef.meta.align !== "center") ? ({
-                textAlign: header.column.columnDef.meta.align
+            (alignment !== "center") ? ({
+                textAlign: alignment
             }) : ""
-        )
+        ),
     }
 
-
-
     const indexWithinGroup = header.headerGroup.headers.map(h => h.id).indexOf(header.id);
-
-
-
-
 
     return (
         <th colSpan={header.colSpan}
@@ -139,15 +140,24 @@ const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
             }}
             className={classNames({
                 "border-column": indexWithinGroup === 0 || indexWithinGroup === header.headerGroup.headers.length - 1,
+                "right-aligned": alignment === "right"
             })}
             ref={setNodeRef}
             style={style}
             {...attributes}
             {...listeners}
         >
+            {
+                isBottomMostHeader && alignment === "right" &&
+                <>
+                    {header.column.getIsSorted() === "desc" && <UpArrowIcon/>}
+                    {header.column.getIsSorted() === "asc" && <DownArrowIcon/>}
+                    {!header.column.getIsSorted() && <UpDownArrowIcon />}
+                </>
+            }
             {flexRender(header.column.columnDef.header, header.getContext())}
             {
-                isBottomMostHeader &&
+                isBottomMostHeader && alignment !== "right" &&
                 <>
                     {header.column.getIsSorted() === "desc" && <UpArrowIcon/>}
                     {header.column.getIsSorted() === "asc" && <DownArrowIcon/>}
@@ -159,7 +169,7 @@ const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
 };
 
 const DragAlongCell = ({cell}: { cell: Cell<any, unknown> }) => {
-    const { isDragging, setNodeRef, transform } = useSortable({
+    const { isDragging, setNodeRef, transform, transition } = useSortable({
         id: cell.column.id,
     })
 
@@ -195,7 +205,8 @@ const DragAlongCell = ({cell}: { cell: Cell<any, unknown> }) => {
         opacity: isDragging ? 0.8 : 1,
         position: 'relative',
         transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
-        transition: 'width transform 0.2s ease-in-out',
+        transition,
+        // transition: 'width transform 0.2s ease-in-out',
         zIndex: isDragging ? 1 : 0,
         textAlign: "left",
         ...( showLeftBorder ? { borderLeft: "1px solid rgb(221, 221, 221)"} : ""),
@@ -206,19 +217,19 @@ const DragAlongCell = ({cell}: { cell: Cell<any, unknown> }) => {
             }) : ""
         ),
         ...( (cell.row as ChildRowEnabledRow<any>).childDepth === 0 ? {
-            backgroundColor: "rgb(249, 249, 249)"
+            backgroundColor: "rgb(249, 249, 249) !important"
         } : ""),
         ...( (cell.row as ChildRowEnabledRow<any>).childDepth === 1 ? {
-            backgroundColor: "white"
+            backgroundColor: "white !important"
         } : "")
     }
 
     return (
         <td style={style} ref={setNodeRef} rowSpan={(cell.row as ChildRowEnabledRow<any>).totalChildRows || 1}>
             {flexRender(
-                cell.column.columnDef.meta?.childRow?.cell
+                (cell.column.columnDef.meta?.childRow?.cell
                     ? cell.column.columnDef.meta.childRow.cell
-                    : cell.column.columnDef.cell
+                    : cell.column.columnDef.cell) as Renderable<CellContext<any, unknown>>
                 , cell.getContext()
             )}
         </td>
@@ -226,7 +237,7 @@ const DragAlongCell = ({cell}: { cell: Cell<any, unknown> }) => {
 }
 
 const DragAlongFilterHeader = ({header}: { header: Header<any, unknown> }) => {
-    const { isDragging, setNodeRef, transform } = useSortable({
+    const { isDragging, setNodeRef, transform, transition } = useSortable({
         id: header.column.id,
     })
 
@@ -261,10 +272,11 @@ const DragAlongFilterHeader = ({header}: { header: Header<any, unknown> }) => {
         opacity: isDragging ? 0.8 : 1,
         position: 'relative',
         transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
-        transition: 'width transform 0.2s ease-in-out',
+        // transition: 'width transform 0.2s ease-in-out',
+        transition,
         zIndex: isDragging ? 1 : 0,
         ...( showLeftBorder ? { borderLeft: "1px solid rgb(221, 221, 221)"} : ""),
-        ...( showRightBorder ? { borderRight: "1px solid rgb(221, 221, 221)"} : "")
+        ...( showRightBorder ? { borderRight: "1px solid rgb(221, 221, 221)"} : ""),
     }
 
     return (
@@ -287,7 +299,7 @@ const DragAlongFilterHeader = ({header}: { header: Header<any, unknown> }) => {
 const MAX_PAGE_INDEX_BUTTONS = 3;
 
 
-const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TData>): ReactNode => {
+const InteractiveTable = <TData extends RowData, >({id, columns, data}: InteractiveTableProps<TData>): ReactNode => {
 
     const table = useChildRowEnabledReactTable({
         columns,
@@ -313,6 +325,7 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
     const [state, updateState] = useInteractiveTableSettings(id, {
         columnOrder: table.getAllLeafColumns().map(c=>c.id)
     });
+    const hitlistFormRef = useRef<HTMLFormElement>(null);
 
     table.setOptions(prev => {
         return {
@@ -372,6 +385,99 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
         pageIndexRadioIndexes.push(i);
     }
 
+    const showFirstPage = pageIndexRadioIndexes[0] > 2;
+    const showLastPage = pageIndexRadioIndexes[pageIndexRadioIndexes.length - 1] < table.getPageCount() - 3;
+
+    const exportToHitlist = () => {
+        hitlistFormRef.current && hitlistFormRef.current.submit();
+    };
+
+    const exportFile = (exportType: ExportTypeWithTSV) => {
+        const date = new Date();
+        const fileName = `flybase_table_export_${date.getFullYear()}${date.getMonth()}${date.getDay()}-${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+        const data: Array<{ [key: string]: string }> = [];
+
+        table.getRowModel().rows.forEach(row => {
+
+            const parentRowJSON: { [key: string]: string } = {};
+
+            row.getVisibleCells().forEach(cell => {
+                let exportValue = cell.getValue();
+                if(cell.column.columnDef.meta?.exportFn) {
+                    exportValue = cell.column.columnDef.meta.exportFn(cell.row.original);
+                }
+                if(exportValue === null || exportValue === undefined) {
+                    exportValue = "";
+                }
+                parentRowJSON[cell.column.id] = exportValue as string;
+            });
+
+            (row as ChildRowEnabledRow<TData>).childRows.forEach(childRow => {
+
+                const childRowJSON: { [key: string]: string } = {};
+
+                childRow.getVisibleCells().forEach(cell => {
+                    let exportValue = cell.getValue();
+                    if(cell.column.columnDef.meta?.childRow?.exportFn) {
+                        exportValue = cell.column.columnDef.meta.childRow.exportFn(cell.row.original);
+                    }
+                    if(exportValue === null || exportValue === undefined) {
+                        exportValue = "";
+                    }
+                    childRowJSON[cell.column.id] = exportValue as string;
+                });
+
+                data.push({
+                    ...parentRowJSON,
+                    ...childRowJSON
+                })
+            })
+
+            if(data.length === 0){
+                data.push(parentRowJSON);
+            }
+
+        })
+
+        /*
+        * Okay. So this is not ideal, but good enough for now. I think in the future, we should look for/build
+        * a better library for exports. The current one "export-from-json" does not _technically_ support tsv,
+        * however, it does have all the capability to do so. I submitted a pull request, but the library hasn't
+        * been updated in a couple of years, so who knows.
+        *
+        * It has options for a "delimiter" and "extension". Setting those to "\t" and "tsv" respectively gets the
+        * job done, except for one thing: typing. The library is js with .d files to enforce types. These types do
+        * not include tsv (which is okay since we can run it as csv), but also only allows for the delimiter to be ","
+        * or ";" even though the code would work perfectly well with any delimiter.
+        *
+        * To trick typescript into letting us use "\t" while also ensuring type safety, I had to create custom types
+        * in our own .d file. Unfortunately, there was no way to modify the existing delimiter type, (and the function's
+        * type by extension) so we have to cast the original function to our new type.
+        *
+        * But alas, typescript is still mad because you "can't cast this function to your new function type", which is
+        * why we have the "as any as ExportFromJSONWithTSVFunction".
+        * */
+
+        const exportFromJSONWithTSV = exportFromJSON as any as ExportFromJSONWithTSVFunction;
+
+        let isTSV = false;
+        if(exportType === 'tsv') {
+            isTSV = true;
+            exportType = 'csv';
+        }
+
+        exportFromJSONWithTSV({
+            data,
+            fileName,
+            exportType,
+            ...(isTSV ? {
+                extension: "tsv",
+                delimiter: "\t"
+            } : {})
+        });
+    };
+
     return (
         <DndContext
             collisionDetection={closestCenter}
@@ -383,10 +489,28 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                 <div className="main-toolbar">
                     <section className="export-show-hide-options">
                         <DropdownButton text="Export">
-                            <ul>
-                                <li>Hitlist</li>
-                                <li>CSV</li>
-                                <li>Excel</li>
+                            <ul className="export-options">
+                                <li>
+                                    <form method="post" action="/hitlist/" ref={hitlistFormRef}>
+                                        <input type="hidden" name="ids" value={table.getRowModel().rows.map(row => (row.original as unknown as { id: string }).id).join(",")}/>
+                                    </form>
+                                    <button className="icon-button" onClick={() => exportToHitlist()}>
+                                        <RectangleListIcon />
+                                        <span>Hitlist</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button className="icon-button" onClick={() => exportFile("tsv")}>
+                                        <TSVFileIcon />
+                                        <span>TSV</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button className="icon-button" onClick={() => exportFile("xls")}>
+                                        <ExcelFileIcon />
+                                        <span>Excel</span>
+                                    </button>
+                                </li>
                             </ul>
                         </DropdownButton>
                         <DropdownButton text="Show/Hide Columns">
@@ -419,15 +543,18 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                                 ))}
                             </ul>
                         </DropdownButton>
-                        <span className="hidden-columns">Hidden columns: {
-                            table.getAllLeafColumns()
-                                .filter(column => !column.getIsVisible())
-                                .map(column => getDisplayName(column))
-                                .join(", ")
-                        }</span>
+                        {
+                            table.getAllLeafColumns().length !== table.getAllLeafColumns().filter(c => c.getIsVisible()).length &&
+                            <span className="hidden-columns">Hidden columns: {
+                                table.getAllLeafColumns()
+                                    .filter(column => !column.getIsVisible())
+                                    .map(column => getDisplayName(column))
+                                    .join(", ")
+                            }</span>
+                        }
                     </section>
                     <section className="pagination-options">
-                        {/*{(table.getState().pagination.pageIndex * table.getState().pagination.pageSize) + 1}-{Math.min((table.getState().pagination.pageIndex * table.getState().pagination.pageSize) + table.getState().pagination.pageSize, table.getRowCount())} of {table.getRowCount()}*/}
+                        <span className="count">({data.length} total)</span>
                         <ol className="button-bar">
                             {
                                 ["Show All", 20, 100].map(pageSize => (
@@ -453,6 +580,25 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                                 </button>
                             </li>
                             {
+                                showFirstPage &&
+                                <>
+                                    <li>
+                                        <label className="radio-button">
+                                            <input type="radio"
+                                                   name={`${id}-pageIndex-radio`}
+                                                   checked={table.getState().pagination.pageIndex === 1}
+                                                   onChange={_ => table.firstPage()}
+                                            />
+
+                                            <span>1</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label className="radio-button">...</label>
+                                    </li>
+                                </>
+                            }
+                            {
                                 pageIndexRadioIndexes.map(pageIndex => (
                                     <li key={pageIndex}>
                                         <label className="radio-button">
@@ -469,44 +615,33 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                                     </li>
                                 ))
                             }
+                            {
+                                showLastPage &&
+                                <>
+                                    <li>
+                                        <label className="radio-button">...</label>
+                                    </li>
+                                    <li>
+                                        <label className="radio-button">
+                                            <input type="radio"
+                                                   name={`${id}-pageIndex-radio`}
+                                                   checked={table.getState().pagination.pageIndex === table.getPageCount() - 1}
+                                                   onChange={_ => table.lastPage()}
+                                            />
+
+                                            <span>{table.getPageCount()}</span>
+                                        </label>
+                                    </li>
+                                </>
+                            }
                             <li>
                                 <button onClick={() => table.nextPage()}
                                         disabled={!table.getCanNextPage()}
                                 >
-                                    <RightAngleIcon />
+                                    <RightAngleIcon/>
                                 </button>
                             </li>
                         </ol>
-
-                        {/*{*/}
-                        {/*    pageIndexRadioIndexes.map(pageIndex => (*/}
-                        {/*        <label*/}
-                        {/*            // onClick={_ => table.setPageIndex(pageIndex)}*/}
-                        {/*            key={pageIndex}*/}
-                        {/*        >*/}
-                        {/*            <input type="radio"*/}
-                        {/*                   name={`${id}-pageIndex-radio`}*/}
-                        {/*                   checked={table.getState().pagination.pageIndex === pageIndex}*/}
-                        {/*                   onChange={_ => table.setPageIndex(pageIndex)}*/}
-                        {/*            />*/}
-
-                        {/*            {pageIndex + 1}*/}
-                        {/*        </label>*/}
-                        {/*    ))*/}
-                        {/*}*/}
-
-                        {/*<select*/}
-                        {/*    value={table.getState().pagination.pageSize}*/}
-                        {/*    onChange={e => {*/}
-                        {/*        table.setPageSize(Number(e.target.value))*/}
-                        {/*    }}*/}
-                        {/*>*/}
-                        {/*    {["All", 10, 20, 30, 40, 50].map(pageSize => (*/}
-                        {/*        <option key={pageSize} value={pageSize === "All" ? table.getRowCount() : pageSize}>*/}
-                        {/*            Show {pageSize}*/}
-                        {/*        </option>*/}
-                        {/*    ))}*/}
-                        {/*</select>*/}
                     </section>
                 </div>
                 <div className="table-wrapper">
@@ -530,7 +665,7 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                                 strategy={horizontalListSortingStrategy}
                             >
                                 {table.getHeaderGroups()[table.getHeaderGroups().length - 1].headers.map(header =>
-                                    <DragAlongFilterHeader header={header}/>)}
+                                    <DragAlongFilterHeader header={header} key={header.id}/>)}
                             </SortableContext>
                         </tr>
                         </thead>
@@ -566,12 +701,12 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                                                     >
                                                         {subRowCells.map((cell, cellIndex) => (
                                                                 <React.Fragment key={`${row.id}-${rowIndex}-${cellIndex}`}>
-                                                                    <SortableContext
-                                                                        items={table.getState().columnOrder}
-                                                                        strategy={horizontalListSortingStrategy}
-                                                                    >
+                                                                    {/*<SortableContext*/}
+                                                                    {/*    items={table.getState().columnOrder}*/}
+                                                                    {/*    strategy={horizontalListSortingStrategy}*/}
+                                                                    {/*>*/}
                                                                         <DragAlongCell cell={cell} key={cell.id}/>
-                                                                    </SortableContext>
+                                                                    {/*</SortableContext>*/}
                                                                 </React.Fragment>
                                                             ))}
                                                         </SortableContext>

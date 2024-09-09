@@ -1,26 +1,50 @@
-import {AccessorFnColumnDef, ColumnHelper, createColumnHelper, RowData} from "@tanstack/react-table";
+import {AccessorFnColumnDef, ColumnHelper, ColumnMeta, createColumnHelper, RowData} from "@tanstack/react-table";
 import {getAllByPath} from "../../helpers/getByPath";
 import {DeepKeysMaxDepth, DeepKeysOfObjectArrayTypes, TypeByPath, TypeOrArrayType} from "../../types";
 import {AccessorFn} from "@tanstack/table-core";
-import {ChildCellContext} from "../../react-table";
+import {ChildCellContext, ChildPath, ChildType, ExportAccessorFn} from "../../react-table";
+
+// export type ChildRowEnabledHelper<TData> =  ColumnHelper<TData> & {
+//     childAccessor:
+//         <
+//             ChildPath extends DeepKeysMaxDepth<TData> = Extract<DeepKeysMaxDepth<TData>, DeepKeysOfObjectArrayTypes<TData>>,
+//             ChildType = TypeOrArrayType<TypeByPath<TData, ChildPath & string>>,
+//             ChildAccessorKeyOrFunction = AccessorFn<ChildType> | DeepKeysMaxDepth<ChildType>
+//         >(
+//             childPath: ChildPath,
+//             childAccessorKeyOrFunction: ChildAccessorKeyOrFunction,
+//             childColumnDef:
+//                 Omit<AccessorFnColumnDef<TData>, "cell" | "accessorFn" | "meta">
+//                 & {
+//                 cell?: string | ((props: ChildCellContext<TData, ChildType>) => any),
+//                 meta?: Omit<AccessorFnColumnDef<TData>['meta'], "childRow" | "exportFn"> & {
+//                     exportFn?: ExportAccessorFn<ChildType>,
+//                 },
+//             }
+//         ) => AccessorFnColumnDef<TData>
+// };
 
 export type ChildRowEnabledHelper<TData> =  ColumnHelper<TData> & {
     childAccessor:
         <
-            ChildPath extends DeepKeysMaxDepth<TData> = Extract<DeepKeysMaxDepth<TData>, DeepKeysOfObjectArrayTypes<TData>>,
-            ChildType = TypeOrArrayType<TypeByPath<TData, ChildPath & string>>,
-            ChildAccessorKeyOrFunction = AccessorFn<ChildType> | DeepKeysMaxDepth<ChildType>
+            TChildPath extends DeepKeysMaxDepth<TData> = ChildPath<TData>,
+            TChildType = TypeOrArrayType<TypeByPath<TData, TChildPath & string>>,
+            TChildAccessorKeyOrFunction = AccessorFn<TChildType> | DeepKeysMaxDepth<TChildType>,
         >(
-            childPath: ChildPath,
-            childAccessorKeyOrFunction: ChildAccessorKeyOrFunction,
+            childPath: TChildPath,
+            childAccessorKeyOrFunction: TChildAccessorKeyOrFunction,
             childColumnDef:
                 Omit<AccessorFnColumnDef<TData>, "cell" | "accessorFn" | "meta">
                 & {
-                cell?: string | ((props: ChildCellContext<TData, ChildType>) => any)
-                meta?: Omit<AccessorFnColumnDef<TData>['meta'], "childCell" | "childRow">
+                cell?: string | ((props: ChildCellContext<TData, TChildType>) => any),
+                meta?: Omit<ColumnMeta<TData, unknown>, "childRow" | "exportFn"> & {
+                    exportFn?: ExportAccessorFn<TChildType>,
+                },
             }
         ) => AccessorFnColumnDef<TData>
 };
+
+
 
 const CONCATENATION_DELIMITER = "|~|"; //Just needs to be something unlikely to be in a symbol/name
 
@@ -58,10 +82,12 @@ const createChildRowEnabledHelper = <TData extends RowData,>() => {
                 },
                 meta: {
                     ...childColumnDef.meta,
-                    ...(childColumnDef.cell ? { childCell: childColumnDef.cell } : {}),
+                    exportFn: undefined,
                     childRow: {
                         path: childPath,
-                        ...(childColumnDef.cell ? { cell: childColumnDef.cell } : {})
+                        cell: childColumnDef.cell || (props => null),
+                        // ...(childColumnDef.cell ? { cell: childColumnDef.cell } : {}),
+                        ...(childColumnDef.meta?.exportFn ? { exportFn: childColumnDef.meta.exportFn } : {})
                     }
                 }
             });

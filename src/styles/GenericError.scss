@@ -1,0 +1,19 @@
+@use "colors";
+@use "fonts";
+
+.generic-error {
+  padding: 9px;
+  background-color: colors.$errorBackgroundRed;
+  color: colors.$errorTextRed;
+  border: 1px solid colors.$errorBorderRed;
+  font-family: fonts.$main;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 15px;
+  width: fit-content;
+  border-radius: 8px;
+
+  a {
+    color: colors.$errorTextRed;
+  }
+}

@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import InteractiveTable from "./InteractiveTable";
-import {ChildRowEnabledRow} from "./getChildRowEnabledCoreRowModel";
 import useGAL4Search, {SSCWithExpressionTerms} from "../../hooks/useGAL4Search";
 import {ExpressionSearchInput} from "../../__generated__/graphql";
 import createChildRowEnabledHelper from "./childRowEnabledHelper";
 import useSmartStorage from "../../hooks/useSmartStorage";
+import LoadingIndicator from "../icons/LoadingIndicator";
+import GenericError from "../GenericError";
+import {DataClass} from "../../types";
+import {Data} from "@dnd-kit/core";
 
 type SplitSystemCombinationSearchTableProps = {
     expression: ExpressionSearchInput
@@ -15,7 +18,26 @@ const sanitizeSymbol = (symbol?: string | null) => {
     return symbol.replaceAll(/[[∩\]]/g, "")
                  .replaceAll(/INTERSECTION/g, "")
                  .replaceAll(/<\/?up>/g, "")
+                 .replaceAll(/<\/?down>/g, "")
 }
+
+const sanitizeSymbolForExport = (symbol?: string | null) => {
+    if(!symbol) return "";
+    return symbol.replaceAll(/INTERSECTION/g, "∩")
+                 .replaceAll(/<up>/g, "[")
+                 .replaceAll(/<\/up>/g, "]")
+                 .replaceAll(/<down>/g, "[[")
+                 .replaceAll(/<\/down>/g, "]]")
+}
+
+const getDataClassExportValue = <TData extends DataClass>(data: (TData | null | undefined) | (TData | null | undefined)[]) => {
+    if(!Array.isArray(data)) data = [data];
+
+    return data.filter((item): item is TData => item !== null && item !== undefined)
+               .map(item => sanitizeSymbolForExport(item.symbol || item.name))
+               .join("/n");
+}
+
 
 const CONCATENATION_DELIMITER = "|~|"; //Just needs to be something unlikely to be in a symbol/name
 
@@ -28,7 +50,10 @@ const SSC_COLUMNS = [
         columns: [
             sscSearchTableColumnHelper.accessor(ssc => `${sanitizeSymbol(ssc.symbol)}${CONCATENATION_DELIMITER}${ssc.id}`, {
                 id: "symbol",
-                meta: { displayName: "Symbol" },
+                meta: {
+                    displayName: "Symbol",
+                    exportFn: getDataClassExportValue
+                },
                 header: "Symbol",
                 cell: props => (
                     <a href={`/reports/${props.row.original.id}`}
@@ -69,10 +94,29 @@ const SSC_COLUMNS = [
                                 {
                                     Object.keys(allExpressionTermsIndexed)
                                         .map(
-                                            id => <a href={`/reports/${id}`} key={id}>{allExpressionTermsIndexed[id]}</a>
+                                            (id, index) => (
+                                                <>
+                                                    <a href={`/reports/${id}`}
+                                                       key={id}>{allExpressionTermsIndexed[id]}</a>
+                                                    <br/>
+                                                </>
+                                            )
                                         )
                                 }
                             </>
+                        )
+                    },
+                    meta: {
+                        // exportFn: ssc => !ssc.componentAlleles ? "" : ssc.componentAlleles
+                        //     .map(
+                        //         allele => allele.expressionTerms ? allele.expressionTerms.map(
+                        //             term => (term && term.name) ? term.name : ""
+                        //         ) : []
+                        //     )
+                        //     .flat()
+                        //     .reduce((prev, curr, index, array) => array.indexOf(curr) === index ? `${prev}\n${curr}` : prev)
+                        exportFn: ssc => getDataClassExportValue(
+                            ssc.componentAlleles.map(allele => allele.expressionTerms).flat()
                         )
                     }
                 }
@@ -107,11 +151,19 @@ const SSC_COLUMNS = [
                 header: "Symbol",
                 cell: props => (
                     <a href={`/reports/${props.row.original.id}`} dangerouslySetInnerHTML={{ __html: props.row.original.symbol || "" }}></a>
-                )
+                ),
+                meta: {
+                    exportFn: getDataClassExportValue
+                }
             }),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.insertions.map(insertion => `${sanitizeSymbol(insertion.symbol)}${CONCATENATION_DELIMITER}${insertion.id}`).join(CONCATENATION_DELIMITER),
+                allele => {
+                    const insertionsAndConstructs = [...allele.insertions, ...allele.constructs];
+                    return insertionsAndConstructs.map(
+                        insertionOrConstruct => `${sanitizeSymbol(insertionOrConstruct.symbol)}${CONCATENATION_DELIMITER}${insertionOrConstruct.id}`
+                    ).join(CONCATENATION_DELIMITER);
+                },
                 {
                     id: "Insertions",
                     header: "Insertion / Construct",
@@ -119,11 +171,32 @@ const SSC_COLUMNS = [
                         <>
                             {
                                 props.row.original.insertions.map(insertion => (
-                                    <a href={`/reports/${insertion.id}`}>{insertion.symbol}</a>
+                                    <>
+                                        <a href={`/reports/${insertion.id}`} key={insertion.id}
+                                           dangerouslySetInnerHTML={{__html: insertion.symbol || ""}}></a>
+                                        <br/>
+                                    </>
+                                ))
+                            }
+                            {
+                                props.row.original.constructs.map(construct => (
+                                    <>
+                                        <a href={`/reports/${construct.id}`} key={construct.id} dangerouslySetInnerHTML={{ __html: construct.symbol || "" }}></a>
+                                        <br/>
+                                    </>
                                 ))
                             }
                         </>
-                    )
+                    ),
+                    meta: {
+                        // exportFn: allele => {
+                        //     const insertionsAndConstructs = [...allele.insertions, ...allele.constructs];
+                        //     return insertionsAndConstructs.map(
+                        //         insertionOrConstruct => sanitizeSymbolForExport(insertionOrConstruct.symbol)
+                        //     ).join("/n");
+                        // }
+                        exportFn: allele => getDataClassExportValue([...allele.insertions, ...allele.constructs])
+                    }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
@@ -136,11 +209,15 @@ const SSC_COLUMNS = [
                         <>
                             {
                                 props.row.original.insertedElementTypes?.map(elementType => elementType ? (
-                                    <a href={`/reports/${elementType.id}`}>{elementType.name}</a>
+                                    <a href={`/reports/${elementType.id}`} key={elementType.id}>{elementType.name}</a>
                                 ) : null)
                             }
                         </>
-                    )
+                    ),
+                    meta: {
+                        // exportFn: allele => allele.insertedElementTypes?.map(elementType => elementType === null ? "" : elementType.name).join("/n") || ""
+                        exportFn: allele => getDataClassExportValue(allele.insertedElementTypes)
+                    }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
@@ -157,7 +234,11 @@ const SSC_COLUMNS = [
                                 ) : null)
                             }
                         </>
-                    )
+                    ),
+                    meta: {
+                        // exportFn: allele => allele.regRegions?.map(region => sanitizeSymbolForExport(region?.symbol)).join("/n") || ""
+                        exportFn: allele => getDataClassExportValue(allele.regRegions)
+                    }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
@@ -174,7 +255,11 @@ const SSC_COLUMNS = [
                                 ) : null)
                             }
                         </>
-                    )
+                    ),
+                    meta: {
+                        // exportFn: allele => allele.encodedTools?.map(tool => sanitizeSymbolForExport(tool?.symbol)).join("/n") || ""
+                        exportFn: allele => getDataClassExportValue(allele.encodedTools)
+                    }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
@@ -191,7 +276,11 @@ const SSC_COLUMNS = [
                                 ) : null)
                             }
                         </>
-                    )
+                    ),
+                    meta: {
+                        // exportFn: allele => allele.taggedWith?.map(tool => sanitizeSymbolForExport(tool?.symbol)).join("/n") || "",
+                        exportFn: allele => getDataClassExportValue(allele.taggedWith)
+                    }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
@@ -208,7 +297,11 @@ const SSC_COLUMNS = [
                                 ) : null)
                             }
                         </>
-                    )
+                    ),
+                    meta: {
+                        // exportFn: allele => allele.tagUses?.map(use => use === null ? "" : `${use.name}`).join("/n") || ""
+                        exportFn: allele => getDataClassExportValue(allele.tagUses)
+                    }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor("componentAlleles", "stocksCount", {
@@ -216,7 +309,15 @@ const SSC_COLUMNS = [
                 cell: props => (
                     <a href={`/hitlist/${props.row.original.id}/to/FBst`}>{props.row.original.stocksCount}</a>
                 ),
-                sortingFn: "alphanumeric",
+                sortingFn: (rowA, rowB, _columnId) => {
+                    const rowASum = rowA.original.componentAlleles
+                        .map(allele => parseInt(allele.stocksCount, 10))
+                        .reduce((total, current) => total + current);
+                    const rowBSum = rowB.original.componentAlleles
+                        .map(allele => parseInt(allele.stocksCount, 10))
+                        .reduce((total, current) => total + current);
+                    return rowASum - rowBSum;
+                },
                 meta: {
                     align: "right"
                 }
@@ -226,7 +327,15 @@ const SSC_COLUMNS = [
                 cell: props => (
                     <a href={`/hitlist/${props.row.original.id}/to/FBrf`}>{props.row.original.pubCount}</a>
                 ),
-                sortingFn: "alphanumeric",
+                sortingFn: (rowA, rowB, _columnId) => {
+                    const rowASum = rowA.original.componentAlleles
+                        .map(allele => parseInt(allele.pubCount, 10))
+                        .reduce((total, current) => total + current);
+                    const rowBSum = rowB.original.componentAlleles
+                        .map(allele => parseInt(allele.pubCount, 10))
+                        .reduce((total, current) => total + current);
+                    return rowASum - rowBSum;
+                },
                 meta: {
                     align: "right"
                 }
@@ -241,13 +350,13 @@ const SplitSystemCombinationSearchTable: React.FC<SplitSystemCombinationSearchTa
 
     const {loading, errors, data: { sscSearch }} = useGAL4Search({ expression }, "ssc");
 
-    console.log("SSC local", gal4Search);
-
     if(!gal4Search || !gal4Search.type || gal4Search.type !== "ssc") return null;
 
-    if(loading) return <div>Loading...</div>;
+    if(loading) return <div style={{ width: "100%" }}>
+        <LoadingIndicator />
+    </div>;
 
-    if(errors.length > 0) return <div>Error</div>;
+    if(errors.length > 0) return <GenericError />;
 
     if(sscSearch !== null)
         return (

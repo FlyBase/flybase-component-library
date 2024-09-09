@@ -7,7 +7,7 @@ const getAlleles = gql(/* GraphQL */ `
             pubCount
             symbol
             stocksCount
-            componentAlleles {
+            componentAlleles(condition: { isAlleleof: true }) {
                 ...FullAllele
             }
         }

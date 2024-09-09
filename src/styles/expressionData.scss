@@ -34,13 +34,17 @@
   margin: 0 5px;
 }
 
-a {
-  color: #337ab7;
-  text-decoration: none;
+.ribbon-well, .ribbon-list {
+  a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+  a {
+    background-color: transparent;
+  }
 }
-a {
-  background-color: transparent;
-}
+
+
 
 .ribbon-with-explanation {
   display: flex;
