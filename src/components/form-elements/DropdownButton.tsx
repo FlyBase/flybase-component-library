@@ -10,11 +10,11 @@ type DropdownButtonProps = {
 
 const DropdownButton: React.FC<DropdownButtonProps> = ({ text, Icon = CaretDownIcon, children }) => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const buttonRef = useRef<HTMLButtonElement>(null);
+    const containerRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (isOpen && buttonRef.current && event.target && !buttonRef.current!.contains(event.target as Node)) {
+            if (isOpen && containerRef.current && event.target && !containerRef.current!.contains(event.target as Node)) {
                 setIsOpen(false);
             }
         }
@@ -23,10 +23,10 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ text, Icon = CaretDownI
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [buttonRef, isOpen]);
+    }, [containerRef, isOpen]);
 
     return (
-        <section className="dropdown-button-container" ref={buttonRef}>
+        <section className="dropdown-button-container" ref={containerRef}>
             <button className="dropdown-button" onClick={() => setIsOpen(!isOpen)} >
                 {text && <span>{text}</span>}
                 <Icon />

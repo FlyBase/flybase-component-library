@@ -10,7 +10,6 @@ import {
     Header, Renderable, RowData
 } from "@tanstack/react-table";
 import {
-    ChildRowEnabledRow,
     useChildRowEnabledReactTable
 } from "./getChildRowEnabledCoreRowModel";
 import useInteractiveTableSettings from "../../hooks/useInteractiveTableSettings";
@@ -45,11 +44,12 @@ import RectangleListIcon from "../icons/RectangleListIcon";
 import ExcelFileIcon from "../icons/ExcelFileIcon";
 import exportFromJSON, {ExportTypeWithTSV, ExportFromJSONWithTSVFunction} from "export-from-json";
 import TSVFileIcon from "../icons/TSVFileIcon";
+import {ChildRowEnabledRow} from "../../types";
 
 
 type InteractiveTableProps<DataType> = {
     id: string,
-    columns: ColumnDef<DataType>[],
+    columns: ColumnDef<DataType, unknown>[],
     data: DataType[],
 };
 
@@ -76,6 +76,7 @@ const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
             id: header.column.id,
         })
 
+    //TODO: columnOrder includes hidden columns leading to bugs with border rendering
     const table = header.getContext().table;
     const columnOrder = table.getState().columnOrder;
     const prevColId = columnOrder[header.index - 1];
@@ -104,8 +105,6 @@ const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
     }
 
 
-
-
     const isBottomMostHeader = header.subHeaders.length === 0;
     const alignment = header.column.columnDef.meta?.align || "center";
 
@@ -115,8 +114,8 @@ const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
         // transition: 'width transform 0.2s ease-in-out',
         transition,
         cursor: "default",
-        whiteSpace: header.depth === 1 ? 'normal' : 'nowrap',
-        ...(header.depth !== 1 ? {
+        whiteSpace: !isBottomMostHeader ? 'normal' : 'nowrap',
+        ...(isBottomMostHeader ? {
             cursor: isDragging ? "grabbing" : "pointer",
             opacity: isDragging ? 0.8 : 1,
         } : ""),
@@ -221,7 +220,8 @@ const DragAlongCell = ({cell}: { cell: Cell<any, unknown> }) => {
         } : ""),
         ...( (cell.row as ChildRowEnabledRow<any>).childDepth === 1 ? {
             backgroundColor: "white !important"
-        } : "")
+        } : ""),
+        ...(cell.column.columnDef.meta?.nowrap ? ({ whiteSpace: "nowrap" }) : "")
     }
 
     return (
@@ -313,7 +313,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
                 const values = [...filterValue.pills, ...(filterValue.inputText === "" ? [] : [filterValue.inputText])];
 
                 for (let i = 0; i < values.length; i++) {
-                    if (!(row.getValue(columnId) as string).includes(values[i])) {
+                    if (!(row.getValue(columnId) as string).toLowerCase().includes(values[i].toLowerCase())) {
                         return false;
                     }
                 }
@@ -322,8 +322,14 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
         }
     });
 
-    const [state, updateState] = useInteractiveTableSettings(id, {
-        columnOrder: table.getAllLeafColumns().map(c=>c.id)
+    const [state, updateState] = useInteractiveTableSettings(id, table, {
+        columnOrder: table.getAllLeafColumns().map(c=>c.id),
+        columnVisibility: Object.fromEntries(
+            table.getAllFlatColumns().map(column => [
+                column.id,
+                column.columnDef.meta?.defaultVisibility ? column.columnDef.meta.defaultVisibility === "visible" : true
+            ])
+        )
     });
     const hitlistFormRef = useRef<HTMLFormElement>(null);
 
@@ -348,7 +354,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
         })
     )
 
-    if( JSON.stringify(state) === "{}") return null;
+    if( JSON.stringify(state) === "{}" ) return null;
 
     // reorder columns after drag & drop
     function handleDragEnd(event: DragEndEvent) {
@@ -402,7 +408,10 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
 
             const parentRowJSON: { [key: string]: string } = {};
 
+            console.log(row)
+
             row.getVisibleCells().forEach(cell => {
+                // console.log(cell)
                 let exportValue = cell.getValue();
                 if(cell.column.columnDef.meta?.exportFn) {
                     exportValue = cell.column.columnDef.meta.exportFn(cell.row.original);
@@ -434,7 +443,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
                 })
             })
 
-            if(data.length === 0){
+            if(data.length === 0 || (row as ChildRowEnabledRow<TData>).childRows.length === 0){
                 data.push(parentRowJSON);
             }
 
@@ -518,12 +527,16 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
                                 {table.getAllColumns().map((column) => (
                                     <li key={column.id}>
                                         <label className="parent-column">
-                                            <input type="checkbox" checked={column.columns.map(subColumn => subColumn.getIsVisible()).reduce((a,b) => a || b)}
+                                            <input type="checkbox" checked={column.columns.length > 0 ? column.columns.map(subColumn => subColumn.getIsVisible()).reduce((a,b) => a || b) : column.getIsVisible()}
                                                    onChange={e => {
                                                        const checked = e.target.checked;
                                                        table.setColumnVisibility(old => ({
                                                            ...old,
-                                                           ...Object.fromEntries(column.columns.map(column => [column.id, checked]))
+                                                           ...(
+                                                               column.columns.length > 0
+                                                               ? Object.fromEntries(column.columns.map(column => [column.id, checked]))
+                                                               : { [column.id]: checked }
+                                                           )
                                                        }))
                                                    }}/>
                                             {getDisplayName(column)}

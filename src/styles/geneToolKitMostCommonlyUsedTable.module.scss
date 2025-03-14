@@ -95,7 +95,6 @@
 
               &:first-child {
                 padding-right: 5px;
-                //padding-right: 25px;
 
                 // This is redundant for report pages, since the normalize.less styles are the same
                 // included for local development
@@ -110,8 +109,6 @@
             }
           }
         }
-
-
 
         svg {
           height: 20px;

@@ -1,6 +1,20 @@
 import {useCallback, useEffect, useReducer, useState} from "react";
 import getByPath from "../helpers/getByPath";
 
+/*
+* TODO: This hook currently uses state changes to trigger changes to local storage
+*  I.E. if updateStorage is called, it updates the hooks state, useEffect sees the change, and changes localStorage
+*  Ideally, this should be reversed:
+*     updateStorage is called, it updates localStorage, listeners see that localStorage has changed, the state is updated
+*  This would help prevent loops when different instances of the hook update localStorage because the hook would no
+*  longer care how localStorage was updated. It just needs to make sure its state matches the current value of
+*  localStorage.
+*  Also, primitive values give some trouble, and should be looked into.
+*  Furthermore, reading deep paths within arrays is not supported. It would be nice to have an option that returns
+*  all at the specified path.
+*  Another item: support cross-tab updates
+* */
+
 // get initial state. If any of the rootPath doesn't exist, create it
 const initializeReducer = (rootPath: string) => {
     const localStorageKey = rootPath.substring(0, rootPath.indexOf(".")) || rootPath;
@@ -19,7 +33,6 @@ const initializeReducer = (rootPath: string) => {
 
 //update the state based on a new value
 const reducer = (state: any, action: { rootPath: string, newValue: any, replaceAll?: boolean }) => {
-    console.log("NEW useSmartStorage reducer", state, action);
 
     if(JSON.stringify(state) === JSON.stringify(action.newValue)) return state;
 
@@ -78,10 +91,8 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
 
     //Updates localStorage when the state changes. useEffect required in order to ensure state is fully updated before
     //calling dispatchEvent
-    //TODO: add logic to prevent this when triggers because a different hook changes localStorage, firing the event
     //listener below, and thus this useEffect?
     useEffect(() => {
-        console.log("NEW useSmartStorage useEffect start", isSelfUpdating);
         if(isSelfUpdating) {
             return;
         }
@@ -98,8 +109,6 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
         }
 
         const realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
-
-        console.log("NEW useSmartStorage useEffect end", realValue, value, fullValue);
 
         if(JSON.stringify(realValue) === JSON.stringify(value)) {
             return;
@@ -119,8 +128,6 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
             realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
         }
 
-        console.log("NEW useSmartStorage updateValue", realValue, value);
-
         //Only refresh state if the new value is different. (prevents infinite loops)
         if(JSON.stringify(realValue) !== JSON.stringify(value)) {
             setValue({
@@ -135,12 +142,13 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
 
     //If another hook in the same tab updates localStorage, update the state to match
     useEffect(() => {
-        // "localStorage" is a custom event. The "storage" even does exist, but only fires when localStorage
+        // "localStorage" is a custom event. The "storage" event does exist, but only fires when localStorage
         // updates in another tab
         window.addEventListener('localStorage', updateValue);
         return () => window.removeEventListener('localStorage', updateValue);
     }, [setValue, rootPath, localStorageKey, updateValue]);
 
+    // TODO: having to pass "" for the default path is annoying, but so is having path as the second argument
     const updateStorage = (path: string, newValue: any) => {
         let newObject = JSON.parse(JSON.stringify(value));
 
@@ -170,8 +178,6 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
                 pathObject[keyToUpdate] = newValue;
             }
         }
-
-        console.log("NEW useSmartStorage updateStorage", rootPath, newObject);
 
         setValue({rootPath, newValue: newObject});
     };

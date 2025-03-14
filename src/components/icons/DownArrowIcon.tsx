@@ -1,5 +1,5 @@
 import React from "react";
-import {ClickableProps} from "../../types/clickableProps";
+import {ClickableProps} from "../../types";
 
 const DownArrowIcon: React.FC<ClickableProps> = ({ onClick }) => (
     <svg xmlns="http://www.w3.org/2000/svg"

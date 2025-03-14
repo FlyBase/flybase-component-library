@@ -1,45 +1,24 @@
 import React from 'react';
 import InteractiveTable from "./InteractiveTable";
-import useGAL4Search, {SSCWithExpressionTerms} from "../../hooks/useGAL4Search";
+import useGAL4Search from "../../hooks/useGAL4Search";
 import {ExpressionSearchInput} from "../../__generated__/graphql";
 import createChildRowEnabledHelper from "./childRowEnabledHelper";
 import useSmartStorage from "../../hooks/useSmartStorage";
 import LoadingIndicator from "../icons/LoadingIndicator";
 import GenericError from "../GenericError";
-import {DataClass} from "../../types";
-import {Data} from "@dnd-kit/core";
+import {
+    dataClassAccessorFn,
+    dataClassAccessorFnByPath,
+    dataClassExportFn,
+    dataClassExportFnByPath,
+    symbolColumnDef,
+    DataClassLink, PubCountLink, StocksCountLink, unique
+} from "./helpers";
+import {SSCWithExpressionTerms} from "../../types";
 
 type SplitSystemCombinationSearchTableProps = {
     expression: ExpressionSearchInput
 };
-
-const sanitizeSymbol = (symbol?: string | null) => {
-    if(!symbol) return "";
-    return symbol.replaceAll(/[[∩\]]/g, "")
-                 .replaceAll(/INTERSECTION/g, "")
-                 .replaceAll(/<\/?up>/g, "")
-                 .replaceAll(/<\/?down>/g, "")
-}
-
-const sanitizeSymbolForExport = (symbol?: string | null) => {
-    if(!symbol) return "";
-    return symbol.replaceAll(/INTERSECTION/g, "∩")
-                 .replaceAll(/<up>/g, "[")
-                 .replaceAll(/<\/up>/g, "]")
-                 .replaceAll(/<down>/g, "[[")
-                 .replaceAll(/<\/down>/g, "]]")
-}
-
-const getDataClassExportValue = <TData extends DataClass>(data: (TData | null | undefined) | (TData | null | undefined)[]) => {
-    if(!Array.isArray(data)) data = [data];
-
-    return data.filter((item): item is TData => item !== null && item !== undefined)
-               .map(item => sanitizeSymbolForExport(item.symbol || item.name))
-               .join("/n");
-}
-
-
-const CONCATENATION_DELIMITER = "|~|"; //Just needs to be something unlikely to be in a symbol/name
 
 
 const sscSearchTableColumnHelper = createChildRowEnabledHelper<SSCWithExpressionTerms>();
@@ -48,84 +27,29 @@ const SSC_COLUMNS = [
     sscSearchTableColumnHelper.group({
         header: "Split System Combination",
         columns: [
-            sscSearchTableColumnHelper.accessor(ssc => `${sanitizeSymbol(ssc.symbol)}${CONCATENATION_DELIMITER}${ssc.id}`, {
+            sscSearchTableColumnHelper.accessor(dataClassAccessorFn, {
                 id: "symbol",
-                meta: {
-                    displayName: "Symbol",
-                    exportFn: getDataClassExportValue
-                },
                 header: "Symbol",
-                cell: props => (
-                    <a href={`/reports/${props.row.original.id}`}
-                       dangerouslySetInnerHTML={{
-                        __html: props.row.original.symbol?.split("INTERSECTION")
-                               .join("∩<br/>")
-                               .replaceAll(/\[/g, "<up>")
-                               .replaceAll(/]/g, "</up>") || ""
-                       }}
-                    >
-                    </a>
-                )
+                meta: {
+                    exportFn: dataClassExportFn
+                },
+                cell: props => <DataClassLink data={props.row.original} />
             }),
-            sscSearchTableColumnHelper.accessor(ssc =>
-                !ssc.componentAlleles ? "" : ssc.componentAlleles
-                    .map(
-                        allele => allele.expressionTerms ? allele.expressionTerms.map(
-                            term => (term && term.id && term.name) ? `${term.name}${CONCATENATION_DELIMITER}${term.id}` : ""
-                        ) : []
-                    )
-                    .flat()
-                    .reduce((prev, curr, index, array) => array.indexOf(curr) === index ? `${prev}${CONCATENATION_DELIMITER}${curr}` : prev)
-                ,{
+            sscSearchTableColumnHelper.accessor(ssc => dataClassAccessorFnByPath(ssc.componentAlleles, "expressionTerms"), {
                     id: "expressionTerms",
-                    header: "Expression terms",
+                    header: "Expression Terms",
                     cell: props => {
-                        const allExpressionTerms = props.row.original.componentAlleles.map(allele => allele.expressionTerms).flat();
-                        const allExpressionTermsIndexed: { [key: string]: string } = {};
-
-                        allExpressionTerms.forEach(term => {
-                            if(term && term.id && term.name && !allExpressionTermsIndexed[term.id]) {
-                                allExpressionTermsIndexed[term.id] = term.name;
-                            }
-                        })
-
-                        return (
-                            <>
-                                {
-                                    Object.keys(allExpressionTermsIndexed)
-                                        .map(
-                                            (id, index) => (
-                                                <>
-                                                    <a href={`/reports/${id}`}
-                                                       key={id}>{allExpressionTermsIndexed[id]}</a>
-                                                    <br/>
-                                                </>
-                                            )
-                                        )
-                                }
-                            </>
-                        )
+                        const allExpressionTerms = unique(props.row.original.componentAlleles.map(allele => allele.expressionTerms).flat(), expressionTerm => expressionTerm?.id || "");
+                        return <DataClassLink data={allExpressionTerms} />;
                     },
                     meta: {
-                        // exportFn: ssc => !ssc.componentAlleles ? "" : ssc.componentAlleles
-                        //     .map(
-                        //         allele => allele.expressionTerms ? allele.expressionTerms.map(
-                        //             term => (term && term.name) ? term.name : ""
-                        //         ) : []
-                        //     )
-                        //     .flat()
-                        //     .reduce((prev, curr, index, array) => array.indexOf(curr) === index ? `${prev}\n${curr}` : prev)
-                        exportFn: ssc => getDataClassExportValue(
-                            ssc.componentAlleles.map(allele => allele.expressionTerms).flat()
-                        )
+                        exportFn: ssc => dataClassExportFnByPath(ssc.componentAlleles, "expressionTerms")
                     }
                 }
             ),
             sscSearchTableColumnHelper.accessor("stocksCount", {
                 header: "# Stocks",
-                cell: props => (
-                    <a href={`/hitlist/${props.row.original.id}/to/FBst`}>{props.row.original.stocksCount}</a>
-                ),
+                cell: props => <StocksCountLink data={props.row.original} />,
                 sortingFn: "alphanumeric",
                 meta: {
                     align: "right"
@@ -133,9 +57,7 @@ const SSC_COLUMNS = [
             }),
             sscSearchTableColumnHelper.accessor("pubCount", {
                 header: "# Refs",
-                cell: props => (
-                    <a href={`/hitlist/${props.row.original.id}/to/FBrf`}>{props.row.original.pubCount}</a>
-                ),
+                cell: props => <PubCountLink data={props.row.original} />,
                 sortingFn: "alphanumeric",
                 meta: {
                     align: "right"
@@ -146,169 +68,89 @@ const SSC_COLUMNS = [
     sscSearchTableColumnHelper.group({
         header: "Component Alleles",
         columns: [
-            sscSearchTableColumnHelper.childAccessor("componentAlleles", allele => `${sanitizeSymbol(allele.symbol)}${CONCATENATION_DELIMITER}${allele.id}`, {
-                id: "Symbol",
+            sscSearchTableColumnHelper.childAccessor("componentAlleles", dataClassAccessorFn, {
+                id: "symbol",
                 header: "Symbol",
-                cell: props => (
-                    <a href={`/reports/${props.row.original.id}`} dangerouslySetInnerHTML={{ __html: props.row.original.symbol || "" }}></a>
-                ),
+                cell: props => <DataClassLink data={props.row.original} />,
                 meta: {
-                    exportFn: getDataClassExportValue
+                    exportFn: dataClassExportFn
                 }
             }),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => {
-                    const insertionsAndConstructs = [...allele.insertions, ...allele.constructs];
-                    return insertionsAndConstructs.map(
-                        insertionOrConstruct => `${sanitizeSymbol(insertionOrConstruct.symbol)}${CONCATENATION_DELIMITER}${insertionOrConstruct.id}`
-                    ).join(CONCATENATION_DELIMITER);
-                },
+                allele => dataClassAccessorFn([...allele.insertions, ...allele.constructs]),
                 {
-                    id: "Insertions",
+                    id: "insertionsConstructs",
                     header: "Insertion / Construct",
-                    cell: props => (
-                        <>
-                            {
-                                props.row.original.insertions.map(insertion => (
-                                    <>
-                                        <a href={`/reports/${insertion.id}`} key={insertion.id}
-                                           dangerouslySetInnerHTML={{__html: insertion.symbol || ""}}></a>
-                                        <br/>
-                                    </>
-                                ))
-                            }
-                            {
-                                props.row.original.constructs.map(construct => (
-                                    <>
-                                        <a href={`/reports/${construct.id}`} key={construct.id} dangerouslySetInnerHTML={{ __html: construct.symbol || "" }}></a>
-                                        <br/>
-                                    </>
-                                ))
-                            }
-                        </>
-                    ),
+                    cell: props => <DataClassLink data={[...props.row.original.insertions, ...props.row.original.constructs]}/>,
                     meta: {
-                        // exportFn: allele => {
-                        //     const insertionsAndConstructs = [...allele.insertions, ...allele.constructs];
-                        //     return insertionsAndConstructs.map(
-                        //         insertionOrConstruct => sanitizeSymbolForExport(insertionOrConstruct.symbol)
-                        //     ).join("/n");
-                        // }
-                        exportFn: allele => getDataClassExportValue([...allele.insertions, ...allele.constructs])
+                        exportFn: allele => dataClassExportFn([...allele.insertions, ...allele.constructs])
                     }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.insertedElementTypes?.map(elementType => elementType === null ? "" : `${elementType.name}${CONCATENATION_DELIMITER}${elementType.id}`).join(CONCATENATION_DELIMITER),
+                allele => dataClassAccessorFn(allele.insertedElementTypes),
                 {
-                    id: "InsertedElements",
+                    id: "insertedElementTypes",
                     header: "Inserted Element Type",
-                    cell: props => (
-                        <>
-                            {
-                                props.row.original.insertedElementTypes?.map(elementType => elementType ? (
-                                    <a href={`/reports/${elementType.id}`} key={elementType.id}>{elementType.name}</a>
-                                ) : null)
-                            }
-                        </>
-                    ),
+                    cell: props => <DataClassLink data={props.row.original.insertedElementTypes} />,
                     meta: {
-                        // exportFn: allele => allele.insertedElementTypes?.map(elementType => elementType === null ? "" : elementType.name).join("/n") || ""
-                        exportFn: allele => getDataClassExportValue(allele.insertedElementTypes)
+                        exportFn: allele => dataClassExportFn(allele.insertedElementTypes)
                     }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.regRegions?.map(region => region === null ? "" : `${sanitizeSymbol(region.symbol)}${CONCATENATION_DELIMITER}${region.id}`).join(CONCATENATION_DELIMITER),
+                allele => dataClassAccessorFn(allele.regRegions),
                 {
-                    id: "RegRegion",
+                    id: "regRegions",
                     header: "Regulatory Region",
-                    cell: props => (
-                        <>
-                            {
-                                props.row.original.regRegions?.map(region => region ? (
-                                    <a href={`/reports/${region.id}`} key={region.id}>{region.symbol}</a>
-                                ) : null)
-                            }
-                        </>
-                    ),
+                    cell: props => <DataClassLink data={props.row.original.regRegions} />,
                     meta: {
-                        // exportFn: allele => allele.regRegions?.map(region => sanitizeSymbolForExport(region?.symbol)).join("/n") || ""
-                        exportFn: allele => getDataClassExportValue(allele.regRegions)
+                        exportFn: allele => dataClassExportFn(allele.regRegions)
                     }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.encodedTools?.map(tool => tool === null ? "" : `${sanitizeSymbol(tool.symbol)}${CONCATENATION_DELIMITER}${tool.id}`).join(CONCATENATION_DELIMITER),
+                allele => dataClassAccessorFn(allele.encodedTools),
                 {
-                    id: "EncodedTool",
+                    id: "encodedTools",
                     header: "Encoded Tool",
-                    cell: props => (
-                        <>
-                            {
-                                props.row.original.encodedTools?.map(tool => tool ? (
-                                    <a href={`/reports/${tool.id}`} key={tool.id}>{tool.symbol}</a>
-                                ) : null)
-                            }
-                        </>
-                    ),
+                    cell: props => <DataClassLink data={props.row.original.encodedTools} />,
                     meta: {
-                        // exportFn: allele => allele.encodedTools?.map(tool => sanitizeSymbolForExport(tool?.symbol)).join("/n") || ""
-                        exportFn: allele => getDataClassExportValue(allele.encodedTools)
+                        exportFn: allele => dataClassExportFn(allele.encodedTools)
                     }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.taggedWith?.map(tool => tool === null ? "" : `${sanitizeSymbol(tool.symbol)}${CONCATENATION_DELIMITER}${tool.id}`).join(CONCATENATION_DELIMITER),
+                allele => dataClassAccessorFn(allele.taggedWith),
                 {
-                    id: "TaggedWith",
+                    id: "taggedWith",
                     header: "Tagged With",
-                    cell: props => (
-                        <>
-                            {
-                                props.row.original.taggedWith?.map(tool => tool ? (
-                                    <a href={`/reports/${tool.id}`} key={tool.id}>{tool.symbol}</a>
-                                ) : null)
-                            }
-                        </>
-                    ),
+                    cell: props => <DataClassLink data={props.row.original.taggedWith} />,
                     meta: {
-                        // exportFn: allele => allele.taggedWith?.map(tool => sanitizeSymbolForExport(tool?.symbol)).join("/n") || "",
-                        exportFn: allele => getDataClassExportValue(allele.taggedWith)
+                        exportFn: allele => dataClassExportFn(allele.taggedWith)
                     }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.tagUses?.map(use => use === null ? "" : `${use.name}${CONCATENATION_DELIMITER}${use.id}`).join(CONCATENATION_DELIMITER),
+                allele => dataClassAccessorFn(allele.tagUses),
                 {
-                    id: "TaggedUses",
+                    id: "taggedUses",
                     header: "Tagged Uses",
-                    cell: props => (
-                        <>
-                            {
-                                props.row.original.tagUses?.map(use => use ? (
-                                    <a href={`/reports/${use.id}`} key={use.id}>{use.name}</a>
-                                ) : null)
-                            }
-                        </>
-                    ),
+                    cell: props => <DataClassLink data={props.row.original.tagUses} />,
                     meta: {
-                        // exportFn: allele => allele.tagUses?.map(use => use === null ? "" : `${use.name}`).join("/n") || ""
-                        exportFn: allele => getDataClassExportValue(allele.tagUses)
+                        exportFn: allele => dataClassExportFn(allele.tagUses)
                     }
                 }
             ),
             sscSearchTableColumnHelper.childAccessor("componentAlleles", "stocksCount", {
                 header: "# Stocks",
-                cell: props => (
-                    <a href={`/hitlist/${props.row.original.id}/to/FBst`}>{props.row.original.stocksCount}</a>
-                ),
+                cell: props => <StocksCountLink data={props.row.original} />,
                 sortingFn: (rowA, rowB, _columnId) => {
                     const rowASum = rowA.original.componentAlleles
                         .map(allele => parseInt(allele.stocksCount, 10))
@@ -324,9 +166,7 @@ const SSC_COLUMNS = [
             }),
             sscSearchTableColumnHelper.childAccessor("componentAlleles", "pubCount", {
                 header: "# Refs",
-                cell: props => (
-                    <a href={`/hitlist/${props.row.original.id}/to/FBrf`}>{props.row.original.pubCount}</a>
-                ),
+                cell: props => <PubCountLink data={props.row.original} />,
                 sortingFn: (rowA, rowB, _columnId) => {
                     const rowASum = rowA.original.componentAlleles
                         .map(allele => parseInt(allele.pubCount, 10))
@@ -352,9 +192,12 @@ const SplitSystemCombinationSearchTable: React.FC<SplitSystemCombinationSearchTa
 
     if(!gal4Search || !gal4Search.type || gal4Search.type !== "ssc") return null;
 
-    if(loading) return <div style={{ width: "100%" }}>
-        <LoadingIndicator />
-    </div>;
+    if(loading)
+        return (
+            <div style={{ width: "100%" }}>
+                <LoadingIndicator />
+            </div>
+        );
 
     if(errors.length > 0) return <GenericError />;
 

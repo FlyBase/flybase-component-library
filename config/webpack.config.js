@@ -203,6 +203,7 @@ module.exports = function (webpackEnv) {
     entry: {
       main: paths.appIndexJs,
       geneReportInjector: paths.injectorGenePage,
+      geneGroupReportInjector: paths.injectorGeneGroupPage,
       homePageInjector: paths.injectorHomePage,
       gal4SearchInjector: paths.injectorGal4SearchPage,
     },

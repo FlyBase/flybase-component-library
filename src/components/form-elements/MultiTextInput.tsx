@@ -2,6 +2,7 @@ import '../../styles/multiTextInput.scss';
 import XIcon from "../icons/XIcon";
 import React, {useRef} from "react";
 import PlusIcon from "../icons/PlusIcon";
+import classNames from "classnames";
 
 type MultiTextInputProps = {
     defaultPills?: string[],
@@ -44,7 +45,7 @@ const MultiTextInput: React.FC<MultiTextInputProps> = ({
     };
 
     return (
-        <div className={`multi-text-input ${singleItemOnly ? 'single-item' : ''}`}>
+        <div className={classNames("multi-text-input", { "single-item": singleItemOnly })}>
             {defaultPills.length > 0 && (
                 <ul className="multi-text-input-list">
                     {defaultPills.map((item, index) => (

@@ -46,3 +46,4 @@ declare module '@flybase/react-ontology-ribbon' {
 declare var fb_rc: string;
 declare var FBgn: string;
 declare var FBgnSymbol: string;
+declare var FBgg: string;

@@ -1,46 +1,39 @@
 import {
     RowData,
     Table,
-    Row,
     createRow,
     memo,
     getMemoOptions,
-    CoreRow,
     useReactTable,
-    TableOptions, Cell
+    TableOptions
 } from "@tanstack/react-table";
-import {DeepKeysMaxDepth, DeepKeysOfObjectArrayTypes, TypeByPath, TypeOrArrayType} from "../../types";
+import {
+    ChildRowEnabledRow,
+    ChildRowEnabledRowModel, ChildRowKeys, ChildRowType,
+    TypeByPath,
+} from "../../types";
 import {getByPath} from "../../helpers/getByPath";
 
-export type ChildRowKeys<TData> = Extract<
-    DeepKeysMaxDepth<TData>,
-    DeepKeysOfObjectArrayTypes<TData>
-> & string;
 
-export type ChildRowType<TData> = TypeOrArrayType<
-    TypeByPath<TData, ChildRowKeys<TData>>
->;
-
-export interface ChildRowEnabledRow<TData> extends Row<TData>, ChildRowEnabledCoreRow<TData> {}
-
-export interface ChildRowEnabledRowModel<TData> {
-    rows: ChildRowEnabledRow<TData>[];
-    flatRows: ChildRowEnabledRow<TData>[];
-    rowsById: Record<string, ChildRowEnabledRow<TData>>;
-}
-
-export interface ChildRowEnabledCoreRow<TData extends RowData> extends CoreRow<TData> {
-    childRows: ChildRowEnabledRow<ChildRowType<TData>>[];
-    originalChildRows: ChildRowType<TData>[];
-    parentObjectId?: string;
-    getParentObjectRow: () => ChildRowEnabledRow<TData> | undefined;
-    getParentObjectRows: () => ChildRowEnabledRow<TData>[];
-    childDepth: number;
-    totalChildRows: number;
-    getLeafChildRows: () => ChildRowEnabledRow<TData>[];
-    rootChildPath?: ChildRowKeys<TData>;
-    getVisibleLeafCells: () => Cell<TData, unknown>[];
-}
+/*
+* This files heavily borrows from tan stack tables built-in getCoreRowModel function
+* It adds the ability to have "child rows" along with some functionality based on of
+* this relationship.
+*
+* While tan stack table does have "sub rows", these must be the same type as the parent row. The idea is that you may
+* have something like a summary row that encapsulates multiple entries, each of which would be a sub row. All the
+* columns would be the same type, just retried differently.
+*
+* In our case, we want the ability to have columns dedicated to child data types within the parent object. For example,
+* Split System Combinations contain component alleles. We want 1 table that has columns for the SSC data type AND the
+* allele datatype. We then use row spans to group together all the alleles under 1 SSC.
+*
+* Child rows can be any type that is a descendant of the original parent type, provided it is in an array. This allows
+* for displaying of 1 to many relationships within an HTML table structure.
+*
+* This model also interfaces with custom types, and the createChildRowEnabledHelper function to allow for easy integration
+* of child data types into the tan stack table library.
+* */
 
 export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType extends RowData = TData | ChildRowType<TData>>(): (
     table: Table<TableType>
@@ -81,7 +74,7 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                     const childPath = (childPaths && childPaths.length > 0) ? childPaths[0] : undefined;
 
                     for (let i = 0; i < originalRows.length; i++) {
-                        // Make the row
+                        // Make the row using the build in function
                         let row = createRow(
                             table,
                             table._getRowId(originalRows[i]!, i, parentRow),
@@ -106,6 +99,7 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                         const childRows = originalChildRows.length > 0 ? accessRows(originalChildRows, 0, childDepth + 1, row, parentRow, newChildPaths, `${rootChildPath ? rootChildPath+"." : ""}${childPath}` as ChildRowKeys<TableType>) as ChildRowEnabledRow<ChildRowType<TableType>>[] : [];
 
 
+                        // add/modify the row object to include new abilities
                         row = {
                             ...row,
                             childRows,
@@ -141,7 +135,8 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                             }
                         }
 
-
+                        // By default, getVisibleCells will return all cells (including child rows),
+                        // not just the cells for the parent row
                         row.getVisibleLeafCells = row.getVisibleCells;
 
                         row.getVisibleCells = memo(
@@ -209,6 +204,9 @@ export const useChildRowEnabledReactTable = <TData extends RowData>(options: Omi
         ...options,
         getCoreRowModel: getChildRowEnabledCoreRowModel(),
     })
+
+    // Casting here saves the user from having to do it manually (though they still need to in places)
+    // Typescript is not smart enough to know that we are using a more-specific type
     table.getCoreRowModel = table.getCoreRowModel as () => ChildRowEnabledRowModel<TData>;
     table.getRowModel = table.getRowModel as () => ChildRowEnabledRowModel<TData>;
     return table;

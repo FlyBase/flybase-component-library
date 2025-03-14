@@ -2,25 +2,13 @@ import {useLazyQuery, useQuery} from "@apollo/client";
 import searchExpressionTools from "../api/graphql/searchExpressionTools";
 import {
     FullAlleleFragment,
-    GetSplitSystemCombinationsQuery,
     QuerySearchExpressionToolsArgs
 } from "../__generated__/graphql";
 import getAlleles from "../api/graphql/getAlleles";
 import getSplitSystemCombinations from "../api/graphql/getSplitSystemCombinations";
 import {useEffect, useState} from "react";
+import {AlleleWithExpressionTerms, ExpressionTerm, SSCWithExpressionTerms} from "../types";
 
-export type ExpressionTerm = {
-    id: string,
-    name?: string | null | undefined,
-} | null;
-
-export type AlleleWithExpressionTerms = FullAlleleFragment & {
-    expressionTerms: ExpressionTerm[]
-}
-
-export type SSCWithExpressionTerms = Omit<NonNullable<GetSplitSystemCombinationsQuery['splitSystemCombinations']> extends Array<infer SSC> ? SSC : (null | undefined), "componentAlleles"> & {
-    componentAlleles: AlleleWithExpressionTerms[]
-};
 
 export type ExpressionTermsIndexed = {
     [key: string]: ExpressionTerm[]

@@ -19,6 +19,8 @@ import {DeepKeysMaxDepth, TypeByPath} from "../types";
  * @beta
  */
 
+//TODO: better typescript types (see ChildPath stuff in new interactive tables) need to combine with indexing, ND arrays
+
 export const getByPath = <Type extends any, Path extends DeepKeysMaxDepth<Type, MaxDepth>, MaxDepth extends number = 10>(item: Type, path: Path, createUndefinedPaths = false): TypeByPath<Type, Path> => {
     const keys = path.split(".");
 

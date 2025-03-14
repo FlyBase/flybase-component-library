@@ -9,6 +9,7 @@ export interface ReportSectionHeaderProps {
     variant: ReportSectionHeaderLevel | "level-1" | "level-2" | "level-3";
     collapsible?: boolean;
     onClick?: (id: string) => void;
+    url?: string;
 }
 
 //represents the section hierarchy for reports
@@ -18,9 +19,11 @@ export enum ReportSectionHeaderLevel {
     Level3 = "level-3",
 }
 
-const ReportSectionHeader: React.FC<ReportSectionHeaderProps> = ({ id, heading, variant, collapsible = false, onClick }) => {
+const ReportSectionHeader: React.FC<ReportSectionHeaderProps> = ({ id, heading, variant, collapsible = false, onClick, url }) => {
 
     const { isBlindOpen } = useBlinds('reports');
+
+    const Contents = () => url ? <a href={url}>{heading}</a> : <>{heading}</>;
 
     return (
         <div id={`${id}-header`}
@@ -32,9 +35,9 @@ const ReportSectionHeader: React.FC<ReportSectionHeaderProps> = ({ id, heading, 
             }
             {(() => {
                 switch (variant) {
-                    case ReportSectionHeaderLevel.Level1: return <h2>{" "}{heading}</h2>;
-                    case ReportSectionHeaderLevel.Level2: return <h3>{" "}{heading}</h3>;
-                    case ReportSectionHeaderLevel.Level3: return <h4>{" "}{heading}</h4>;
+                    case ReportSectionHeaderLevel.Level1: return <h2>{" "}<Contents /></h2>;
+                    case ReportSectionHeaderLevel.Level2: return <h3>{" "}<Contents /></h3>;
+                    case ReportSectionHeaderLevel.Level3: return <h4>{" "}<Contents /></h4>;
                     default: return null;
                 }
             })()}

@@ -6,7 +6,7 @@ import {createFragmentRegistry} from "@apollo/client/cache";
 import FullAllele from "./api/graphql/fragments/fullAllele";
 
 const client = new ApolloClient({
-    uri: "http://seth-dev.flybase.org:7082/graphql",
+    uri: `${process.env.REACT_APP_API_BASE_URL}/graphql`,
     cache: new InMemoryCache({
         fragments: createFragmentRegistry(FullAllele),
     })

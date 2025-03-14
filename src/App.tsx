@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import SplitSystemCombinationSearchTable from "./components/interactive-tables/SplitSystemCombinationSearchTable";
+import GeneGroupTables from "./components/interactive-tables/GeneGroupTables";
 
 /*
 * This file is for local development only
@@ -8,9 +9,10 @@ import SplitSystemCombinationSearchTable from "./components/interactive-tables/S
 
 function App() {
   return (
-    <div style={{ height: '90vh', width: "100vw", overflow: 'hidden' }}>
-        <SplitSystemCombinationSearchTable expression={{ anatomy: "Kenyon cell" }}/>
-    </div>
+      <div style={{ width: "calc(100vw - 100px)", margin: "15px" }}>
+
+          <GeneGroupTables FBgg="FBgg0001086" />
+      </div>
   );
 }
 

@@ -5,8 +5,10 @@ import SplitSystemCombinationSearchTable from "../components/interactive-tables/
 * This file is a webpack entry point, and will get built separately when running `yarn build`
 * */
 
-//load a gene report with all react code
+//load the gal4 search page with new ssc table (might be converted to whole page in future)
 const injectGal4Search = () => {
+
+    //Currently search terms are dumped into the page with XSL or XSlate
     const element = document.getElementById("exp-query");
     if(!element) throw new Error("No data provided on page. An element with id 'exp-query' containing expression JSON must be present.");
 

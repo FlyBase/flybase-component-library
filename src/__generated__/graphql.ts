@@ -1079,6 +1079,166 @@ export enum AllelesOrderBy {
   SymbolDesc = 'SYMBOL_DESC'
 }
 
+export type Allelev2 = Node & {
+  __typename?: 'Allelev2';
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2SByAlleleIdConnection: GeneAllelev2sConnection;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2sByAlleleId: Array<GeneAllelev2>;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneAllelev2AlleleIdAndGeneId: Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneAllelev2AlleleIdAndGeneIdList: Array<Genev2>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  nameSgml?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  symbol?: Maybe<Scalars['String']['output']>;
+  symbolSgml?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Allelev2GeneAllelev2SByAlleleIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
+export type Allelev2GeneAllelev2sByAlleleIdArgs = {
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
+export type Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdListArgs = {
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+/**
+ * A condition to be used against `Allelev2` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
+export type Allelev2Condition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `nameSgml` field. */
+  nameSgml?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `symbol` field. */
+  symbol?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `symbolSgml` field. */
+  symbolSgml?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `Genev2` values, with data from `GeneAllelev2`. */
+export type Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyConnection = {
+  __typename?: 'Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyConnection';
+  /** A list of edges which contains the `Genev2`, info from the `GeneAllelev2`, and the cursor to aid in pagination. */
+  edges: Array<Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyEdge>;
+  /** A list of `Genev2` objects. */
+  nodes: Array<Genev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Genev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Genev2` edge in the connection, with data from `GeneAllelev2`. */
+export type Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyEdge = {
+  __typename?: 'Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2SByGeneIdConnection: GeneAllelev2sConnection;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2sByGeneId: Array<GeneAllelev2>;
+  /** The `Genev2` at the end of the edge. */
+  node: Genev2;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneAllelev2`. */
+export type Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyEdgeGeneAllelev2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneAllelev2`. */
+export type Allelev2Genev2sByGeneAllelev2AlleleIdAndGeneIdManyToManyEdgeGeneAllelev2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+/** A connection to a list of `Allelev2` values. */
+export type Allelev2sConnection = {
+  __typename?: 'Allelev2sConnection';
+  /** A list of edges which contains the `Allelev2` and cursor to aid in pagination. */
+  edges: Array<Allelev2sEdge>;
+  /** A list of `Allelev2` objects. */
+  nodes: Array<Allelev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allelev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allelev2` edge in the connection. */
+export type Allelev2sEdge = {
+  __typename?: 'Allelev2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Allelev2` at the end of the edge. */
+  node: Allelev2;
+};
+
+/** Methods to use when ordering `Allelev2`. */
+export enum Allelev2sOrderBy {
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  NameSgmlAsc = 'NAME_SGML_ASC',
+  NameSgmlDesc = 'NAME_SGML_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  SymbolAsc = 'SYMBOL_ASC',
+  SymbolDesc = 'SYMBOL_DESC',
+  SymbolSgmlAsc = 'SYMBOL_SGML_ASC',
+  SymbolSgmlDesc = 'SYMBOL_SGML_DESC'
+}
+
 export type AllianceAllele = {
   __typename?: 'AllianceAllele';
   category?: Maybe<Scalars['String']['output']>;
@@ -1482,6 +1642,271 @@ export enum ConstructsOrderBy {
   SymbolDesc = 'SYMBOL_DESC'
 }
 
+export type Diseasev2 = Node & {
+  __typename?: 'Diseasev2';
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2SByDiseaseIdConnection: GeneDiseasev2sConnection;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2sByDiseaseId: Array<GeneDiseasev2>;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneDiseasev2DiseaseIdAndGeneId: Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneDiseasev2DiseaseIdAndGeneIdList: Array<Genev2>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+};
+
+
+export type Diseasev2GeneDiseasev2SByDiseaseIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+export type Diseasev2GeneDiseasev2sByDiseaseIdArgs = {
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+export type Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdListArgs = {
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+/**
+ * A condition to be used against `Diseasev2` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
+export type Diseasev2Condition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `Genev2` values, with data from `GeneDiseasev2`. */
+export type Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyConnection = {
+  __typename?: 'Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyConnection';
+  /** A list of edges which contains the `Genev2`, info from the `GeneDiseasev2`, and the cursor to aid in pagination. */
+  edges: Array<Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyEdge>;
+  /** A list of `Genev2` objects. */
+  nodes: Array<Genev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Genev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Genev2` edge in the connection, with data from `GeneDiseasev2`. */
+export type Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyEdge = {
+  __typename?: 'Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2SByGeneIdConnection: GeneDiseasev2sConnection;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2sByGeneId: Array<GeneDiseasev2>;
+  /** The `Genev2` at the end of the edge. */
+  node: Genev2;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneDiseasev2`. */
+export type Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyEdgeGeneDiseasev2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneDiseasev2`. */
+export type Diseasev2Genev2sByGeneDiseasev2DiseaseIdAndGeneIdManyToManyEdgeGeneDiseasev2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+/** A connection to a list of `Diseasev2` values. */
+export type Diseasev2sConnection = {
+  __typename?: 'Diseasev2sConnection';
+  /** A list of edges which contains the `Diseasev2` and cursor to aid in pagination. */
+  edges: Array<Diseasev2sEdge>;
+  /** A list of `Diseasev2` objects. */
+  nodes: Array<Diseasev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Diseasev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Diseasev2` edge in the connection. */
+export type Diseasev2sEdge = {
+  __typename?: 'Diseasev2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Diseasev2` at the end of the edge. */
+  node: Diseasev2;
+};
+
+/** Methods to use when ordering `Diseasev2`. */
+export enum Diseasev2sOrderBy {
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+}
+
+export type Enzymev2 = Node & {
+  __typename?: 'Enzymev2';
+  /** Reads and enables pagination through a set of `GeneEnzymev2`. */
+  geneEnzymev2SByEnzymeIdConnection: GeneEnzymev2sConnection;
+  /** Reads and enables pagination through a set of `GeneEnzymev2`. */
+  geneEnzymev2sByEnzymeId: Array<GeneEnzymev2>;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneEnzymev2EnzymeIdAndGeneId: Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneEnzymev2EnzymeIdAndGeneIdList: Array<Genev2>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+};
+
+
+export type Enzymev2GeneEnzymev2SByEnzymeIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneEnzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneEnzymev2sOrderBy>>;
+};
+
+
+export type Enzymev2GeneEnzymev2sByEnzymeIdArgs = {
+  condition?: InputMaybe<GeneEnzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneEnzymev2sOrderBy>>;
+};
+
+
+export type Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdListArgs = {
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+/**
+ * A condition to be used against `Enzymev2` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
+export type Enzymev2Condition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `Genev2` values, with data from `GeneEnzymev2`. */
+export type Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdManyToManyConnection = {
+  __typename?: 'Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdManyToManyConnection';
+  /** A list of edges which contains the `Genev2`, info from the `GeneEnzymev2`, and the cursor to aid in pagination. */
+  edges: Array<Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdManyToManyEdge>;
+  /** A list of `Genev2` objects. */
+  nodes: Array<Genev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Genev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Genev2` edge in the connection, with data from `GeneEnzymev2`. */
+export type Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdManyToManyEdge = {
+  __typename?: 'Enzymev2Genev2sByGeneEnzymev2EnzymeIdAndGeneIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Genev2` at the end of the edge. */
+  node: Genev2;
+};
+
+/** A connection to a list of `Enzymev2` values. */
+export type Enzymev2sConnection = {
+  __typename?: 'Enzymev2sConnection';
+  /** A list of edges which contains the `Enzymev2` and cursor to aid in pagination. */
+  edges: Array<Enzymev2sEdge>;
+  /** A list of `Enzymev2` objects. */
+  nodes: Array<Enzymev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Enzymev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Enzymev2` edge in the connection. */
+export type Enzymev2sEdge = {
+  __typename?: 'Enzymev2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Enzymev2` at the end of the edge. */
+  node: Enzymev2;
+};
+
+/** Methods to use when ordering `Enzymev2`. */
+export enum Enzymev2sOrderBy {
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+}
+
 export type ExpressionSearchInput = {
   anatomy?: InputMaybe<Scalars['String']['input']>;
   anatomyq?: InputMaybe<Scalars['String']['input']>;
@@ -1694,6 +2119,72 @@ export type GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyEdgeInsertionsConne
   orderBy?: InputMaybe<Array<InsertionsOrderBy>>;
 };
 
+export type GeneAllelev2 = Node & {
+  __typename?: 'GeneAllelev2';
+  /** Reads a single `Allelev2` that is related to this `GeneAllelev2`. */
+  allele?: Maybe<Allelev2>;
+  alleleId: Scalars['String']['output'];
+  /** Reads a single `Genev2` that is related to this `GeneAllelev2`. */
+  gene?: Maybe<Genev2>;
+  geneId: Scalars['String']['output'];
+  id?: Maybe<Scalars['String']['output']>;
+  isConstruct: Scalars['Boolean']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  nameSgml?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  symbol?: Maybe<Scalars['String']['output']>;
+  symbolSgml?: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * A condition to be used against `GeneAllelev2` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
+export type GeneAllelev2Condition = {
+  /** Checks for equality with the object’s `alleleId` field. */
+  alleleId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `geneId` field. */
+  geneId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `isConstruct` field. */
+  isConstruct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** A connection to a list of `GeneAllelev2` values. */
+export type GeneAllelev2sConnection = {
+  __typename?: 'GeneAllelev2sConnection';
+  /** A list of edges which contains the `GeneAllelev2` and cursor to aid in pagination. */
+  edges: Array<GeneAllelev2sEdge>;
+  /** A list of `GeneAllelev2` objects. */
+  nodes: Array<GeneAllelev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneAllelev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneAllelev2` edge in the connection. */
+export type GeneAllelev2sEdge = {
+  __typename?: 'GeneAllelev2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `GeneAllelev2` at the end of the edge. */
+  node: GeneAllelev2;
+};
+
+/** Methods to use when ordering `GeneAllelev2`. */
+export enum GeneAllelev2sOrderBy {
+  AlleleIdAsc = 'ALLELE_ID_ASC',
+  AlleleIdDesc = 'ALLELE_ID_DESC',
+  GeneIdAsc = 'GENE_ID_ASC',
+  GeneIdDesc = 'GENE_ID_DESC',
+  IsConstructAsc = 'IS_CONSTRUCT_ASC',
+  IsConstructDesc = 'IS_CONSTRUCT_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+}
+
 /** A condition to be used against `Gene` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type GeneCondition = {
   /** Checks for equality with the object’s `featureId` field. */
@@ -1703,6 +2194,192 @@ export type GeneCondition = {
   /** Checks for equality with the object’s `symbol` field. */
   symbol?: InputMaybe<Scalars['String']['input']>;
 };
+
+export type GeneDiseasev2 = Node & {
+  __typename?: 'GeneDiseasev2';
+  /** Reads a single `Diseasev2` that is related to this `GeneDiseasev2`. */
+  disease?: Maybe<Diseasev2>;
+  diseaseId: Scalars['String']['output'];
+  /** Reads a single `Genev2` that is related to this `GeneDiseasev2`. */
+  gene?: Maybe<Genev2>;
+  geneId: Scalars['String']['output'];
+  isExperimental: Scalars['Boolean']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  qualifier: Scalars['String']['output'];
+};
+
+/**
+ * A condition to be used against `GeneDiseasev2` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
+export type GeneDiseasev2Condition = {
+  /** Checks for equality with the object’s `diseaseId` field. */
+  diseaseId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `geneId` field. */
+  geneId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `isExperimental` field. */
+  isExperimental?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Checks for equality with the object’s `qualifier` field. */
+  qualifier?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `GeneDiseasev2` values. */
+export type GeneDiseasev2sConnection = {
+  __typename?: 'GeneDiseasev2sConnection';
+  /** A list of edges which contains the `GeneDiseasev2` and cursor to aid in pagination. */
+  edges: Array<GeneDiseasev2sEdge>;
+  /** A list of `GeneDiseasev2` objects. */
+  nodes: Array<GeneDiseasev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneDiseasev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneDiseasev2` edge in the connection. */
+export type GeneDiseasev2sEdge = {
+  __typename?: 'GeneDiseasev2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `GeneDiseasev2` at the end of the edge. */
+  node: GeneDiseasev2;
+};
+
+/** Methods to use when ordering `GeneDiseasev2`. */
+export enum GeneDiseasev2sOrderBy {
+  DiseaseIdAsc = 'DISEASE_ID_ASC',
+  DiseaseIdDesc = 'DISEASE_ID_DESC',
+  GeneIdAsc = 'GENE_ID_ASC',
+  GeneIdDesc = 'GENE_ID_DESC',
+  IsExperimentalAsc = 'IS_EXPERIMENTAL_ASC',
+  IsExperimentalDesc = 'IS_EXPERIMENTAL_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  QualifierAsc = 'QUALIFIER_ASC',
+  QualifierDesc = 'QUALIFIER_DESC'
+}
+
+export type GeneEnzymev2 = Node & {
+  __typename?: 'GeneEnzymev2';
+  /** Reads a single `Enzymev2` that is related to this `GeneEnzymev2`. */
+  enzyme?: Maybe<Enzymev2>;
+  enzymeId: Scalars['String']['output'];
+  /** Reads a single `Genev2` that is related to this `GeneEnzymev2`. */
+  gene?: Maybe<Genev2>;
+  geneId: Scalars['String']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+};
+
+/**
+ * A condition to be used against `GeneEnzymev2` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
+export type GeneEnzymev2Condition = {
+  /** Checks for equality with the object’s `enzymeId` field. */
+  enzymeId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `geneId` field. */
+  geneId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `GeneEnzymev2` values. */
+export type GeneEnzymev2sConnection = {
+  __typename?: 'GeneEnzymev2sConnection';
+  /** A list of edges which contains the `GeneEnzymev2` and cursor to aid in pagination. */
+  edges: Array<GeneEnzymev2sEdge>;
+  /** A list of `GeneEnzymev2` objects. */
+  nodes: Array<GeneEnzymev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneEnzymev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneEnzymev2` edge in the connection. */
+export type GeneEnzymev2sEdge = {
+  __typename?: 'GeneEnzymev2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `GeneEnzymev2` at the end of the edge. */
+  node: GeneEnzymev2;
+};
+
+/** Methods to use when ordering `GeneEnzymev2`. */
+export enum GeneEnzymev2sOrderBy {
+  EnzymeIdAsc = 'ENZYME_ID_ASC',
+  EnzymeIdDesc = 'ENZYME_ID_DESC',
+  GeneIdAsc = 'GENE_ID_ASC',
+  GeneIdDesc = 'GENE_ID_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+}
+
+export type GeneGoMolecularFunctionv2 = Node & {
+  __typename?: 'GeneGoMolecularFunctionv2';
+  /** Reads a single `Genev2` that is related to this `GeneGoMolecularFunctionv2`. */
+  gene?: Maybe<Genev2>;
+  geneId: Scalars['String']['output'];
+  goId: Scalars['String']['output'];
+  goMolecularFunction?: Maybe<Scalars['String']['output']>;
+  isExperimental: Scalars['Boolean']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+};
+
+/**
+ * A condition to be used against `GeneGoMolecularFunctionv2` object types. All
+ * fields are tested for equality and combined with a logical ‘and.’
+ */
+export type GeneGoMolecularFunctionv2Condition = {
+  /** Checks for equality with the object’s `geneId` field. */
+  geneId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `goId` field. */
+  goId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `goMolecularFunction` field. */
+  goMolecularFunction?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `isExperimental` field. */
+  isExperimental?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** A connection to a list of `GeneGoMolecularFunctionv2` values. */
+export type GeneGoMolecularFunctionv2sConnection = {
+  __typename?: 'GeneGoMolecularFunctionv2sConnection';
+  /** A list of edges which contains the `GeneGoMolecularFunctionv2` and cursor to aid in pagination. */
+  edges: Array<GeneGoMolecularFunctionv2sEdge>;
+  /** A list of `GeneGoMolecularFunctionv2` objects. */
+  nodes: Array<GeneGoMolecularFunctionv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneGoMolecularFunctionv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneGoMolecularFunctionv2` edge in the connection. */
+export type GeneGoMolecularFunctionv2sEdge = {
+  __typename?: 'GeneGoMolecularFunctionv2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `GeneGoMolecularFunctionv2` at the end of the edge. */
+  node: GeneGoMolecularFunctionv2;
+};
+
+/** Methods to use when ordering `GeneGoMolecularFunctionv2`. */
+export enum GeneGoMolecularFunctionv2sOrderBy {
+  GeneIdAsc = 'GENE_ID_ASC',
+  GeneIdDesc = 'GENE_ID_DESC',
+  GoIdAsc = 'GO_ID_ASC',
+  GoIdDesc = 'GO_ID_DESC',
+  GoMolecularFunctionAsc = 'GO_MOLECULAR_FUNCTION_ASC',
+  GoMolecularFunctionDesc = 'GO_MOLECULAR_FUNCTION_DESC',
+  IsExperimentalAsc = 'IS_EXPERIMENTAL_ASC',
+  IsExperimentalDesc = 'IS_EXPERIMENTAL_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+}
 
 export type GeneGroupMembership = {
   __typename?: 'GeneGroupMembership';
@@ -1756,6 +2433,559 @@ export enum GeneGroupMembershipsOrderBy {
   PathwayMemberIdDesc = 'PATHWAY_MEMBER_ID_DESC'
 }
 
+export type GeneGroupMemberv2 = Node & {
+  __typename?: 'GeneGroupMemberv2';
+  /** Reads a single `Genev2` that is related to this `GeneGroupMemberv2`. */
+  gene?: Maybe<Genev2>;
+  /** Reads a single `GeneGroupv2` that is related to this `GeneGroupMemberv2`. */
+  geneGroup?: Maybe<GeneGroupv2>;
+  geneGroupId?: Maybe<Scalars['String']['output']>;
+  geneGroupPubs?: Maybe<Scalars['JSON']['output']>;
+  geneId?: Maybe<Scalars['String']['output']>;
+  groupMemberLabel?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  /** Reads a single `GeneGroupv2` that is related to this `GeneGroupMemberv2`. */
+  subgroup?: Maybe<GeneGroupv2>;
+  subgroupId?: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * A condition to be used against `GeneGroupMemberv2` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
+export type GeneGroupMemberv2Condition = {
+  /** Checks for equality with the object’s `geneGroupId` field. */
+  geneGroupId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `geneId` field. */
+  geneId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `groupMemberLabel` field. */
+  groupMemberLabel?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Checks for equality with the object’s `subgroupId` field. */
+  subgroupId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `GeneGroupMemberv2` values. */
+export type GeneGroupMemberv2sConnection = {
+  __typename?: 'GeneGroupMemberv2sConnection';
+  /** A list of edges which contains the `GeneGroupMemberv2` and cursor to aid in pagination. */
+  edges: Array<GeneGroupMemberv2sEdge>;
+  /** A list of `GeneGroupMemberv2` objects. */
+  nodes: Array<GeneGroupMemberv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneGroupMemberv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneGroupMemberv2` edge in the connection. */
+export type GeneGroupMemberv2sEdge = {
+  __typename?: 'GeneGroupMemberv2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `GeneGroupMemberv2` at the end of the edge. */
+  node: GeneGroupMemberv2;
+};
+
+/** Methods to use when ordering `GeneGroupMemberv2`. */
+export enum GeneGroupMemberv2sOrderBy {
+  GeneGroupIdAsc = 'GENE_GROUP_ID_ASC',
+  GeneGroupIdDesc = 'GENE_GROUP_ID_DESC',
+  GeneIdAsc = 'GENE_ID_ASC',
+  GeneIdDesc = 'GENE_ID_DESC',
+  GroupMemberLabelAsc = 'GROUP_MEMBER_LABEL_ASC',
+  GroupMemberLabelDesc = 'GROUP_MEMBER_LABEL_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  SubgroupIdAsc = 'SUBGROUP_ID_ASC',
+  SubgroupIdDesc = 'SUBGROUP_ID_DESC'
+}
+
+export type GeneGroupv2 = Node & {
+  __typename?: 'GeneGroupv2';
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SByGeneGroupIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SBySubgroupIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sByGeneGroupId: Array<GeneGroupMemberv2>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sBySubgroupId: Array<GeneGroupMemberv2>;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupId: GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdList: Array<GeneGroupv2>;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupId: GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdList: Array<GeneGroupv2>;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneGroupMemberv2GeneGroupIdAndGeneId: GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdList: Array<Genev2>;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneGroupMemberv2SubgroupIdAndGeneId: GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdList: Array<Genev2>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  nameSgml?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  symbol?: Maybe<Scalars['String']['output']>;
+  symbolSgml?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  typeId?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type GeneGroupv2GeneGroupMemberv2SByGeneGroupIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2GeneGroupMemberv2SBySubgroupIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2GeneGroupMemberv2sByGeneGroupIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2GeneGroupMemberv2sBySubgroupIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdListArgs = {
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdListArgs = {
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdListArgs = {
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdListArgs = {
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+/**
+ * A condition to be used against `GeneGroupv2` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
+export type GeneGroupv2Condition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `nameSgml` field. */
+  nameSgml?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `symbol` field. */
+  symbol?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `symbolSgml` field. */
+  symbolSgml?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `type` field. */
+  type?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `typeId` field. */
+  typeId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `GeneGroupv2` values, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyConnection = {
+  __typename?: 'GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyConnection';
+  /** A list of edges which contains the `GeneGroupv2`, info from the `GeneGroupMemberv2`, and the cursor to aid in pagination. */
+  edges: Array<GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyEdge>;
+  /** A list of `GeneGroupv2` objects. */
+  nodes: Array<GeneGroupv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneGroupv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyEdge = {
+  __typename?: 'GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SBySubgroupIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sBySubgroupId: Array<GeneGroupMemberv2>;
+  /** The `GeneGroupv2` at the end of the edge. */
+  node: GeneGroupv2;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyEdgeGeneGroupMemberv2SBySubgroupIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdManyToManyEdgeGeneGroupMemberv2sBySubgroupIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+/** A connection to a list of `GeneGroupv2` values, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyConnection = {
+  __typename?: 'GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyConnection';
+  /** A list of edges which contains the `GeneGroupv2`, info from the `GeneGroupMemberv2`, and the cursor to aid in pagination. */
+  edges: Array<GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyEdge>;
+  /** A list of `GeneGroupv2` objects. */
+  nodes: Array<GeneGroupv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneGroupv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyEdge = {
+  __typename?: 'GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SByGeneGroupIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sByGeneGroupId: Array<GeneGroupMemberv2>;
+  /** The `GeneGroupv2` at the end of the edge. */
+  node: GeneGroupv2;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyEdgeGeneGroupMemberv2SByGeneGroupIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2GeneGroupv2sByGeneGroupMemberv2SubgroupIdAndGeneGroupIdManyToManyEdgeGeneGroupMemberv2sByGeneGroupIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+/** A connection to a list of `Genev2` values, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyConnection = {
+  __typename?: 'GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyConnection';
+  /** A list of edges which contains the `Genev2`, info from the `GeneGroupMemberv2`, and the cursor to aid in pagination. */
+  edges: Array<GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyEdge>;
+  /** A list of `Genev2` objects. */
+  nodes: Array<Genev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Genev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Genev2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyEdge = {
+  __typename?: 'GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SByGeneIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sByGeneId: Array<GeneGroupMemberv2>;
+  /** The `Genev2` at the end of the edge. */
+  node: Genev2;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyEdgeGeneGroupMemberv2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2GeneGroupIdAndGeneIdManyToManyEdgeGeneGroupMemberv2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+/** A connection to a list of `Genev2` values, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyConnection = {
+  __typename?: 'GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyConnection';
+  /** A list of edges which contains the `Genev2`, info from the `GeneGroupMemberv2`, and the cursor to aid in pagination. */
+  edges: Array<GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyEdge>;
+  /** A list of `Genev2` objects. */
+  nodes: Array<Genev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Genev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Genev2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyEdge = {
+  __typename?: 'GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SByGeneIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sByGeneId: Array<GeneGroupMemberv2>;
+  /** The `Genev2` at the end of the edge. */
+  node: Genev2;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyEdgeGeneGroupMemberv2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+/** A `Genev2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type GeneGroupv2Genev2sByGeneGroupMemberv2SubgroupIdAndGeneIdManyToManyEdgeGeneGroupMemberv2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+/** A connection to a list of `GeneGroupv2` values. */
+export type GeneGroupv2sConnection = {
+  __typename?: 'GeneGroupv2sConnection';
+  /** A list of edges which contains the `GeneGroupv2` and cursor to aid in pagination. */
+  edges: Array<GeneGroupv2sEdge>;
+  /** A list of `GeneGroupv2` objects. */
+  nodes: Array<GeneGroupv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneGroupv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneGroupv2` edge in the connection. */
+export type GeneGroupv2sEdge = {
+  __typename?: 'GeneGroupv2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `GeneGroupv2` at the end of the edge. */
+  node: GeneGroupv2;
+};
+
+/** Methods to use when ordering `GeneGroupv2`. */
+export enum GeneGroupv2sOrderBy {
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  NameSgmlAsc = 'NAME_SGML_ASC',
+  NameSgmlDesc = 'NAME_SGML_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  SymbolAsc = 'SYMBOL_ASC',
+  SymbolDesc = 'SYMBOL_DESC',
+  SymbolSgmlAsc = 'SYMBOL_SGML_ASC',
+  SymbolSgmlDesc = 'SYMBOL_SGML_DESC',
+  TypeAsc = 'TYPE_ASC',
+  TypeDesc = 'TYPE_DESC',
+  TypeIdAsc = 'TYPE_ID_ASC',
+  TypeIdDesc = 'TYPE_ID_DESC'
+}
+
+export type GeneHumanOrthologv2 = Node & {
+  __typename?: 'GeneHumanOrthologv2';
+  accession?: Maybe<Scalars['String']['output']>;
+  dioptScore?: Maybe<Scalars['Int']['output']>;
+  /** Reads a single `Genev2` that is related to this `GeneHumanOrthologv2`. */
+  gene?: Maybe<Genev2>;
+  geneId: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  /** Reads a single `Orthologv2` that is related to this `GeneHumanOrthologv2`. */
+  ortholog?: Maybe<Orthologv2>;
+  orthologId: Scalars['String']['output'];
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * A condition to be used against `GeneHumanOrthologv2` object types. All fields
+ * are tested for equality and combined with a logical ‘and.’
+ */
+export type GeneHumanOrthologv2Condition = {
+  /** Checks for equality with the object’s `accession` field. */
+  accession?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `dioptScore` field. */
+  dioptScore?: InputMaybe<Scalars['Int']['input']>;
+  /** Checks for equality with the object’s `geneId` field. */
+  geneId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `orthologId` field. */
+  orthologId?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `url` field. */
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `GeneHumanOrthologv2` values. */
+export type GeneHumanOrthologv2sConnection = {
+  __typename?: 'GeneHumanOrthologv2sConnection';
+  /** A list of edges which contains the `GeneHumanOrthologv2` and cursor to aid in pagination. */
+  edges: Array<GeneHumanOrthologv2sEdge>;
+  /** A list of `GeneHumanOrthologv2` objects. */
+  nodes: Array<GeneHumanOrthologv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneHumanOrthologv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneHumanOrthologv2` edge in the connection. */
+export type GeneHumanOrthologv2sEdge = {
+  __typename?: 'GeneHumanOrthologv2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `GeneHumanOrthologv2` at the end of the edge. */
+  node: GeneHumanOrthologv2;
+};
+
+/** Methods to use when ordering `GeneHumanOrthologv2`. */
+export enum GeneHumanOrthologv2sOrderBy {
+  AccessionAsc = 'ACCESSION_ASC',
+  AccessionDesc = 'ACCESSION_DESC',
+  DioptScoreAsc = 'DIOPT_SCORE_ASC',
+  DioptScoreDesc = 'DIOPT_SCORE_DESC',
+  GeneIdAsc = 'GENE_ID_ASC',
+  GeneIdDesc = 'GENE_ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  Natural = 'NATURAL',
+  OrthologIdAsc = 'ORTHOLOG_ID_ASC',
+  OrthologIdDesc = 'ORTHOLOG_ID_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  UrlAsc = 'URL_ASC',
+  UrlDesc = 'URL_DESC'
+}
+
 /** A connection to a list of `Gene` values. */
 export type GenesConnection = {
   __typename?: 'GenesConnection';
@@ -1789,6 +3019,604 @@ export enum GenesOrderBy {
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   UniquenameAsc = 'UNIQUENAME_ASC',
   UniquenameDesc = 'UNIQUENAME_DESC'
+}
+
+export type Genev2 = Node & {
+  __typename?: 'Genev2';
+  aka?: Maybe<Scalars['String']['output']>;
+  /** Reads and enables pagination through a set of `Allelev2`. */
+  allelev2sByGeneAllelev2GeneIdAndAlleleId: Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Allelev2`. */
+  allelev2sByGeneAllelev2GeneIdAndAlleleIdList: Array<Allelev2>;
+  antibody?: Maybe<Scalars['Boolean']['output']>;
+  cytogenicMap?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** Reads and enables pagination through a set of `Diseasev2`. */
+  diseasev2sByGeneDiseasev2GeneIdAndDiseaseId: Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Diseasev2`. */
+  diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdList: Array<Diseasev2>;
+  /** Reads and enables pagination through a set of `Enzymev2`. */
+  enzymev2sByGeneEnzymev2GeneIdAndEnzymeId: Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Enzymev2`. */
+  enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdList: Array<Enzymev2>;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2SByGeneIdConnection: GeneAllelev2sConnection;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2sByGeneId: Array<GeneAllelev2>;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2SByGeneIdConnection: GeneDiseasev2sConnection;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2sByGeneId: Array<GeneDiseasev2>;
+  /** Reads and enables pagination through a set of `GeneEnzymev2`. */
+  geneEnzymev2SByGeneIdConnection: GeneEnzymev2sConnection;
+  /** Reads and enables pagination through a set of `GeneEnzymev2`. */
+  geneEnzymev2sByGeneId: Array<GeneEnzymev2>;
+  /** Reads and enables pagination through a set of `GeneGoMolecularFunctionv2`. */
+  geneGoMolecularFunctionv2SByGeneIdConnection: GeneGoMolecularFunctionv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGoMolecularFunctionv2`. */
+  geneGoMolecularFunctionv2sByGeneId: Array<GeneGoMolecularFunctionv2>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SByGeneIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sByGeneId: Array<GeneGroupMemberv2>;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupId: Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdList: Array<GeneGroupv2>;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupId: Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdList: Array<GeneGroupv2>;
+  /** Reads and enables pagination through a set of `GeneHumanOrthologv2`. */
+  geneHumanOrthologv2SByGeneIdConnection: GeneHumanOrthologv2sConnection;
+  /** Reads and enables pagination through a set of `GeneHumanOrthologv2`. */
+  geneHumanOrthologv2sByGeneId: Array<GeneHumanOrthologv2>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  nameSgml?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  organismId?: Maybe<Scalars['Int']['output']>;
+  /** Reads and enables pagination through a set of `Orthologv2`. */
+  orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologId: Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Orthologv2`. */
+  orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdList: Array<Orthologv2>;
+  pubs?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  symbol?: Maybe<Scalars['String']['output']>;
+  symbolSgml?: Maybe<Scalars['String']['output']>;
+  testisSpecificityIndex?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Allelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Allelev2sOrderBy>>;
+};
+
+
+export type Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdListArgs = {
+  condition?: InputMaybe<Allelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Allelev2sOrderBy>>;
+};
+
+
+export type Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Diseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Diseasev2sOrderBy>>;
+};
+
+
+export type Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdListArgs = {
+  condition?: InputMaybe<Diseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Diseasev2sOrderBy>>;
+};
+
+
+export type Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Enzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Enzymev2sOrderBy>>;
+};
+
+
+export type Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdListArgs = {
+  condition?: InputMaybe<Enzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Enzymev2sOrderBy>>;
+};
+
+
+export type Genev2GeneAllelev2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
+export type Genev2GeneAllelev2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
+export type Genev2GeneDiseasev2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+export type Genev2GeneDiseasev2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+export type Genev2GeneEnzymev2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneEnzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneEnzymev2sOrderBy>>;
+};
+
+
+export type Genev2GeneEnzymev2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneEnzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneEnzymev2sOrderBy>>;
+};
+
+
+export type Genev2GeneGoMolecularFunctionv2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGoMolecularFunctionv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGoMolecularFunctionv2sOrderBy>>;
+};
+
+
+export type Genev2GeneGoMolecularFunctionv2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneGoMolecularFunctionv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGoMolecularFunctionv2sOrderBy>>;
+};
+
+
+export type Genev2GeneGroupMemberv2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type Genev2GeneGroupMemberv2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdListArgs = {
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdListArgs = {
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type Genev2GeneHumanOrthologv2SByGeneIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneHumanOrthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneHumanOrthologv2sOrderBy>>;
+};
+
+
+export type Genev2GeneHumanOrthologv2sByGeneIdArgs = {
+  condition?: InputMaybe<GeneHumanOrthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneHumanOrthologv2sOrderBy>>;
+};
+
+
+export type Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Orthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Orthologv2sOrderBy>>;
+};
+
+
+export type Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdListArgs = {
+  condition?: InputMaybe<Orthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Orthologv2sOrderBy>>;
+};
+
+/** A connection to a list of `Allelev2` values, with data from `GeneAllelev2`. */
+export type Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyConnection = {
+  __typename?: 'Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyConnection';
+  /** A list of edges which contains the `Allelev2`, info from the `GeneAllelev2`, and the cursor to aid in pagination. */
+  edges: Array<Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyEdge>;
+  /** A list of `Allelev2` objects. */
+  nodes: Array<Allelev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allelev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allelev2` edge in the connection, with data from `GeneAllelev2`. */
+export type Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyEdge = {
+  __typename?: 'Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2SByAlleleIdConnection: GeneAllelev2sConnection;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2sByAlleleId: Array<GeneAllelev2>;
+  /** The `Allelev2` at the end of the edge. */
+  node: Allelev2;
+};
+
+
+/** A `Allelev2` edge in the connection, with data from `GeneAllelev2`. */
+export type Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyEdgeGeneAllelev2SByAlleleIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
+/** A `Allelev2` edge in the connection, with data from `GeneAllelev2`. */
+export type Genev2Allelev2sByGeneAllelev2GeneIdAndAlleleIdManyToManyEdgeGeneAllelev2sByAlleleIdArgs = {
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+/** A condition to be used against `Genev2` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type Genev2Condition = {
+  /** Checks for equality with the object’s `aka` field. */
+  aka?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `antibody` field. */
+  antibody?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `nameSgml` field. */
+  nameSgml?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `organismId` field. */
+  organismId?: InputMaybe<Scalars['Int']['input']>;
+  /** Checks for equality with the object’s `symbol` field. */
+  symbol?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `symbolSgml` field. */
+  symbolSgml?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `testisSpecificityIndex` field. */
+  testisSpecificityIndex?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `Diseasev2` values, with data from `GeneDiseasev2`. */
+export type Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyConnection = {
+  __typename?: 'Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyConnection';
+  /** A list of edges which contains the `Diseasev2`, info from the `GeneDiseasev2`, and the cursor to aid in pagination. */
+  edges: Array<Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyEdge>;
+  /** A list of `Diseasev2` objects. */
+  nodes: Array<Diseasev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Diseasev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Diseasev2` edge in the connection, with data from `GeneDiseasev2`. */
+export type Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyEdge = {
+  __typename?: 'Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2SByDiseaseIdConnection: GeneDiseasev2sConnection;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2sByDiseaseId: Array<GeneDiseasev2>;
+  /** The `Diseasev2` at the end of the edge. */
+  node: Diseasev2;
+};
+
+
+/** A `Diseasev2` edge in the connection, with data from `GeneDiseasev2`. */
+export type Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyEdgeGeneDiseasev2SByDiseaseIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+/** A `Diseasev2` edge in the connection, with data from `GeneDiseasev2`. */
+export type Genev2Diseasev2sByGeneDiseasev2GeneIdAndDiseaseIdManyToManyEdgeGeneDiseasev2sByDiseaseIdArgs = {
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+/** A connection to a list of `Enzymev2` values, with data from `GeneEnzymev2`. */
+export type Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdManyToManyConnection = {
+  __typename?: 'Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdManyToManyConnection';
+  /** A list of edges which contains the `Enzymev2`, info from the `GeneEnzymev2`, and the cursor to aid in pagination. */
+  edges: Array<Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdManyToManyEdge>;
+  /** A list of `Enzymev2` objects. */
+  nodes: Array<Enzymev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Enzymev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Enzymev2` edge in the connection, with data from `GeneEnzymev2`. */
+export type Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdManyToManyEdge = {
+  __typename?: 'Genev2Enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Enzymev2` at the end of the edge. */
+  node: Enzymev2;
+};
+
+/** A connection to a list of `GeneGroupv2` values, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyConnection = {
+  __typename?: 'Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyConnection';
+  /** A list of edges which contains the `GeneGroupv2`, info from the `GeneGroupMemberv2`, and the cursor to aid in pagination. */
+  edges: Array<Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyEdge>;
+  /** A list of `GeneGroupv2` objects. */
+  nodes: Array<GeneGroupv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneGroupv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyEdge = {
+  __typename?: 'Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SByGeneGroupIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sByGeneGroupId: Array<GeneGroupMemberv2>;
+  /** The `GeneGroupv2` at the end of the edge. */
+  node: GeneGroupv2;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyEdgeGeneGroupMemberv2SByGeneGroupIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndGeneGroupIdManyToManyEdgeGeneGroupMemberv2sByGeneGroupIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+/** A connection to a list of `GeneGroupv2` values, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyConnection = {
+  __typename?: 'Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyConnection';
+  /** A list of edges which contains the `GeneGroupv2`, info from the `GeneGroupMemberv2`, and the cursor to aid in pagination. */
+  edges: Array<Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyEdge>;
+  /** A list of `GeneGroupv2` objects. */
+  nodes: Array<GeneGroupv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `GeneGroupv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyEdge = {
+  __typename?: 'Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2SBySubgroupIdConnection: GeneGroupMemberv2sConnection;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sBySubgroupId: Array<GeneGroupMemberv2>;
+  /** The `GeneGroupv2` at the end of the edge. */
+  node: GeneGroupv2;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyEdgeGeneGroupMemberv2SBySubgroupIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+/** A `GeneGroupv2` edge in the connection, with data from `GeneGroupMemberv2`. */
+export type Genev2GeneGroupv2sByGeneGroupMemberv2GeneIdAndSubgroupIdManyToManyEdgeGeneGroupMemberv2sBySubgroupIdArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+/** A connection to a list of `Orthologv2` values, with data from `GeneHumanOrthologv2`. */
+export type Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdManyToManyConnection = {
+  __typename?: 'Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdManyToManyConnection';
+  /** A list of edges which contains the `Orthologv2`, info from the `GeneHumanOrthologv2`, and the cursor to aid in pagination. */
+  edges: Array<Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdManyToManyEdge>;
+  /** A list of `Orthologv2` objects. */
+  nodes: Array<Orthologv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Orthologv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Orthologv2` edge in the connection, with data from `GeneHumanOrthologv2`. */
+export type Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdManyToManyEdge = {
+  __typename?: 'Genev2Orthologv2sByGeneHumanOrthologv2GeneIdAndOrthologIdManyToManyEdge';
+  accession?: Maybe<Scalars['String']['output']>;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  dioptScore?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  /** The `Orthologv2` at the end of the edge. */
+  node: Orthologv2;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** A connection to a list of `Genev2` values. */
+export type Genev2sConnection = {
+  __typename?: 'Genev2sConnection';
+  /** A list of edges which contains the `Genev2` and cursor to aid in pagination. */
+  edges: Array<Genev2sEdge>;
+  /** A list of `Genev2` objects. */
+  nodes: Array<Genev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Genev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Genev2` edge in the connection. */
+export type Genev2sEdge = {
+  __typename?: 'Genev2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Genev2` at the end of the edge. */
+  node: Genev2;
+};
+
+/** Methods to use when ordering `Genev2`. */
+export enum Genev2sOrderBy {
+  AkaAsc = 'AKA_ASC',
+  AkaDesc = 'AKA_DESC',
+  AntibodyAsc = 'ANTIBODY_ASC',
+  AntibodyDesc = 'ANTIBODY_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  NameSgmlAsc = 'NAME_SGML_ASC',
+  NameSgmlDesc = 'NAME_SGML_DESC',
+  Natural = 'NATURAL',
+  OrganismIdAsc = 'ORGANISM_ID_ASC',
+  OrganismIdDesc = 'ORGANISM_ID_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  SymbolAsc = 'SYMBOL_ASC',
+  SymbolDesc = 'SYMBOL_DESC',
+  SymbolSgmlAsc = 'SYMBOL_SGML_ASC',
+  SymbolSgmlDesc = 'SYMBOL_SGML_DESC',
+  TestisSpecificityIndexAsc = 'TESTIS_SPECIFICITY_INDEX_ASC',
+  TestisSpecificityIndexDesc = 'TESTIS_SPECIFICITY_INDEX_DESC'
 }
 
 export type Grpmemberprop = {
@@ -2008,6 +3836,140 @@ export type Node = {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID']['output'];
 };
+
+export type Orthologv2 = Node & {
+  __typename?: 'Orthologv2';
+  /** Reads and enables pagination through a set of `GeneHumanOrthologv2`. */
+  geneHumanOrthologv2SByOrthologIdConnection: GeneHumanOrthologv2sConnection;
+  /** Reads and enables pagination through a set of `GeneHumanOrthologv2`. */
+  geneHumanOrthologv2sByOrthologId: Array<GeneHumanOrthologv2>;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneHumanOrthologv2OrthologIdAndGeneId: Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdList: Array<Genev2>;
+  id: Scalars['String']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  organismId?: Maybe<Scalars['Int']['output']>;
+  symbol?: Maybe<Scalars['String']['output']>;
+  symbolSgml?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type Orthologv2GeneHumanOrthologv2SByOrthologIdConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneHumanOrthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneHumanOrthologv2sOrderBy>>;
+};
+
+
+export type Orthologv2GeneHumanOrthologv2sByOrthologIdArgs = {
+  condition?: InputMaybe<GeneHumanOrthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneHumanOrthologv2sOrderBy>>;
+};
+
+
+export type Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdListArgs = {
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+/**
+ * A condition to be used against `Orthologv2` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
+export type Orthologv2Condition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `organismId` field. */
+  organismId?: InputMaybe<Scalars['Int']['input']>;
+  /** Checks for equality with the object’s `symbol` field. */
+  symbol?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `symbolSgml` field. */
+  symbolSgml?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `Genev2` values, with data from `GeneHumanOrthologv2`. */
+export type Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdManyToManyConnection = {
+  __typename?: 'Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdManyToManyConnection';
+  /** A list of edges which contains the `Genev2`, info from the `GeneHumanOrthologv2`, and the cursor to aid in pagination. */
+  edges: Array<Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdManyToManyEdge>;
+  /** A list of `Genev2` objects. */
+  nodes: Array<Genev2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Genev2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Genev2` edge in the connection, with data from `GeneHumanOrthologv2`. */
+export type Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdManyToManyEdge = {
+  __typename?: 'Orthologv2Genev2sByGeneHumanOrthologv2OrthologIdAndGeneIdManyToManyEdge';
+  accession?: Maybe<Scalars['String']['output']>;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  dioptScore?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  /** The `Genev2` at the end of the edge. */
+  node: Genev2;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** A connection to a list of `Orthologv2` values. */
+export type Orthologv2sConnection = {
+  __typename?: 'Orthologv2sConnection';
+  /** A list of edges which contains the `Orthologv2` and cursor to aid in pagination. */
+  edges: Array<Orthologv2sEdge>;
+  /** A list of `Orthologv2` objects. */
+  nodes: Array<Orthologv2>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Orthologv2` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Orthologv2` edge in the connection. */
+export type Orthologv2sEdge = {
+  __typename?: 'Orthologv2sEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Orthologv2` at the end of the edge. */
+  node: Orthologv2;
+};
+
+/** Methods to use when ordering `Orthologv2`. */
+export enum Orthologv2sOrderBy {
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  Natural = 'NATURAL',
+  OrganismIdAsc = 'ORGANISM_ID_ASC',
+  OrganismIdDesc = 'ORGANISM_ID_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  SymbolAsc = 'SYMBOL_ASC',
+  SymbolDesc = 'SYMBOL_DESC',
+  SymbolSgmlAsc = 'SYMBOL_SGML_ASC',
+  SymbolSgmlDesc = 'SYMBOL_SGML_DESC'
+}
 
 /** Information about pagination in a connection. */
 export type PageInfo = {
@@ -2358,6 +4320,13 @@ export type Query = {
   allelesByFbalConnection?: Maybe<AllelesConnection>;
   /** Reads and enables pagination through a set of `Allele`. */
   allelesConnection?: Maybe<AllelesConnection>;
+  allelev2?: Maybe<Allelev2>;
+  /** Reads a single `Allelev2` using its globally unique `ID`. */
+  allelev2ByNodeId?: Maybe<Allelev2>;
+  /** Reads a set of `Allelev2`. */
+  allelev2s?: Maybe<Array<Allelev2>>;
+  /** Reads and enables pagination through a set of `Allelev2`. */
+  allelev2sConnection?: Maybe<Allelev2sConnection>;
   construct?: Maybe<Construct>;
   /** Reads a single `Construct` using its globally unique `ID`. */
   constructByNodeId?: Maybe<Construct>;
@@ -2381,9 +4350,51 @@ export type Query = {
   diseaseVariantsByFbhh?: Maybe<Array<AlleleDiseaseVariant>>;
   /** Reads and enables pagination through a set of `AlleleDiseaseVariant`. */
   diseaseVariantsByFbhhConnection?: Maybe<AlleleDiseaseVariantsConnection>;
+  diseasev2?: Maybe<Diseasev2>;
+  /** Reads a single `Diseasev2` using its globally unique `ID`. */
+  diseasev2ByNodeId?: Maybe<Diseasev2>;
+  /** Reads a set of `Diseasev2`. */
+  diseasev2s?: Maybe<Array<Diseasev2>>;
+  /** Reads and enables pagination through a set of `Diseasev2`. */
+  diseasev2sConnection?: Maybe<Diseasev2sConnection>;
+  enzymev2?: Maybe<Enzymev2>;
+  /** Reads a single `Enzymev2` using its globally unique `ID`. */
+  enzymev2ByNodeId?: Maybe<Enzymev2>;
+  /** Reads a set of `Enzymev2`. */
+  enzymev2s?: Maybe<Array<Enzymev2>>;
+  /** Reads and enables pagination through a set of `Enzymev2`. */
+  enzymev2sConnection?: Maybe<Enzymev2sConnection>;
   gene?: Maybe<Gene>;
+  geneAllelev2?: Maybe<GeneAllelev2>;
+  /** Reads a single `GeneAllelev2` using its globally unique `ID`. */
+  geneAllelev2ByNodeId?: Maybe<GeneAllelev2>;
+  /** Reads a set of `GeneAllelev2`. */
+  geneAllelev2s?: Maybe<Array<GeneAllelev2>>;
+  /** Reads and enables pagination through a set of `GeneAllelev2`. */
+  geneAllelev2sConnection?: Maybe<GeneAllelev2sConnection>;
   /** Reads a single `Gene` using its globally unique `ID`. */
   geneByNodeId?: Maybe<Gene>;
+  geneDiseasev2?: Maybe<GeneDiseasev2>;
+  /** Reads a single `GeneDiseasev2` using its globally unique `ID`. */
+  geneDiseasev2ByNodeId?: Maybe<GeneDiseasev2>;
+  /** Reads a set of `GeneDiseasev2`. */
+  geneDiseasev2s?: Maybe<Array<GeneDiseasev2>>;
+  /** Reads and enables pagination through a set of `GeneDiseasev2`. */
+  geneDiseasev2sConnection?: Maybe<GeneDiseasev2sConnection>;
+  geneEnzymev2?: Maybe<GeneEnzymev2>;
+  /** Reads a single `GeneEnzymev2` using its globally unique `ID`. */
+  geneEnzymev2ByNodeId?: Maybe<GeneEnzymev2>;
+  /** Reads a set of `GeneEnzymev2`. */
+  geneEnzymev2s?: Maybe<Array<GeneEnzymev2>>;
+  /** Reads and enables pagination through a set of `GeneEnzymev2`. */
+  geneEnzymev2sConnection?: Maybe<GeneEnzymev2sConnection>;
+  geneGoMolecularFunctionv2?: Maybe<GeneGoMolecularFunctionv2>;
+  /** Reads a single `GeneGoMolecularFunctionv2` using its globally unique `ID`. */
+  geneGoMolecularFunctionv2ByNodeId?: Maybe<GeneGoMolecularFunctionv2>;
+  /** Reads a set of `GeneGoMolecularFunctionv2`. */
+  geneGoMolecularFunctionv2s?: Maybe<Array<GeneGoMolecularFunctionv2>>;
+  /** Reads and enables pagination through a set of `GeneGoMolecularFunctionv2`. */
+  geneGoMolecularFunctionv2sConnection?: Maybe<GeneGoMolecularFunctionv2sConnection>;
   /** Reads and enables pagination through a set of `PathwayMember`. */
   geneGroupMembers?: Maybe<Array<PathwayMember>>;
   /** Reads and enables pagination through a set of `PathwayMember`. */
@@ -2392,10 +4403,39 @@ export type Query = {
   geneGroupMemberships?: Maybe<Array<GeneGroupMembership>>;
   /** Reads and enables pagination through a set of `GeneGroupMembership`. */
   geneGroupMembershipsConnection?: Maybe<GeneGroupMembershipsConnection>;
+  geneGroupMemberv2?: Maybe<GeneGroupMemberv2>;
+  geneGroupMemberv2ByGeneIdAndGeneGroupIdAndSubgroupId?: Maybe<GeneGroupMemberv2>;
+  /** Reads a single `GeneGroupMemberv2` using its globally unique `ID`. */
+  geneGroupMemberv2ByNodeId?: Maybe<GeneGroupMemberv2>;
+  /** Reads a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2s?: Maybe<Array<GeneGroupMemberv2>>;
+  /** Reads and enables pagination through a set of `GeneGroupMemberv2`. */
+  geneGroupMemberv2sConnection?: Maybe<GeneGroupMemberv2sConnection>;
+  geneGroupv2?: Maybe<GeneGroupv2>;
+  /** Reads a single `GeneGroupv2` using its globally unique `ID`. */
+  geneGroupv2ByNodeId?: Maybe<GeneGroupv2>;
+  /** Reads a set of `GeneGroupv2`. */
+  geneGroupv2s?: Maybe<Array<GeneGroupv2>>;
+  /** Reads and enables pagination through a set of `GeneGroupv2`. */
+  geneGroupv2sConnection?: Maybe<GeneGroupv2sConnection>;
+  geneHumanOrthologv2?: Maybe<GeneHumanOrthologv2>;
+  /** Reads a single `GeneHumanOrthologv2` using its globally unique `ID`. */
+  geneHumanOrthologv2ByNodeId?: Maybe<GeneHumanOrthologv2>;
+  /** Reads a set of `GeneHumanOrthologv2`. */
+  geneHumanOrthologv2s?: Maybe<Array<GeneHumanOrthologv2>>;
+  /** Reads and enables pagination through a set of `GeneHumanOrthologv2`. */
+  geneHumanOrthologv2sConnection?: Maybe<GeneHumanOrthologv2sConnection>;
   /** Reads a set of `Gene`. */
   genes?: Maybe<Array<Gene>>;
   /** Reads and enables pagination through a set of `Gene`. */
   genesConnection?: Maybe<GenesConnection>;
+  genev2?: Maybe<Genev2>;
+  /** Reads a single `Genev2` using its globally unique `ID`. */
+  genev2ByNodeId?: Maybe<Genev2>;
+  /** Reads a set of `Genev2`. */
+  genev2s?: Maybe<Array<Genev2>>;
+  /** Reads and enables pagination through a set of `Genev2`. */
+  genev2sConnection?: Maybe<Genev2sConnection>;
   getAllianceVariantsByAllele?: Maybe<VariantsByAlleleResult>;
   getAllianceVariantsByGene?: Maybe<VariantsByGeneResult>;
   /** Reads and enables pagination through a set of `Featureprop`. */
@@ -2428,6 +4468,13 @@ export type Query = {
   node?: Maybe<Node>;
   /** The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`. */
   nodeId: Scalars['ID']['output'];
+  orthologv2?: Maybe<Orthologv2>;
+  /** Reads a single `Orthologv2` using its globally unique `ID`. */
+  orthologv2ByNodeId?: Maybe<Orthologv2>;
+  /** Reads a set of `Orthologv2`. */
+  orthologv2s?: Maybe<Array<Orthologv2>>;
+  /** Reads and enables pagination through a set of `Orthologv2`. */
+  orthologv2sConnection?: Maybe<Orthologv2sConnection>;
   pathway?: Maybe<Pathway>;
   /** Reads a single `Pathway` using its globally unique `ID`. */
   pathwayByNodeId?: Maybe<Pathway>;
@@ -2683,6 +4730,35 @@ export type QueryAllelesConnectionArgs = {
 };
 
 
+export type QueryAllelev2Args = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryAllelev2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryAllelev2sArgs = {
+  condition?: InputMaybe<Allelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Allelev2sOrderBy>>;
+};
+
+
+export type QueryAllelev2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Allelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Allelev2sOrderBy>>;
+};
+
+
 export type QueryConstructArgs = {
   postgresId: Scalars['Int']['input'];
 };
@@ -2767,13 +4843,195 @@ export type QueryDiseaseVariantsByFbhhConnectionArgs = {
 };
 
 
+export type QueryDiseasev2Args = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryDiseasev2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryDiseasev2sArgs = {
+  condition?: InputMaybe<Diseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Diseasev2sOrderBy>>;
+};
+
+
+export type QueryDiseasev2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Diseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Diseasev2sOrderBy>>;
+};
+
+
+export type QueryEnzymev2Args = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryEnzymev2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryEnzymev2sArgs = {
+  condition?: InputMaybe<Enzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Enzymev2sOrderBy>>;
+};
+
+
+export type QueryEnzymev2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Enzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Enzymev2sOrderBy>>;
+};
+
+
 export type QueryGeneArgs = {
   featureId: Scalars['Int']['input'];
 };
 
 
+export type QueryGeneAllelev2Args = {
+  alleleId: Scalars['String']['input'];
+  geneId: Scalars['String']['input'];
+  isConstruct: Scalars['Boolean']['input'];
+};
+
+
+export type QueryGeneAllelev2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneAllelev2sArgs = {
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
+export type QueryGeneAllelev2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneAllelev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneAllelev2sOrderBy>>;
+};
+
+
 export type QueryGeneByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneDiseasev2Args = {
+  diseaseId: Scalars['String']['input'];
+  geneId: Scalars['String']['input'];
+  isExperimental: Scalars['Boolean']['input'];
+  qualifier: Scalars['String']['input'];
+};
+
+
+export type QueryGeneDiseasev2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneDiseasev2sArgs = {
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+export type QueryGeneDiseasev2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneDiseasev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneDiseasev2sOrderBy>>;
+};
+
+
+export type QueryGeneEnzymev2Args = {
+  enzymeId: Scalars['String']['input'];
+  geneId: Scalars['String']['input'];
+};
+
+
+export type QueryGeneEnzymev2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneEnzymev2sArgs = {
+  condition?: InputMaybe<GeneEnzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneEnzymev2sOrderBy>>;
+};
+
+
+export type QueryGeneEnzymev2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneEnzymev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneEnzymev2sOrderBy>>;
+};
+
+
+export type QueryGeneGoMolecularFunctionv2Args = {
+  geneId: Scalars['String']['input'];
+  goId: Scalars['String']['input'];
+  isExperimental: Scalars['Boolean']['input'];
+};
+
+
+export type QueryGeneGoMolecularFunctionv2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneGoMolecularFunctionv2sArgs = {
+  condition?: InputMaybe<GeneGoMolecularFunctionv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGoMolecularFunctionv2sOrderBy>>;
+};
+
+
+export type QueryGeneGoMolecularFunctionv2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGoMolecularFunctionv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGoMolecularFunctionv2sOrderBy>>;
 };
 
 
@@ -2815,6 +5073,101 @@ export type QueryGeneGroupMembershipsConnectionArgs = {
 };
 
 
+export type QueryGeneGroupMemberv2Args = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type QueryGeneGroupMemberv2ByGeneIdAndGeneGroupIdAndSubgroupIdArgs = {
+  geneGroupId: Scalars['String']['input'];
+  geneId: Scalars['String']['input'];
+  subgroupId: Scalars['String']['input'];
+};
+
+
+export type QueryGeneGroupMemberv2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneGroupMemberv2sArgs = {
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type QueryGeneGroupMemberv2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupMemberv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupMemberv2sOrderBy>>;
+};
+
+
+export type QueryGeneGroupv2Args = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGeneGroupv2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneGroupv2sArgs = {
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type QueryGeneGroupv2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneGroupv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneGroupv2sOrderBy>>;
+};
+
+
+export type QueryGeneHumanOrthologv2Args = {
+  geneId: Scalars['String']['input'];
+  orthologId: Scalars['String']['input'];
+};
+
+
+export type QueryGeneHumanOrthologv2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGeneHumanOrthologv2sArgs = {
+  condition?: InputMaybe<GeneHumanOrthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneHumanOrthologv2sOrderBy>>;
+};
+
+
+export type QueryGeneHumanOrthologv2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneHumanOrthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GeneHumanOrthologv2sOrderBy>>;
+};
+
+
 export type QueryGenesArgs = {
   condition?: InputMaybe<GeneCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2831,6 +5184,35 @@ export type QueryGenesConnectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<GenesOrderBy>>;
+};
+
+
+export type QueryGenev2Args = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGenev2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryGenev2sArgs = {
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
+};
+
+
+export type QueryGenev2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Genev2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Genev2sOrderBy>>;
 };
 
 
@@ -2964,6 +5346,35 @@ export type QueryIsPathwayArgs = {
 
 export type QueryNodeArgs = {
   nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryOrthologv2Args = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryOrthologv2ByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QueryOrthologv2sArgs = {
+  condition?: InputMaybe<Orthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Orthologv2sOrderBy>>;
+};
+
+
+export type QueryOrthologv2sConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<Orthologv2Condition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<Orthologv2sOrderBy>>;
 };
 
 
@@ -3708,6 +6119,8 @@ export type VariantsByGeneResult = {
 
 export type FullAlleleFragment = { __typename?: 'Allele', id?: string | null, symbol?: string | null, isConstruct?: boolean | null, stocksCount?: any | null, pubCount?: any | null, knownLesion?: boolean | null, hasImage?: boolean | null, geneIsRegulatoryRegion?: boolean | null, mutagens: Array<{ __typename?: 'AlleleMutagen', id?: string | null, name?: string | null }>, classes: Array<{ __typename?: 'AlleleClass', id?: string | null, name?: string | null }>, insertions: Array<{ __typename?: 'Insertion', id?: string | null, symbol?: string | null }>, constructs: Array<{ __typename?: 'Construct', id?: string | null, symbol?: string | null }>, insertedElementTypes?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, regRegions?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, encodedTools?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, encodedToolUses?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, taggedWith?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, tagUses?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, alsoCarries?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null } & { ' $fragmentName'?: 'FullAlleleFragment' };
 
+export type GeneGroupMemberFragment = { __typename?: 'GeneGroupMemberv2', geneGroupPubs?: any | null, gene?: { __typename?: 'Genev2', id: string, symbol?: string | null, symbolSgml?: string | null, name?: string | null, nameSgml?: string | null, aka?: string | null, pubs?: Array<string | null> | null, antibody?: boolean | null, testisSpecificityIndex?: string | null, cytogenicMap?: Array<string | null> | null, transgenicConstructs: Array<{ __typename?: 'GeneAllelev2', allele?: { __typename?: 'Allelev2', id: string, symbol?: string | null } | null }>, classicalAndInsertionAlleles: Array<{ __typename?: 'GeneAllelev2', allele?: { __typename?: 'Allelev2', id: string, symbol?: string | null } | null }>, geneGroups: Array<{ __typename?: 'GeneGroupMemberv2', geneGroup?: { __typename?: 'GeneGroupv2', id: string, symbol?: string | null, type?: string | null } | null }>, experimentalDiseaseModels: Array<{ __typename?: 'GeneDiseasev2', disease?: { __typename?: 'Diseasev2', id: string, name?: string | null } | null }>, potentialDiseaseModels: Array<{ __typename?: 'GeneDiseasev2', disease?: { __typename?: 'Diseasev2', id: string, name?: string | null } | null }>, humanOrthologs: Array<{ __typename?: 'GeneHumanOrthologv2', dioptScore?: number | null, name?: string | null, ortholog?: { __typename?: 'Orthologv2', id: string, symbol?: string | null, organismId?: number | null } | null }>, enzymes: Array<{ __typename?: 'Enzymev2', id: string, name?: string | null }>, experimentalGoMolecularFunctions: Array<{ __typename?: 'GeneGoMolecularFunctionv2', goId: string, goMolecularFunction?: string | null }>, nonExperimentalGoMolecularFunctions: Array<{ __typename?: 'GeneGoMolecularFunctionv2', goId: string, goMolecularFunction?: string | null }> } | null } & { ' $fragmentName'?: 'GeneGroupMemberFragment' };
+
 export type GeneToolKitMostCommonlyUsedQueryVariables = Exact<{
   geneId?: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -3724,6 +6137,19 @@ export type GetAllelesQuery = { __typename?: 'Query', alleles?: Array<(
     { __typename?: 'Allele' }
     & { ' $fragmentRefs'?: { 'FullAlleleFragment': FullAlleleFragment } }
   )> | null };
+
+export type GeneGroupTablesQueryVariables = Exact<{
+  FBgg: Scalars['String']['input'];
+}>;
+
+
+export type GeneGroupTablesQuery = { __typename?: 'Query', geneGroupv2?: { __typename?: 'GeneGroupv2', id: string, type?: string | null, subgroups: Array<{ __typename?: 'GeneGroupv2', id: string, name?: string | null, nameSgml?: string | null, symbol?: string | null, symbolSgml?: string | null, memberships: Array<(
+        { __typename?: 'GeneGroupMemberv2' }
+        & { ' $fragmentRefs'?: { 'GeneGroupMemberFragment': GeneGroupMemberFragment } }
+      )> }>, memberships: Array<(
+      { __typename?: 'GeneGroupMemberv2' }
+      & { ' $fragmentRefs'?: { 'GeneGroupMemberFragment': GeneGroupMemberFragment } }
+    )> } | null };
 
 export type GetSplitSystemCombinationsQueryVariables = Exact<{
   fbal_ids: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
@@ -3744,7 +6170,9 @@ export type FindToolsQueryVariables = Exact<{
 export type FindToolsQuery = { __typename?: 'Query', alleles?: Array<{ __typename?: 'ExpressionToolSearchResult', id: string, expression_terms: Array<{ __typename?: 'AllianceCVTerm', id: string, name?: string | null } | null> } | null> | null };
 
 export const FullAlleleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<FullAlleleFragment, unknown>;
+export const GeneGroupMemberFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GeneGroupMember"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GeneGroupMemberv2"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupPubs"}},{"kind":"Field","name":{"kind":"Name","value":"gene"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"aka"}},{"kind":"Field","name":{"kind":"Name","value":"pubs"}},{"kind":"Field","name":{"kind":"Name","value":"antibody"}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructs"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionAlleles"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"geneGroups"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroup"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"potentialDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"humanOrthologs"},"name":{"kind":"Name","value":"geneHumanOrthologv2sByGeneId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dioptScore"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"ortholog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"organismId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"testisSpecificityIndex"}},{"kind":"Field","alias":{"kind":"Name","value":"enzymes"},"name":{"kind":"Name","value":"enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"nonExperimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cytogenicMap"}}]}}]}}]} as unknown as DocumentNode<GeneGroupMemberFragment, unknown>;
 export const GeneToolKitMostCommonlyUsedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeneToolKitMostCommonlyUsed"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionsAlleles"},"name":{"kind":"Name","value":"genes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"geneIsRegulatoryRegion"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"paperCount"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructs"},"name":{"kind":"Name","value":"genes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}},{"kind":"ObjectField","name":{"kind":"Name","value":"geneIsRegulatoryRegion"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"paperCount"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"transgenicProductClasses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transgenicProductClass"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GeneToolKitMostCommonlyUsedQuery, GeneToolKitMostCommonlyUsedQueryVariables>;
 export const GetAllelesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAlleles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"alleles"},"name":{"kind":"Name","value":"allelesByFbal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullAllele"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<GetAllelesQuery, GetAllelesQueryVariables>;
+export const GeneGroupTablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeneGroupTables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupv2"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"subgroups"},"name":{"kind":"Name","value":"geneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","alias":{"kind":"Name","value":"memberships"},"name":{"kind":"Name","value":"geneGroupMemberv2sBySubgroupId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"geneGroupId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GeneGroupMember"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"memberships"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneGroupId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GeneGroupMember"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GeneGroupMember"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GeneGroupMemberv2"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupPubs"}},{"kind":"Field","name":{"kind":"Name","value":"gene"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"aka"}},{"kind":"Field","name":{"kind":"Name","value":"pubs"}},{"kind":"Field","name":{"kind":"Name","value":"antibody"}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructs"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionAlleles"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"geneGroups"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroup"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"potentialDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"humanOrthologs"},"name":{"kind":"Name","value":"geneHumanOrthologv2sByGeneId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dioptScore"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"ortholog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"organismId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"testisSpecificityIndex"}},{"kind":"Field","alias":{"kind":"Name","value":"enzymes"},"name":{"kind":"Name","value":"enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"nonExperimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cytogenicMap"}}]}}]}}]} as unknown as DocumentNode<GeneGroupTablesQuery, GeneGroupTablesQueryVariables>;
 export const GetSplitSystemCombinationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSplitSystemCombinations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"splitSystemCombinations"},"name":{"kind":"Name","value":"splitSystemCombinationsByFbal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"componentAlleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isAlleleof"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullAllele"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<GetSplitSystemCombinationsQuery, GetSplitSystemCombinationsQueryVariables>;
 export const FindToolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"findTools"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"expression"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ExpressionSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"gene"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"alleles"},"name":{"kind":"Name","value":"searchExpressionTools"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"expression"},"value":{"kind":"Variable","name":{"kind":"Name","value":"expression"}}},{"kind":"Argument","name":{"kind":"Name","value":"gene"},"value":{"kind":"Variable","name":{"kind":"Name","value":"gene"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"expression_terms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<FindToolsQuery, FindToolsQueryVariables>;

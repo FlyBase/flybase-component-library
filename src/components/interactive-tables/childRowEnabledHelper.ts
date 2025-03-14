@@ -1,28 +1,10 @@
 import {AccessorFnColumnDef, ColumnHelper, ColumnMeta, createColumnHelper, RowData} from "@tanstack/react-table";
 import {getAllByPath} from "../../helpers/getByPath";
-import {DeepKeysMaxDepth, DeepKeysOfObjectArrayTypes, TypeByPath, TypeOrArrayType} from "../../types";
+import {DeepKeysMaxDepth, TypeByPath, TypeOrArrayType} from "../../types";
 import {AccessorFn} from "@tanstack/table-core";
-import {ChildCellContext, ChildPath, ChildType, ExportAccessorFn} from "../../react-table";
+import {ChildCellContext, ChildPath, ExportAccessorFn} from "../../react-table";
+import {CONCATENATION_DELIMITER} from "../../helpers/constants";
 
-// export type ChildRowEnabledHelper<TData> =  ColumnHelper<TData> & {
-//     childAccessor:
-//         <
-//             ChildPath extends DeepKeysMaxDepth<TData> = Extract<DeepKeysMaxDepth<TData>, DeepKeysOfObjectArrayTypes<TData>>,
-//             ChildType = TypeOrArrayType<TypeByPath<TData, ChildPath & string>>,
-//             ChildAccessorKeyOrFunction = AccessorFn<ChildType> | DeepKeysMaxDepth<ChildType>
-//         >(
-//             childPath: ChildPath,
-//             childAccessorKeyOrFunction: ChildAccessorKeyOrFunction,
-//             childColumnDef:
-//                 Omit<AccessorFnColumnDef<TData>, "cell" | "accessorFn" | "meta">
-//                 & {
-//                 cell?: string | ((props: ChildCellContext<TData, ChildType>) => any),
-//                 meta?: Omit<AccessorFnColumnDef<TData>['meta'], "childRow" | "exportFn"> & {
-//                     exportFn?: ExportAccessorFn<ChildType>,
-//                 },
-//             }
-//         ) => AccessorFnColumnDef<TData>
-// };
 
 export type ChildRowEnabledHelper<TData> =  ColumnHelper<TData> & {
     childAccessor:
@@ -45,53 +27,46 @@ export type ChildRowEnabledHelper<TData> =  ColumnHelper<TData> & {
 };
 
 
-
-const CONCATENATION_DELIMITER = "|~|"; //Just needs to be something unlikely to be in a symbol/name
-
-
 const createChildRowEnabledHelper = <TData extends RowData,>() => {
     const originalHelper = createColumnHelper<TData>();
 
     const newHelper: ChildRowEnabledHelper<TData> = {
         ...originalHelper,
-        childAccessor:(childPath, childAccessorKeyOrFunction, childColumnDef) => {
-            return ({
-                ...childColumnDef,
-                id: typeof childAccessorKeyOrFunction === "function" ? childPath+"."+childColumnDef.id! : childPath+"."+childAccessorKeyOrFunction,
-                cell: props => null,
-                accessorFn: (row: TData) => {
-                    const children = getAllByPath(row, childPath);
+        childAccessor: (childPath, childAccessorKeyOrFunction, childColumnDef) => ({
+            ...childColumnDef,
+            id: typeof childAccessorKeyOrFunction === "function" ? childPath+"."+childColumnDef.id! : childPath+"."+childAccessorKeyOrFunction,
+            cell: _props => null,
+            accessorFn: (row: TData) => {
+                const children = getAllByPath(row, childPath);
 
-                    /*
-                    * This check is needed because, for some reason, child rows get passed to accessor functions as well,
-                    * meaning we need to ignore child rows in the logic.
-                    * */
-                    if(!Array.isArray(children)) {
-                        return "";
-                    }
-
-                    const childAccessorValues = children.map(
-                        (item, index) => typeof childAccessorKeyOrFunction === "function"
-                            ? childAccessorKeyOrFunction(item, index)
-                            : typeof childAccessorKeyOrFunction === "string"
-                                ? item[childAccessorKeyOrFunction as keyof typeof item]
-                                : ""
-                    )
-
-                    return childAccessorValues.join(CONCATENATION_DELIMITER);
-                },
-                meta: {
-                    ...childColumnDef.meta,
-                    exportFn: undefined,
-                    childRow: {
-                        path: childPath,
-                        cell: childColumnDef.cell || (props => null),
-                        // ...(childColumnDef.cell ? { cell: childColumnDef.cell } : {}),
-                        ...(childColumnDef.meta?.exportFn ? { exportFn: childColumnDef.meta.exportFn } : {})
-                    }
+                /*
+                * This check is needed because, for some reason, child rows get passed to accessor functions as well,
+                * meaning we need to ignore child rows in the logic.
+                * */
+                if(!Array.isArray(children)) {
+                    return "";
                 }
-            });
-        },
+
+                const childAccessorValues = children.map(
+                    (item, index) => typeof childAccessorKeyOrFunction === "function"
+                        ? childAccessorKeyOrFunction(item, index)
+                        : typeof childAccessorKeyOrFunction === "string"
+                            ? item[childAccessorKeyOrFunction as keyof typeof item]
+                            : ""
+                )
+
+                return childAccessorValues.join(CONCATENATION_DELIMITER);
+            },
+            meta: {
+                ...childColumnDef.meta,
+                exportFn: undefined,
+                childRow: {
+                    path: childPath,
+                    cell: childColumnDef.cell || (_props => null),
+                    ...(childColumnDef.meta?.exportFn ? { exportFn: childColumnDef.meta.exportFn } : {})
+                }
+            }
+        }),
     };
 
     return newHelper;

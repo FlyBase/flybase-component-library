@@ -5,25 +5,42 @@
   max-width: 100%;
   height: 100%;
   width: fit-content;
-  //font-family: "clear_sansregular",sans-serif;
   font-family: fonts.$main;
 
+  .button-link {
+    background-color: transparent;
+    border: none;
+    color: colors.$fbBrightBlue;
+    font-family: fonts.$main;
+    font-size: 12pt;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
   sup, up {
+    position: relative;
+    top: -.5em;
     vertical-align: baseline;
     font-size: 75%;
-    position: relative;
     line-height: 0;
-    top: -.5em;
   }
 
   .main-toolbar {
-    border-top: 2px solid rgb(221, 221, 221);
-    border-bottom: 2px solid rgb(221, 221, 221);
     padding: 5px 15px;
-    background-color: rgb(204, 198, 174);
-    color: rgb(51, 51, 51);
+    border-top: 2px solid colors.$fbTanBorder;
+    border-bottom: 2px solid colors.$fbTanBorder;
+
+    background-color: colors.$fbTan;
+
+    color: colors.$text;
     font-weight: 700;
     font-size: 15px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -33,16 +50,19 @@
       align-items: center;
       justify-content: flex-start;
       gap: 15px;
-      white-space: nowrap;
       flex: 1;
 
+      white-space: nowrap;
+
       .export-options {
-        list-style: none;
         margin: 0;
         padding: 10px;
-        gap: 5px;
+
+        list-style: none;
+
         display: flex;
         flex-direction: column;
+        gap: 5px;
 
         form {
           display: none;
@@ -51,20 +71,21 @@
         li {
           padding: 0;
           margin: 0;
+
           text-align: left;
 
           .icon-button {
+            padding: 3px 10px;
+            border: 2px solid colors.$fbInputBlue;
+            border-radius: 8px;
+
+            background-color: white;
+            cursor: pointer;
 
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 5px;
-            padding: 3px 10px;
-            border: 2px solid colors.$fbInputBlue;
-            border-radius: 8px;
-            background-color: white;
-
-            cursor: pointer;
 
             &:hover {
               background-color: colors.$fbInputBlue;
@@ -90,29 +111,33 @@
               color: colors.$fbInputBlue;
             }
           }
-
-
         }
       }
 
       .hidden-columns {
-        font-size: 14px;
-        color: #555555;
-        font-weight: normal;
+        padding-right: 15px;
+
+        width: 0;
         min-width: 0;
+
+        font-size: 14px;
+        font-weight: normal;
+        color: colors.$textLight;
         text-overflow: ellipsis;
-        overflow: hidden;
+        white-space: nowrap;
+
         display: inline-block;
         flex: 1;
-        white-space: nowrap;
-        width: 0;
-        padding-right: 15px;
+
+        overflow: hidden;
       }
 
       .show-hide-list {
-        list-style: none;
         padding: 15px;
         margin: 0;
+
+        list-style: none;
+
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -120,6 +145,7 @@
         li {
           display: flex;
           flex-direction: column;
+
           input {
             margin-right: 5px;
             margin-top: 0;
@@ -135,8 +161,10 @@
           }
 
           .child-columns {
-            list-style: none;
             padding: 0 0 0 15px;
+
+            list-style: none;
+
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -144,11 +172,8 @@
             li {
               display: flex;
             }
-
           }
         }
-
-
       }
     }
 
@@ -161,25 +186,28 @@
       .count {
         font-size: 14px;
         font-weight: 500;
-        color: #555555;
         font-style: italic;
+        color: colors.$textLight;
       }
     }
 
     .button-bar {
-      list-style: none;
       padding: 0;
       margin: 0;
+      border: 1px solid black;
+      border-radius: 8px;
+
+      width: fit-content;
+
+      list-style: none;
+      overflow: hidden;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      border-radius: 8px;
-      width: fit-content;
-      border: 1px solid black;
 
       li {
-        border-left: 1px solid #5bc0de;
+        border-left: 1px solid colors.$fbInputBlue;
         height: 30px;
 
         &:first-child {
@@ -188,17 +216,20 @@
       }
 
       button {
+        border: none;
+
         height: 30px;
         width: 30px;
-        border: none;
+
         background: white;
+        cursor: pointer;
+
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
 
         svg {
-          fill: #5bc0de;
+          fill: colors.$fbInputBlue;
           height: 10px;
         }
 
@@ -207,51 +238,59 @@
         }
 
         &:disabled {
-          svg {
-            fill: rgb(51, 51, 51);
-          }
           cursor: not-allowed;
           background-color: darken(white, 10%);
+
+          svg {
+            fill: colors.$text;
+          }
         }
       }
 
       .radio-button {
+        padding: 0 5px;
+
         height: 30px;
         min-width: 20px;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         background-color: white;
-        color: #5bc0de;
         cursor: pointer;
-        padding: 0 5px;
-        white-space: nowrap;
+
+        color: colors.$fbInputBlue;
         line-height: normal;
+        white-space: nowrap;
 
         &:not(:has(input:checked)):hover {
           background-color: darken(white, 10%);
         }
 
         &:has(input:checked) {
-          background-color: #5bc0de;
+          background-color: colors.$fbInputBlue;
           color: white;
         }
 
         input {
-          visibility: hidden;
           margin: 0;
           padding: 0;
+
           height: 0;
           width: 0;
+
+          visibility: hidden;
         }
       }
     }
   }
 
   .table-wrapper {
-    overflow: scroll;
     width: 100%;
     max-height: calc(100% - 50px);
+
+    overflow: scroll;
 
     table {
       border-spacing: 0;
@@ -261,14 +300,15 @@
         position: sticky;
         top: 0;
         z-index: 200;
-        tr {
 
+        tr {
           th {
-            border-top: 2px solid rgb(221, 221, 221);
+            border-top: 2px solid colors.$fbTanBorder;
             padding: 5px 15px;
-            background-color: rgb(204, 198, 174);
-            //background-color: rgb(210, 215, 220);
-            color: rgb(51, 51, 51);
+
+            background-color: colors.$fbTan;
+
+            color: colors.$text;
             font-weight: 700;
             font-size: 15px;
             line-height: normal;
@@ -305,7 +345,13 @@
         }
 
         tr.group-header:first-child th {
-          border: 1px solid rgb(221, 221, 221);
+          border: 1px solid colors.$fbTanBorder;
+        }
+
+        tr.group-header:nth-last-child(1 of .group-header) th {
+          border-left: none;
+          border-right: none;
+          border-bottom: none;
         }
 
         tr:last-child th {
@@ -316,10 +362,11 @@
       tbody {
         height: 100%;
         overflow-x: scroll;
+
         tr {
           td {
             padding: 5px 15px;
-            border-top: 1px solid rgb(221, 221, 221);
+            border-top: 1px solid colors.$fbTanBorder;
 
             a {
               color: colors.$fbBrightBlue;
@@ -332,7 +379,7 @@
         }
 
         tr.first-of-group td {
-          border-top: 1px solid rgb(133, 133, 133);
+          border-top: 1px solid colors.$fbTanBorderDark;
         }
 
         tr.first-of-group:first-child td {
@@ -341,5 +388,4 @@
       }
     }
   }
-
 }

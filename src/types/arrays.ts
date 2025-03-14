@@ -22,4 +22,3 @@ export type OnlyNonArrayOfObjects<Type> =
         : {
             [Key in keyof Type as (IsArrayOfObjectsType<Type[Key]> extends false ? Key : never)]: Type[Key]
         };
-
