@@ -6,6 +6,66 @@
   height: 100%;
   width: fit-content;
   font-family: fonts.$main;
+  position: relative;
+
+  &.full-width, .full-width {
+    min-width: 100%;
+  }
+
+  .reset-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-family: fonts.$main;
+    height: 30px;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid black;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken(white, 10%);
+    }
+  }
+
+  .horizontal-scroll-arrows {
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: absolute;
+    bottom: 20px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-family: fonts.$main;
+      height: 30px;
+      width: 30px;
+      font-weight: 700;
+      font-size: 15px;
+      background-color: white;
+      border-radius: 8px;
+      border: 1px solid black;
+      cursor: pointer;
+      opacity: 30%;
+      z-index: 100;
+
+      &:hover {
+        opacity: 100%;
+      }
+
+      svg {
+        height: 20px;
+        fill: colors.$fbInputBlue;
+      }
+    }
+  }
 
   .button-link {
     background-color: transparent;
@@ -287,10 +347,11 @@
   }
 
   .table-wrapper {
-    width: 100%;
+    //width: 100%;
     max-height: calc(100% - 50px);
 
-    overflow: scroll;
+    overflow: auto;
+    scroll-behavior: smooth;
 
     table {
       border-spacing: 0;

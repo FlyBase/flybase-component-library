@@ -128,14 +128,6 @@ const GENE_GROUP_TABLE_COLUMNS = [
             defaultVisibility: "hidden"
         }
     }),
-    geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(isPathway)), {
-        id: "pathways",
-        header: "Pathways",
-        meta: {
-            exportFn: gene => dataClassExportFn(gene.geneGroups.filter(isPathway)),
-            defaultVisibility: "hidden"
-        }
-    }),
     geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.humanOrthologs), {
         id: "humanOrthologs",
         header: "Human Orthologs",
@@ -192,6 +184,17 @@ const GENE_GROUP_TABLE_COLUMNS = [
     })
 ] as ColumnDef<GeneWithGeneGroupPubs, unknown>[];
 
+const PATHWAYS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(isPathway)), {
+    id: "pathways",
+    header: "Pathways",
+    cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => isPathway(group))} preferName />,
+    meta: {
+        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(isPathway)),
+        defaultVisibility: "hidden",
+        nowrap: true
+    }
+});
+
 const SOURCE_MATERIAL_FOR_MEMBERSHIP_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroupPubs), {
     id: "sourceMaterialForMembership",
     header: "Source Material For Membership",
@@ -203,27 +206,30 @@ const SOURCE_MATERIAL_FOR_MEMBERSHIP_COLUMN = geneGroupTableHelper.accessor(gene
 const GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(group => !isPathway(group))), {
     id: "geneGroups",
     header: "Gene Groups",
-    cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} />,
+    cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} preferName />,
     meta: {
-        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(group => !isPathway(group)))
+        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(group => !isPathway(group))),
+        nowrap: true
     }
 });
 
 const OTHER_GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(group => !isPathway(group))), {
     id: "otherGeneGroups",
     header: "Other Gene Groups",
-    cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} />,
+    cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} preferName />,
     meta: {
-        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(group => !isPathway(group)))
+        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(group => !isPathway(group))),
+        nowrap: true
     }
 });
 
 const OTHER_PATHWAYS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(isPathway)), {
     id: "otherPathways",
     header: "Other Pathways",
-    cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => isPathway(group))} />,
+    cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => isPathway(group))} preferName />,
     meta: {
-        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(isPathway))
+        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(isPathway)),
+        nowrap: true
     }
 })
 
@@ -278,6 +284,7 @@ const GeneGroupTables: React.FC<GeneGroupTablesProps> = ({ FBgg }) => {
                     OTHER_PATHWAYS_COLUMN
                 ];
                 default: return [
+                    PATHWAYS_COLUMN,
                     SOURCE_MATERIAL_FOR_MEMBERSHIP_COLUMN,
                     OTHER_GENE_GROUPS_COLUMN
                 ];
@@ -301,7 +308,7 @@ const GeneGroupTables: React.FC<GeneGroupTablesProps> = ({ FBgg }) => {
             {
                 filteredData.memberships.length > 0 &&
                 <ReportSection heading="" variant="level-2" sectionId="groupMembers" blindLocation="reports" collapsible={false}>
-                    <InteractiveTable id="geneGroupMemberTable" columns={COLUMNS} data={filteredData.memberships}/>
+                    <InteractiveTable id="geneGroupMemberTable" columns={COLUMNS} data={filteredData.memberships} showColumnLines />
                 </ReportSection>
             }
             {
@@ -309,7 +316,13 @@ const GeneGroupTables: React.FC<GeneGroupTablesProps> = ({ FBgg }) => {
                 filteredData.subgroups.map((subgroup, index) => (
                     <React.Fragment key={`${id}-${subgroup.id}-${index}}`}>
                         <ReportSection url={"/reports/"+subgroup.id} collapsible={false} heading={subgroup.name || ""} variant="level-2" sectionId={`subgroup-table-${subgroup.id}`} blindLocation="reports">
-                            <InteractiveTable id={`geneGroupMemberTable-${subgroup.id}`} columns={COLUMNS} data={subgroup.memberships}/>
+                            <InteractiveTable
+                                id={`geneGroupMemberTable-${subgroup.id}`}
+                                columns={COLUMNS}
+                                data={subgroup.memberships}
+                                fullWidth
+                                showColumnLines
+                            />
                         </ReportSection>
                     </React.Fragment>
                 ))

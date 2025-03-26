@@ -32,8 +32,8 @@ export const sanitizeDataClassForAccessor = <TData extends DataClass,>(item?: TD
     return sanitizedValue + CONCATENATION_DELIMITER + item?.id;
 }
 
-export const sanitizeDataClassForCell = <TData extends DataClass,>(item?: TData) => {
-    const value = item?.symbol || item?.name;
+export const sanitizeDataClassForCell = <TData extends DataClass,>(item?: TData, preferName: boolean = false) => {
+    const value = preferName ? item?.name || item?.symbol : item?.symbol || item?.name;
     if(!value) return "";
     return value.split("INTERSECTION")
         .join("∩<br/>")
@@ -129,7 +129,11 @@ export const createDataClassValueByPathFunction = <TData extends DataClass>(
 export const dataClassAccessorFnByPath = createDataClassValueByPathFunction(dataClassAccessorFn);
 export const dataClassExportFnByPath = createDataClassValueByPathFunction(dataClassExportFn);
 
-export const DataClassLink = <TData extends DataClass,>({ data, formatter = sanitizeDataClassForCell, subsection, multiline = true }: { data: DataClassOrArray<TData>, formatter?: (item: TData) => string, subsection?: string, multiline?: boolean }) => {
+export const DataClassLink = <TData extends DataClass,>({ data, formatter, subsection, multiline = true, preferName = false }: { data: DataClassOrArray<TData>, formatter?: (item: TData) => string, subsection?: string, multiline?: boolean, preferName?: boolean }) => {
+
+    if(!formatter) {
+        formatter =  item => sanitizeDataClassForCell(item, preferName);
+    }
 
     const id = useId();
 
@@ -141,7 +145,7 @@ export const DataClassLink = <TData extends DataClass,>({ data, formatter = sani
         <>
             {
                 defined(data).map((item, index) => {
-                    let html = item.symbol || item.name || "";
+                    let html = preferName ? item.name || item.symbol || "" : item.symbol || item.name || "";
                     if(formatter) {
                         html = formatter(item);
                     }

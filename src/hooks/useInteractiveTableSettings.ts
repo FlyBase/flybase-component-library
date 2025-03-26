@@ -144,7 +144,7 @@ const sanitizeLocalSettings = <TData extends RowData>(table: Table<TData>, local
 
 }
 
-const useInteractiveTableSettings = <TData extends RowData>(tableId: string, table: Table<TData>, initialSettings: Partial<TableState> = {}): ReturnType<typeof useSmartStorage<TableState>> => {
+const useInteractiveTableSettings = <TData extends RowData>(tableId: string, table: Table<TData>, initialSettings: Partial<TableState> = {}): [...ReturnType<typeof useSmartStorage<TableState>>, () => void] => {
     const [localSettings, updateSettings, deleteSettings] = useSmartStorage<TableState>(`interactiveTableSettings.${tableId}`);
 
     const [defaultApplied, setDefaultApplied] = useState(false);
@@ -167,7 +167,9 @@ const useInteractiveTableSettings = <TData extends RowData>(tableId: string, tab
         }
     }, [defaultApplied, initialSettings, localSettings, table, updateSettings]);
 
-    return [defaultApplied ? localSettings : {} as TableState, updateSettings, deleteSettings];
+    const resetSettings = () => updateSettings("", getDefaultSettingsForTable(table, initialSettings));
+
+    return [defaultApplied ? localSettings : {} as TableState, updateSettings, deleteSettings, resetSettings];
 };
 
 export default useInteractiveTableSettings;

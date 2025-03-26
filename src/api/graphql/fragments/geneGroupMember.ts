@@ -28,6 +28,7 @@ const GeneGroupMember = gql(/* GraphQL */ `
                 geneGroup {
                     id
                     symbol
+                    name
                     type
                 }
             }

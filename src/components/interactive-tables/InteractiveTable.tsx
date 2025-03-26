@@ -1,4 +1,4 @@
-import React, {CSSProperties, ReactNode, useRef} from 'react';
+import React, {CSSProperties, ReactNode, useCallback, useEffect, useRef, useState} from 'react';
 import {
     Cell, CellContext,
     Column,
@@ -45,12 +45,17 @@ import ExcelFileIcon from "../icons/ExcelFileIcon";
 import exportFromJSON, {ExportTypeWithTSV, ExportFromJSONWithTSVFunction} from "export-from-json";
 import TSVFileIcon from "../icons/TSVFileIcon";
 import {ChildRowEnabledRow} from "../../types";
+import CaretLeftIcon from "../icons/CaretLeftIcon";
+import CaretRightIcon from "../icons/CaretRightIcon";
+import {tab} from "@testing-library/user-event/dist/tab";
 
 
 type InteractiveTableProps<DataType> = {
     id: string,
     columns: ColumnDef<DataType, unknown>[],
     data: DataType[],
+    fullWidth?: boolean,
+    showColumnLines?: boolean
 };
 
 type MultiTextInputFilterValue = {
@@ -167,7 +172,7 @@ const DraggableHeader: React.FC<DraggableHeaderProps> = ({ header }) => {
     )
 };
 
-const DragAlongCell = ({cell}: { cell: Cell<any, unknown> }) => {
+const DragAlongCell = ({cell, showColumnLines}: { cell: Cell<any, unknown>, showColumnLines: boolean }) => {
     const { isDragging, setNodeRef, transform, transition } = useSortable({
         id: cell.column.id,
     })
@@ -181,7 +186,9 @@ const DragAlongCell = ({cell}: { cell: Cell<any, unknown> }) => {
     let showLeftBorder = false;
     let showRightBorder = false;
 
-    if(cell.column.parent) {
+    if(showColumnLines) {
+        showLeftBorder = prevColId !== undefined;
+    } else if (cell.column.parent) {
         if(!prevColId) showLeftBorder = true;
         else {
             const prevCol = prevColId ? table.getColumn(prevColId) : null;
@@ -299,7 +306,7 @@ const DragAlongFilterHeader = ({header}: { header: Header<any, unknown> }) => {
 const MAX_PAGE_INDEX_BUTTONS = 3;
 
 
-const InteractiveTable = <TData extends RowData, >({id, columns, data}: InteractiveTableProps<TData>): ReactNode => {
+const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth = false, showColumnLines = false}: InteractiveTableProps<TData>): ReactNode => {
 
     const table = useChildRowEnabledReactTable({
         columns,
@@ -313,7 +320,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
                 const values = [...filterValue.pills, ...(filterValue.inputText === "" ? [] : [filterValue.inputText])];
 
                 for (let i = 0; i < values.length; i++) {
-                    if (!(row.getValue(columnId) as string).toLowerCase().includes(values[i].toLowerCase())) {
+                    if (!((row.getValue(columnId) || "") as string).toLowerCase().includes(values[i].toLowerCase())) {
                         return false;
                     }
                 }
@@ -322,8 +329,10 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
         }
     });
 
-    const [state, updateState] = useInteractiveTableSettings(id, table, {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [state, updateState, _deleteState, resetState] = useInteractiveTableSettings(id, table, {
         columnOrder: table.getAllLeafColumns().map(c=>c.id),
+        sorting: [{ id: table.getAllLeafColumns().filter(column => column.columnDef.meta?.defaultVisibility ? column.columnDef.meta.defaultVisibility !== "hidden" : true)[0].id, desc: false }],
         columnVisibility: Object.fromEntries(
             table.getAllFlatColumns().map(column => [
                 column.id,
@@ -331,12 +340,39 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
             ])
         )
     });
+    const [horizontalScrollEnabled, setHorizontalScrollEnabled] = useState(false);
     const hitlistFormRef = useRef<HTMLFormElement>(null);
+    const [tableContainerElement, setTableContainerElement] = useState<HTMLDivElement | null>(null);
+
+    const tableWrapperRef = useCallback((container: HTMLDivElement) => {
+        if(!container) return;
+
+        const observer = new ResizeObserver(() => {
+            setHorizontalScrollEnabled(container.scrollWidth !== container.clientWidth);
+        });
+
+        observer.observe(container);
+        setTableContainerElement(container);
+    },[]);
+
+    const onHorizontalScroll = (direction: "left" | "right") => {
+        if(!tableContainerElement) return;
+
+        const totalWidth = tableContainerElement.clientWidth;
+        const scrollLimit = tableContainerElement.scrollWidth - totalWidth;
+        const currentScrollPosition = tableContainerElement!.scrollLeft;
+
+        if(direction === "left") {
+            tableContainerElement.scrollLeft = Math.max(0, currentScrollPosition - totalWidth);
+        } else {
+            tableContainerElement.scrollLeft = Math.min(scrollLimit, currentScrollPosition + totalWidth);
+        }
+    }
 
     table.setOptions(prev => {
         return {
             ...prev,
-            state: state,
+            state,
             onStateChange: newState => {
                 updateState("", typeof newState === "function" ? newState(state) : newState)
             },
@@ -494,9 +530,21 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
             onDragEnd={handleDragEnd}
             sensors={sensors}
         >
-            <div className="interactive-table">
+            <div className={classNames("interactive-table", { "full-width": fullWidth })}>
+                {
+                    horizontalScrollEnabled &&
+                    <div className="horizontal-scroll-arrows">
+                        <button className="scroll-left" onClick={() => onHorizontalScroll("left")}>
+                            <CaretLeftIcon />
+                        </button>
+                        <button className="scroll-right" onClick={() => onHorizontalScroll("right")}>
+                            <CaretRightIcon />
+                        </button>
+                    </div>
+                }
                 <div className="main-toolbar">
                     <section className="export-show-hide-options">
+                        <button className="reset-button" onClick={() => resetState()}>Reset</button>
                         <DropdownButton text="Export">
                             <ul className="export-options">
                                 <li>
@@ -657,8 +705,8 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
                         </ol>
                     </section>
                 </div>
-                <div className="table-wrapper">
-                    <table>
+                <div className="table-wrapper" ref={tableWrapperRef}>
+                    <table className={classNames({ "full-width": fullWidth })}>
                         <thead>
                         {table.getHeaderGroups().map(headerGroup => (
                             <tr key={headerGroup.id} className="group-header">
@@ -718,7 +766,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data}: Interact
                                                                     {/*    items={table.getState().columnOrder}*/}
                                                                     {/*    strategy={horizontalListSortingStrategy}*/}
                                                                     {/*>*/}
-                                                                        <DragAlongCell cell={cell} key={cell.id}/>
+                                                                        <DragAlongCell cell={cell} key={cell.id} showColumnLines={showColumnLines} />
                                                                     {/*</SortableContext>*/}
                                                                 </React.Fragment>
                                                             ))}
