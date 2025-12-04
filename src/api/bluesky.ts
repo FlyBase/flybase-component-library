@@ -11,14 +11,14 @@ export type BlueskyResolveHandleResponse = {
 
 export const useBlueskyResolveHandle = (handle: string) =>
     useAPI<{}, ComAtprotoIdentityResolveHandle.Response>(
-        `${{BLUESKY_PUBLIC_API_BASE_URL}}/xrpc/com.atproto.identity.resolveHandle`,
+        `${BLUESKY_PUBLIC_API_BASE_URL}/xrpc/com.atproto.identity.resolveHandle`,
         undefined,
         { handle }
     );
 
 export const useBlueskyGetAuthorFeed = (did: string, params: AppBskyFeedGetAuthorFeed.QueryParams) =>
     useAPI<{}, AppBskyFeedGetAuthorFeed.Response >(
-        `${{BLUESKY_PUBLIC_API_BASE_URL}}/xrpc/app.bsky.feed.getAuthorFeed`,
+        `${BLUESKY_PUBLIC_API_BASE_URL}/xrpc/app.bsky.feed.getAuthorFeed`,
         undefined,
         params
     );
@@ -26,9 +26,11 @@ export const useBlueskyGetAuthorFeed = (did: string, params: AppBskyFeedGetAutho
 export const useBlueskyFeed = (handle: string, params: Omit<AppBskyFeedGetAuthorFeed.QueryParams, 'actor'>) => {
     const { response: handleInfo, loadData: loadHandle, isLoading: isLoadingHandle } = useBlueskyResolveHandle(handle);
     const { response: feed, loadData: loadFeed, isLoading: isLoadingFeed } = useBlueskyGetAuthorFeed(handle, {
-        actor: handleInfo?.data.did || "",
+        actor: handleInfo?.data?.did || "",
         ...params
     });
+
+    console.log("handleInfo", handleInfo);
 
     const loadData = () => {
         if(!handleInfo && !isLoadingHandle) {
@@ -37,7 +39,7 @@ export const useBlueskyFeed = (handle: string, params: Omit<AppBskyFeedGetAuthor
     };
 
     useEffect(() => {
-        if(handleInfo?.data.did && !feed && !isLoadingFeed) {
+        if(handleInfo?.data?.did && !feed && !isLoadingFeed) {
             loadFeed();
         }
     }, [handleInfo, isLoadingFeed, loadFeed, feed]);

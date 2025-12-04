@@ -9,8 +9,8 @@ import {
     dataClassAccessorFnByPath,
     dataClassExportFn,
     DataClassLink,
-    defined, exportByName,
-    HitlistLink,
+    defined, ECLink, exportByName,
+    HitlistLink, HumanOrthologLink,
     MultiHitlistLink,
     PubCountLink, sanitizeSGMLForAccessor, sanitizeSGMLForExport,
     SGML, SimpleList,
@@ -131,7 +131,7 @@ const GENE_GROUP_TABLE_COLUMNS = [
     geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.humanOrthologs), {
         id: "humanOrthologs",
         header: "Human Orthologs",
-        cell: props => <DataClassLink data={props.row.original.humanOrthologs} formatter={ortholog => ortholog.name}/>,
+        cell: props => <HumanOrthologLink orthologs={props.row.original.humanOrthologs} />,
         meta: {
             nowrap: true,
             exportFn: gene => exportByName(gene.humanOrthologs),
@@ -149,7 +149,7 @@ const GENE_GROUP_TABLE_COLUMNS = [
     geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.enzymes), {
         id: "enzyme",
         header: "Enzyme Name (EC)",
-        cell: props => <DataClassLink data={props.row.original.enzymes} formatter={enzyme => `${enzyme.name} (${enzyme.id})`} />,
+        cell: props => <ECLink enzymes={props.row.original.enzymes} />,
         meta: {
             exportFn: gene => gene.enzymes.map(enzyme => `${enzyme.name} (${enzyme.id})`).join(", "),
             defaultVisibility: "hidden"
@@ -157,19 +157,27 @@ const GENE_GROUP_TABLE_COLUMNS = [
     }),
     geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.experimentalGoMolecularFunctions), {
         id: "goMolecularFunctionExperimental",
-        header: "Go Molecular Function (Experimental)",
-        cell: props => <DataClassLink data={props.row.original.experimentalGoMolecularFunctions} formatter={goFunction => goFunction.goMolecularFunction || goFunction.goId}/>,
+        header: "GO Molecular Function (Experimental)",
+        cell: props => <DataClassLink data={props.row.original.experimentalGoMolecularFunctions}
+                                      formatter={goFunction => goFunction.goMolecularFunction || goFunction.goId}
+                                      getId={goFunction => goFunction.goId}
+                       />,
         meta: {
             exportFn: gene => gene.experimentalGoMolecularFunctions.map(goFunction => goFunction.goMolecularFunction || goFunction.goId).join(", "),
             defaultVisibility: "hidden"
         }
     }),
-    geneGroupTableHelper.accessor(gene => dataClassAccessorFnByPath(gene.nonExperimentalGoMolecularFunctions), {
+    geneGroupTableHelper.accessor(gene => dataClassAccessorFnByPath(gene.nonExperimentalGoMolecularFunctions.filter(go => go.goMolecularFunction !== "molecular_function")), {
         id: "goMolecularFunctionNonExperimental",
-        header: "Go Molecular Function (Non-Experimental)",
-        cell: props => <DataClassLink data={props.row.original.nonExperimentalGoMolecularFunctions} formatter={goFunction => goFunction.goMolecularFunction || goFunction.goId}/>,
+        header: "GO Molecular Function (Non-Experimental)",
+        cell: props => <DataClassLink data={props.row.original.nonExperimentalGoMolecularFunctions.filter(go => go.goMolecularFunction !== "molecular_function")}
+                                      formatter={goFunction => goFunction.goMolecularFunction || goFunction.goId}
+                                      getId={goFunction => goFunction.goId}
+                       />,
         meta: {
-            exportFn: gene => gene.nonExperimentalGoMolecularFunctions.map(goFunction => goFunction.goMolecularFunction || goFunction.goId).join(", "),
+            exportFn: gene => gene.nonExperimentalGoMolecularFunctions
+                .filter(go => go.goMolecularFunction !== "molecular_function")
+                .map(goFunction => goFunction.goMolecularFunction || goFunction.goId).join(", "),
             defaultVisibility: "hidden"
         }
     }),
@@ -184,12 +192,20 @@ const GENE_GROUP_TABLE_COLUMNS = [
     })
 ] as ColumnDef<GeneWithGeneGroupPubs, unknown>[];
 
+const idNameExportFn = (items: DataClass | DataClass[]) => {
+    if(!Array.isArray(items)) {
+        items = [items] as DataClass[];
+    }
+
+    return defined(items as DataClass[]).map(item => `${item.id}${item.name ? " "+item.name : ""}`).join("\n");
+}
+
 const PATHWAYS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(isPathway)), {
     id: "pathways",
     header: "Pathways",
     cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => isPathway(group))} preferName />,
     meta: {
-        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(isPathway)),
+        exportFn: gene => idNameExportFn(gene.geneGroups.filter(isPathway)),
         defaultVisibility: "hidden",
         nowrap: true
     }
@@ -200,7 +216,10 @@ const SOURCE_MATERIAL_FOR_MEMBERSHIP_COLUMN = geneGroupTableHelper.accessor(gene
     header: "Source Material For Membership",
     cell: props => <>({
         props.row.original.geneGroupPubs.map((pub, index) => <React.Fragment key={`${pub.id}-${index}-${props.cell.id}}`}><DataClassLink data={pub} multiline={false} />{index === props.row.original.geneGroupPubs.length - 1 ? "" : ", "}</React.Fragment>)
-    })</>
+    })</>,
+    meta: {
+        exportFn: gene => gene.geneGroupPubs.map(pub => pub.id).join(", ")
+    }
 });
 
 const GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(group => !isPathway(group))), {
@@ -208,7 +227,7 @@ const GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccess
     header: "Gene Groups",
     cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} preferName />,
     meta: {
-        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(group => !isPathway(group))),
+        exportFn: gene => idNameExportFn(gene.geneGroups.filter(group => !isPathway(group))),
         nowrap: true
     }
 });
@@ -218,7 +237,7 @@ const OTHER_GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClass
     header: "Other Gene Groups",
     cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} preferName />,
     meta: {
-        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(group => !isPathway(group))),
+        exportFn: gene => idNameExportFn(gene.geneGroups.filter(group => !isPathway(group))),
         nowrap: true
     }
 });
@@ -228,7 +247,7 @@ const OTHER_PATHWAYS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAcc
     header: "Other Pathways",
     cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => isPathway(group))} preferName />,
     meta: {
-        exportFn: gene => dataClassExportFn(gene.geneGroups.filter(isPathway)),
+        exportFn: gene => idNameExportFn(gene.geneGroups.filter(isPathway)),
         nowrap: true
     }
 })
@@ -308,20 +327,29 @@ const GeneGroupTables: React.FC<GeneGroupTablesProps> = ({ FBgg }) => {
             {
                 filteredData.memberships.length > 0 &&
                 <ReportSection heading="" variant="level-2" sectionId="groupMembers" blindLocation="reports" collapsible={false}>
-                    <InteractiveTable id="geneGroupMemberTable" columns={COLUMNS} data={filteredData.memberships} showColumnLines />
+                    <InteractiveTable id="geneGroupMemberTable"
+                                      columns={COLUMNS}
+                                      data={filteredData.memberships}
+                                      fullWidth
+                                      showColumnLines
+                                      showHiddenColumnText={false}
+                                      totalText="members"
+                    />
                 </ReportSection>
             }
             {
                 filteredData.subgroups.length > 0 &&
                 filteredData.subgroups.map((subgroup, index) => (
                     <React.Fragment key={`${id}-${subgroup.id}-${index}}`}>
-                        <ReportSection url={"/reports/"+subgroup.id} collapsible={false} heading={subgroup.name || ""} variant="level-2" sectionId={`subgroup-table-${subgroup.id}`} blindLocation="reports">
+                        <ReportSection url={"/reports/"+subgroup.id} collapsible={false} heading={subgroup.name ? `${subgroup.name} (${subgroup.memberships.length})` : ""} variant="level-2" sectionId={`subgroup-table-${subgroup.id}`} blindLocation="reports">
                             <InteractiveTable
                                 id={`geneGroupMemberTable-${subgroup.id}`}
                                 columns={COLUMNS}
                                 data={subgroup.memberships}
                                 fullWidth
                                 showColumnLines
+                                showHiddenColumnText={false}
+                                totalText="members"
                             />
                         </ReportSection>
                     </React.Fragment>

@@ -55,7 +55,10 @@ type InteractiveTableProps<DataType> = {
     columns: ColumnDef<DataType, unknown>[],
     data: DataType[],
     fullWidth?: boolean,
-    showColumnLines?: boolean
+    showColumnLines?: boolean,
+    useHorizontalScrollArrows?: boolean,
+    showHiddenColumnText?: boolean,
+    totalText?: string
 };
 
 type MultiTextInputFilterValue = {
@@ -306,7 +309,16 @@ const DragAlongFilterHeader = ({header}: { header: Header<any, unknown> }) => {
 const MAX_PAGE_INDEX_BUTTONS = 3;
 
 
-const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth = false, showColumnLines = false}: InteractiveTableProps<TData>): ReactNode => {
+const InteractiveTable = <TData extends RowData, >({
+    id,
+    columns,
+    data,
+    fullWidth = false,
+    showColumnLines = false,
+    useHorizontalScrollArrows = false,
+    showHiddenColumnText = true,
+    totalText = "total"
+}: InteractiveTableProps<TData>): ReactNode => {
 
     const table = useChildRowEnabledReactTable({
         columns,
@@ -441,13 +453,9 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth
         const data: Array<{ [key: string]: string }> = [];
 
         table.getRowModel().rows.forEach(row => {
-
             const parentRowJSON: { [key: string]: string } = {};
 
-            console.log(row)
-
             row.getVisibleCells().forEach(cell => {
-                // console.log(cell)
                 let exportValue = cell.getValue();
                 if(cell.column.columnDef.meta?.exportFn) {
                     exportValue = cell.column.columnDef.meta.exportFn(cell.row.original);
@@ -455,7 +463,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth
                 if(exportValue === null || exportValue === undefined) {
                     exportValue = "";
                 }
-                parentRowJSON[cell.column.id] = exportValue as string;
+                parentRowJSON[getDisplayName(cell.column)] = exportValue as string;
             });
 
             (row as ChildRowEnabledRow<TData>).childRows.forEach(childRow => {
@@ -463,6 +471,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth
                 const childRowJSON: { [key: string]: string } = {};
 
                 childRow.getVisibleCells().forEach(cell => {
+
                     let exportValue = cell.getValue();
                     if(cell.column.columnDef.meta?.childRow?.exportFn) {
                         exportValue = cell.column.columnDef.meta.childRow.exportFn(cell.row.original);
@@ -470,7 +479,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth
                     if(exportValue === null || exportValue === undefined) {
                         exportValue = "";
                     }
-                    childRowJSON[cell.column.id] = exportValue as string;
+                    childRowJSON[getDisplayName(cell.column)] = exportValue as string;
                 });
 
                 data.push({
@@ -532,7 +541,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth
         >
             <div className={classNames("interactive-table", { "full-width": fullWidth })}>
                 {
-                    horizontalScrollEnabled &&
+                    horizontalScrollEnabled && useHorizontalScrollArrows &&
                     <div className="horizontal-scroll-arrows">
                         <button className="scroll-left" onClick={() => onHorizontalScroll("left")}>
                             <CaretLeftIcon />
@@ -605,7 +614,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth
                             </ul>
                         </DropdownButton>
                         {
-                            table.getAllLeafColumns().length !== table.getAllLeafColumns().filter(c => c.getIsVisible()).length &&
+                            showHiddenColumnText && table.getAllLeafColumns().length !== table.getAllLeafColumns().filter(c => c.getIsVisible()).length &&
                             <span className="hidden-columns">Hidden columns: {
                                 table.getAllLeafColumns()
                                     .filter(column => !column.getIsVisible())
@@ -615,7 +624,7 @@ const InteractiveTable = <TData extends RowData, >({id, columns, data, fullWidth
                         }
                     </section>
                     <section className="pagination-options">
-                        <span className="count">({data.length} total)</span>
+                        <span className="count">({data.length} {totalText})</span>
                         <ol className="button-bar">
                             {
                                 ["Show All", 20, 100].map(pageSize => (

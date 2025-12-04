@@ -47,6 +47,7 @@ const GeneGroupMember = gql(/* GraphQL */ `
             humanOrthologs: geneHumanOrthologv2sByGeneId {
                 dioptScore
                 name
+                url
                 ortholog {
                     id
                     symbol

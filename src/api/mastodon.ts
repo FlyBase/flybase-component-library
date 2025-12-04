@@ -164,11 +164,11 @@ export type UseMastodonFeedOptions = {
 
 
 export const useMastodonAccountInfo = (server: string, accountHandle: string, domain: string = server) =>
-    useAPI<{}, MastodonAccount>(`https://${server}/api/v1/accounts/lookup`, undefined, {acct: `${accountHandle}@${domain}`});
+    useAPI<{}, { data: MastodonAccount }>(`https://${server}/api/v1/accounts/lookup`, undefined, {acct: `${accountHandle}@${domain}`});
 
 export const useMastodonFeed = (server: string, accountHandle: string, domain: string = server, options?: UseMastodonFeedOptions) => {
     const { response: accountInfo, loadData: loadAccountInfo, isLoading: isLoadingAccountInfo } = useMastodonAccountInfo(server, accountHandle, domain);
-    const { response: posts, loadData: loadPosts, isLoading: isLoadingPosts } = useAPI<{}, MastodonStatus[]>(`https://${server}/api/v1/accounts/${accountInfo?.id}/statuses`, {}, options);
+    const { response: posts, loadData: loadPosts, isLoading: isLoadingPosts } = useAPI<{}, { data: MastodonStatus[] }>(`https://${server}/api/v1/accounts/${accountInfo?.data?.id}/statuses`, {}, options);
 
     const loadData = () => {
         if(!accountInfo && !isLoadingAccountInfo) {
@@ -177,11 +177,11 @@ export const useMastodonFeed = (server: string, accountHandle: string, domain: s
     };
 
     useEffect(() => {
-        if(accountInfo?.id && !posts && !isLoadingPosts) {
+        if(accountInfo?.data?.id && !posts && !isLoadingPosts) {
             loadPosts();
         }
     }, [accountInfo, isLoadingPosts, loadPosts, posts]);
 
-    return { posts, accountInfo, loadData, isLoading: isLoadingAccountInfo || isLoadingPosts }
+    return { posts: posts?.data, accountInfo, loadData, isLoading: isLoadingAccountInfo || isLoadingPosts }
 
 }

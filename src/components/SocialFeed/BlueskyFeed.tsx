@@ -4,7 +4,7 @@ import {SocialPostProps} from "./SocialPost";
 import LoadingIndicator from "../icons/LoadingIndicator";
 import {useBlueskyFeed} from "../../api/bluesky";
 import {FeedViewPost, ReasonRepost} from "@atproto/api/dist/client/types/app/bsky/feed/defs";
-import {AppBskyEmbedImages, AppBskyFeedPost} from "@atproto/api";
+import {AppBskyEmbedImages, AppBskyFeedPost, RichText} from "@atproto/api";
 import {ProfileViewBasic} from "@atproto/api/dist/client/types/app/bsky/actor/defs";
 
 type BlueskyFeedProps = {
@@ -31,15 +31,36 @@ const mapPostToProps = (post: FeedViewPost): SocialPostProps => {
         }
     }
 
+    const rt = new RichText({
+        text: (post.post.record as AppBskyFeedPost.Record).text,
+        facets: (post.post.record as AppBskyFeedPost.Record).facets
+    });
+
+    let html = '';
+    // @ts-ignore
+    for (const segment of rt.segments()) {
+        if (segment.isLink()) {
+            html += `<a href="${segment.link?.uri}">${segment.text}</a>`
+        } else if (segment.isMention()) {
+            html += `<a href="https://my-bsky-app.com/user/${segment.mention?.did}">${segment.text}</a>`
+        } else if (segment.isTag()) {
+            html += `<a href="${segment.tag?.tag}">${segment.text}</a>`
+        } else {
+            html += segment.text
+        }
+    }
+
+    console.log("author", author, "aiw", accountInteractedWith, post.reblog);
+
 
     return {
-        author,
+        author: post.reason?.$type === "app.bsky.feed.defs#reasonRepost" ? accountInteractedWith : author,
         postedTime: (post.post.record as AppBskyFeedPost.Record).createdAt,
-        content: (post.post.record as AppBskyFeedPost.Record).text,
-        ...(post.reblog ? {
+        content: `<p>${html.replaceAll("\n", "<br/>")}</p>`,
+        ...(post.reason?.$type === "app.bsky.feed.defs#reasonRepost" ? {
             accountInteractedWith: {
                 interactionType: "repost",
-                ...accountInteractedWith
+                ...author
             }
         } : ""),
         ...((post.post.embed && post.post.embed.$type === "app.bsky.embed.images#view") ? {
@@ -51,11 +72,11 @@ const mapPostToProps = (post: FeedViewPost): SocialPostProps => {
     };
 };
 
-const MastodonFeed: React.FC<BlueskyFeedProps> = ({ accountHandle, limit }) => {
+const MastodonFeed: React.FC<BlueskyFeedProps> = ({ accountHandle, limit = 10 }) => {
 
-    const { feed, loadData, isLoading } = useBlueskyFeed("flybase.bsky.social", {
+    const { feed, loadData, isLoading } = useBlueskyFeed(accountHandle, {
         limit,
-        filter: "posts_no_replies"
+        filter: "posts_and_author_threads"
     });
 
     useEffect(() => {

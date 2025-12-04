@@ -32,7 +32,7 @@ const apiReducer = <ResponseType>(state: apiState<ResponseType>, action: apiActi
     return state;
 };
 
-const toQueryString = (params: { [key: string]: any }) => "?"+Object.keys(params).map(key => `${key}=${encodeURI(params[key])}`).join(",");
+const toQueryString = (params: { [key: string]: any }) => "?"+Object.keys(params).map(key => `${key}=${encodeURI(params[key])}`).join("&");
 
 type useAPIResponseType<ResponseType> = apiState<ResponseType> & {
     loadData: () => void,
@@ -51,7 +51,7 @@ export const useAPI = <RequestType = {}, ResponseType = {}>(url: string, request
                 ...(requestBody ? { body: requestBody } : "")
             });
             axios.get(url+(queryParams ? toQueryString(queryParams) : ""))
-                .then(response => dispatch({ type: "response", data: response.data }));
+                .then(response => dispatch({ type: "response", data: response }));
         }
     };
 

@@ -4,6 +4,7 @@ import {ChildType} from "../../react-table";
 import {getAllByPath} from "../../helpers/getByPath";
 import React, {useId} from "react";
 import {ChildRowEnabledHelper} from "./childRowEnabledHelper";
+import {OrthologWithDioptScoreAndName} from "../../hooks/useGeneGroupTables";
 
 export type DataClassOrArray<TData> = (TData | null | undefined) | (TData | null | undefined)[];
 
@@ -129,7 +130,7 @@ export const createDataClassValueByPathFunction = <TData extends DataClass>(
 export const dataClassAccessorFnByPath = createDataClassValueByPathFunction(dataClassAccessorFn);
 export const dataClassExportFnByPath = createDataClassValueByPathFunction(dataClassExportFn);
 
-export const DataClassLink = <TData extends DataClass,>({ data, formatter, subsection, multiline = true, preferName = false }: { data: DataClassOrArray<TData>, formatter?: (item: TData) => string, subsection?: string, multiline?: boolean, preferName?: boolean }) => {
+export const DataClassLink = <TData extends DataClass,>({ data, formatter, subsection, multiline = true, preferName = false, getId = item => item.id || "" }: { data: DataClassOrArray<TData>, formatter?: (item: TData) => string, subsection?: string, multiline?: boolean, preferName?: boolean, getId?: (item: TData) => string | number }) => {
 
     if(!formatter) {
         formatter =  item => sanitizeDataClassForCell(item, preferName);
@@ -152,7 +153,7 @@ export const DataClassLink = <TData extends DataClass,>({ data, formatter, subse
 
                     return (
                         <React.Fragment key={id+item.id+index}>
-                        <a href={`/reports/${item.id}${subsection ? "#"+subsection : ""}`}
+                        <a href={`/reports/${getId(item)}${subsection ? "#"+subsection : ""}`}
                     dangerouslySetInnerHTML={{__html: html}}
                 >
                     </a>
@@ -164,6 +165,56 @@ export const DataClassLink = <TData extends DataClass,>({ data, formatter, subse
         </>
     );
 }
+
+export const ECLink = ({ enzymes }: { enzymes: DataClass | DataClass[] }) => {
+    const id = useId();
+
+    if(!enzymes) return null;
+
+    if(!Array.isArray(enzymes)) enzymes = [enzymes];
+    
+    return (
+        <>
+            {
+                defined(enzymes as DataClass[]).map((enzyme, index) =>
+                        <a key={id+enzyme.id+index}
+                           href={`https://enzyme.expasy.org/EC/${enzyme.id}`}
+                           target="_blank"
+                           rel="noreferrer"
+                        >
+                            {enzyme.name} {enzyme.id}
+                        </a>
+                )
+            }
+        </>
+    )
+}
+
+export const HumanOrthologLink = ({ orthologs }: { orthologs: OrthologWithDioptScoreAndName | OrthologWithDioptScoreAndName[] }) => {
+    const id = useId();
+
+    if(!orthologs) return null;
+
+    if(!Array.isArray(orthologs)) orthologs = [orthologs];
+
+    return (
+        <>
+            {
+                defined(orthologs as OrthologWithDioptScoreAndName[]).map((ortholog, index) =>
+                    <React.Fragment key={id+ortholog.id+index}>
+                        <a href={ortholog.url}
+                           target="_blank"
+                           rel="noreferrer"
+                        >
+                            {ortholog.name}
+                        </a>
+                        <br/>
+                    </React.Fragment>
+                )
+            }
+        </>
+    )
+};
 
 export const HitlistLink = ({id, to, text}: {id: string | number | null | undefined, to: string | undefined, text: string | number | null | undefined}) => {
     if(!id || !to || !text) return null;

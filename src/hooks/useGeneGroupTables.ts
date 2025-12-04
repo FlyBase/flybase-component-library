@@ -15,17 +15,18 @@ import {unique} from "../components/interactive-tables/helpers";
 
 export type OrthologWithDioptScoreAndName = Orthologv2 & {
     dioptScore: number,
-    name: string
+    name: string,
+    url: string
 };
 
-const getFilteredGeneGroupMember = (geneGroupMember: GeneGroupMemberFragment, excludeGeneGroupId?: string): GeneWithGeneGroupPubs => ({
+const getFilteredGeneGroupMember = (geneGroupMember: GeneGroupMemberFragment, excludeGeneGroupIds?: string[]): GeneWithGeneGroupPubs => ({
     ...geneGroupMember.gene,
     geneGroupPubs: unique(geneGroupMember.geneGroupPubs, pub => pub.id) || [],
     transgenicConstructs: geneGroupMember.gene?.transgenicConstructs.map(construct => construct.allele as Allelev2) || [],
     classicalAndInsertionAlleles: geneGroupMember.gene?.classicalAndInsertionAlleles.map(construct => construct.allele as Allelev2) || [],
     geneGroups: geneGroupMember.gene?.geneGroups
         .map(group => group.geneGroup as GeneGroupv2)
-        .filter(group => excludeGeneGroupId === undefined || excludeGeneGroupId !== group.id) || [],
+        .filter(group => excludeGeneGroupIds === undefined || !excludeGeneGroupIds.includes(group.id)) || [],
     experimentalDiseaseModels: geneGroupMember.gene?.experimentalDiseaseModels.map(model => model.disease as Diseasev2) || [],
     potentialDiseaseModels: geneGroupMember.gene?.potentialDiseaseModels.map(model => model.disease as Diseasev2) || [],
     humanOrthologs: geneGroupMember.gene?.humanOrthologs
@@ -33,7 +34,8 @@ const getFilteredGeneGroupMember = (geneGroupMember: GeneGroupMemberFragment, ex
         .map(ortholog => ({
             ...ortholog.ortholog,
             dioptScore: ortholog.dioptScore,
-            name: ortholog.name
+            name: ortholog.name,
+            url: ortholog.url
         } as OrthologWithDioptScoreAndName)) || []
 }) as GeneWithGeneGroupPubs;
 
@@ -76,10 +78,10 @@ const useGeneGroupTables = (variables: GeneGroupTablesQueryVariables) => {
 
             const filtered: FormattedGeneGroupTables = {
                 ...data.geneGroupv2,
-                memberships: data.geneGroupv2.memberships.map(member => getFilteredGeneGroupMember(member, data.geneGroupv2?.id)),
+                memberships: data.geneGroupv2.memberships.map(member => getFilteredGeneGroupMember(member, [data.geneGroupv2?.id || ""])),
                 subgroups: data.geneGroupv2.subgroups.map(subgroup => ({
                     ...subgroup,
-                    memberships: subgroup.memberships.map(member => getFilteredGeneGroupMember(member, data.geneGroupv2?.id))
+                    memberships: subgroup.memberships.map(member => getFilteredGeneGroupMember(member, [data.geneGroupv2?.id || "", subgroup.id]))
                 }))
             };
 
