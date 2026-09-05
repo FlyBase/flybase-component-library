@@ -8,13 +8,15 @@ import {
 import getAlleles from "../api/graphql/getAlleles";
 import getSplitSystemCombinations from "../api/graphql/getSplitSystemCombinations";
 import {useEffect, useState} from "react";
+import {summarizeGAL4Allele} from "../helpers/summarizeGAL4Allele";
+import {gal4DetailOptions} from "../api/graphql/gal4DetailOptions";
 
 export type ExpressionTerm = {
     id: string,
     name?: string | null | undefined,
 } | null;
 
-export type AlleleWithExpressionTerms = FullAlleleFragment & {
+export type AlleleWithExpressionTerms = FullAlleleFragment & ReturnType<typeof summarizeGAL4Allele> & {
     expressionTerms: ExpressionTerm[]
 }
 
@@ -33,34 +35,35 @@ const appendExpressionTerms = (alleles: FullAlleleFragment[], expressionTerms: E
         const matchingTerms = expressionTerms[allele.id];
         allelesWithExpressionTerms.push({
             ...allele,
+            ...summarizeGAL4Allele(allele),
             expressionTerms: matchingTerms
         })
     });
     return allelesWithExpressionTerms;
 }
 
-const useGAL4Search = (variables: QuerySearchExpressionToolsArgs, mode: "ssc" | "allele" | "both" = "both") => {
+const useGAL4Search = (variables: QuerySearchExpressionToolsArgs, mode: "ssc" | "allele" | "both" = "both", enabled = true) => {
     const {
         loading: expressionTermsLoading,
         error: expressionTermsError,
         data: expressionTermsAlleles
-    } = useQuery(searchExpressionTools, {variables});
+    } = useQuery(searchExpressionTools, {variables, skip: !enabled});
 
     const [getAlleleSearch, {
         loading: alleleSearchLoading,
         error: alleleSearchError
-    }] = useLazyQuery(getAlleles);
+    }] = useLazyQuery(getAlleles, gal4DetailOptions);
 
     const [getSSCSearch, {
         loading: sscSearchLoading,
         error: sscSearchError
-    }] = useLazyQuery(getSplitSystemCombinations);
+    }] = useLazyQuery(getSplitSystemCombinations, gal4DetailOptions);
 
     const [alleleSearchResults, setAlleleSearchResults] = useState<AlleleWithExpressionTerms[] | null>(null);
     const [sscSearchResults, setSSCSearchResults] = useState<SSCWithExpressionTerms[] | null>(null);
 
     useEffect(() => {
-        if(!expressionTermsLoading && !expressionTermsError && expressionTermsAlleles?.alleles) {
+        if(enabled && !expressionTermsLoading && !expressionTermsError && expressionTermsAlleles?.alleles) {
             const fbal_ids = expressionTermsAlleles.alleles.map(allele => allele!.id);
 
             const expressionTermsIndexed: ExpressionTermsIndexed = {};
@@ -86,7 +89,7 @@ const useGAL4Search = (variables: QuerySearchExpressionToolsArgs, mode: "ssc" | 
                     ));
             }
         }
-    }, [expressionTermsAlleles?.alleles, expressionTermsError, expressionTermsLoading, getAlleleSearch, getSSCSearch, mode]);
+    }, [enabled, expressionTermsAlleles?.alleles, expressionTermsError, expressionTermsLoading, getAlleleSearch, getSSCSearch, mode]);
 
     return {
         loading: expressionTermsLoading || alleleSearchLoading || sscSearchLoading,

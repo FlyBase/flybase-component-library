@@ -10,6 +10,8 @@ const FullAllele = gql(/* GraphQL */ `
         knownLesion
         hasImage
         geneIsRegulatoryRegion
+        propagateTransgenicUses
+        gene { id symbol }
         mutagens {
             id
             name
@@ -21,39 +23,19 @@ const FullAllele = gql(/* GraphQL */ `
         insertions {
             id
             symbol
+            constructs {
+                tools { id symbol relType toolUses: uses { id name } }
+                toolUses { id name }
+            }
         }
         constructs {
             id
             symbol
+            tools { id symbol relType toolUses: uses { id name } }
+            toolUses { id name }
         }
-        insertedElementTypes {
-            id
-            name
-        }
-        regRegions {
-            id
-            symbol
-        }
-        encodedTools {
-            id
-            symbol
-        }
-        encodedToolUses {
-            id
-            name
-        }
-        taggedWith {
-            id
-            symbol
-        }
-        tagUses {
-            id
-            name
-        }
-        alsoCarries {
-            id
-            symbol
-        }
+        tools { id symbol relType toolUses: uses { id name } }
+        toolUses { id name }
     }
 `);
 

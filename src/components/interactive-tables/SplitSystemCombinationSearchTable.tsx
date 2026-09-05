@@ -348,7 +348,7 @@ const SplitSystemCombinationSearchTable: React.FC<SplitSystemCombinationSearchTa
 
     const [gal4Search] = useSmartStorage("gal4Search");
 
-    const {loading, errors, data: { sscSearch }} = useGAL4Search({ expression }, "ssc");
+    const {loading, errors, data: { sscSearch }} = useGAL4Search({ expression }, "ssc", gal4Search?.type === "ssc");
 
     if(!gal4Search || !gal4Search.type || gal4Search.type !== "ssc") return null;
 
