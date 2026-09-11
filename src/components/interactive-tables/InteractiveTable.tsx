@@ -771,12 +771,7 @@ const InteractiveTable = <TData extends RowData, >({
                                                     >
                                                         {subRowCells.map((cell, cellIndex) => (
                                                                 <React.Fragment key={`${row.id}-${rowIndex}-${cellIndex}`}>
-                                                                    {/*<SortableContext*/}
-                                                                    {/*    items={table.getState().columnOrder}*/}
-                                                                    {/*    strategy={horizontalListSortingStrategy}*/}
-                                                                    {/*>*/}
-                                                                        <DragAlongCell cell={cell} key={cell.id} showColumnLines={showColumnLines} />
-                                                                    {/*</SortableContext>*/}
+                                                                    <DragAlongCell cell={cell} key={cell.id} showColumnLines={showColumnLines} />
                                                                 </React.Fragment>
                                                             ))}
                                                         </SortableContext>

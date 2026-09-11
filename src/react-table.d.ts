@@ -13,7 +13,7 @@ export type ChildCellContext<ParentType, ChildType> = Omit<CellContext<ParentTyp
     }
 }
 
-export type ExportAccessorFn<TData> = (item: TData) => string;
+export type ExportAccessorFn<TData> = (item: TData) => string; //TODO: remove in alliance project
 export type ChildPath<TData> = Extract<DeepKeysMaxDepth<TData>, DeepKeysOfObjectArrayTypes<TData>>;
 export type ChildType<TData> = TypeOrArrayType<TypeByPath<TData, ChildPath<TData> & string>>;
 
@@ -28,11 +28,11 @@ declare module '@tanstack/react-table' {
         childRow?: {
             path: TChildPath,
             cell: string | ((props: ChildCellContext<TData, TChildType>) => any),
-            exportFn?: ExportAccessorFn<TChildType>
+            exportFn?: ExportAccessorFn<TChildType> //TODO: remove in alliance project
         },
         displayName?: string,
         align?: 'left' | 'center' | 'right',
-        exportFn?: ExportAccessorFn<TData>,
+        exportFn?: ExportAccessorFn<TData>, //TODO: remove in alliance project
         nowrap?: boolean,
         defaultVisibility?: 'visible' | 'hidden'
     }

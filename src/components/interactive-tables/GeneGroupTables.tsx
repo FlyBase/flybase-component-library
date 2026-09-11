@@ -224,7 +224,7 @@ const SOURCE_MATERIAL_FOR_MEMBERSHIP_COLUMN = geneGroupTableHelper.accessor(gene
 
 const GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(group => !isPathway(group))), {
     id: "geneGroups",
-    header: "Gene Groups",
+    header: "Gene Groups/Complexes",
     cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} preferName />,
     meta: {
         exportFn: gene => idNameExportFn(gene.geneGroups.filter(group => !isPathway(group))),
@@ -234,7 +234,7 @@ const GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccess
 
 const OTHER_GENE_GROUPS_COLUMN = geneGroupTableHelper.accessor(gene => dataClassAccessorFn(gene.geneGroups.filter(group => !isPathway(group))), {
     id: "otherGeneGroups",
-    header: "Other Gene Groups",
+    header: "Other Gene Groups/Complexes",
     cell: props => <DataClassLink data={props.row.original.geneGroups.filter(group => !isPathway(group))} preferName />,
     meta: {
         exportFn: gene => idNameExportFn(gene.geneGroups.filter(group => !isPathway(group))),

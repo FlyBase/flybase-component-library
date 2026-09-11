@@ -1,0 +1,452 @@
+@use "../../../styles/fonts";
+@use "../../../styles/colors";
+
+.interactive-table {
+  max-width: 100%;
+  height: 100%;
+  width: fit-content;
+  font-family: fonts.$main;
+  position: relative;
+
+  &.full-width, .full-width {
+    min-width: 100%;
+  }
+
+  .reset-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-family: fonts.$main;
+    height: 30px;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid black;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken(white, 10%);
+    }
+  }
+
+  .horizontal-scroll-arrows {
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: absolute;
+    bottom: 20px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-family: fonts.$main;
+      height: 30px;
+      width: 30px;
+      font-weight: 700;
+      font-size: 15px;
+      background-color: white;
+      border-radius: 8px;
+      border: 1px solid black;
+      cursor: pointer;
+      opacity: 30%;
+      z-index: 100;
+
+      &:hover {
+        opacity: 100%;
+      }
+
+      svg {
+        height: 20px;
+        fill: colors.$fbInputBlue;
+      }
+    }
+  }
+
+  .button-link {
+    background-color: transparent;
+    border: none;
+    color: colors.$fbBrightBlue;
+    font-family: fonts.$main;
+    font-size: 12pt;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  sup, up {
+    position: relative;
+    top: -.5em;
+    vertical-align: baseline;
+    font-size: 75%;
+    line-height: 0;
+  }
+
+  .main-toolbar {
+    padding: 5px 15px;
+    border-top: 2px solid colors.$fbTanBorder;
+    border-bottom: 2px solid colors.$fbTanBorder;
+
+    background-color: colors.$fbTan;
+
+    color: colors.$text;
+    font-weight: 700;
+    font-size: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .export-show-hide-options {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 15px;
+      flex: 1;
+
+      white-space: nowrap;
+
+      .export-options {
+        margin: 0;
+        padding: 10px;
+
+        list-style: none;
+
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        form {
+          display: none;
+        }
+
+        li {
+          padding: 0;
+          margin: 0;
+
+          text-align: left;
+
+          .icon-button {
+            padding: 3px 10px;
+            border: 2px solid colors.$fbInputBlue;
+            border-radius: 8px;
+
+            background-color: white;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+
+            &:hover {
+              background-color: colors.$fbInputBlue;
+
+              svg {
+                fill: white;
+              }
+
+              span {
+                color: white;
+              }
+            }
+
+            svg {
+              width: 20px;
+              fill: colors.$fbInputBlue;
+            }
+
+            span {
+              font-family: fonts.$main;
+              font-size: 16px;
+              font-weight: bold;
+              color: colors.$fbInputBlue;
+            }
+          }
+        }
+      }
+
+      .hidden-columns {
+        padding-right: 15px;
+
+        width: 0;
+        min-width: 0;
+
+        font-size: 14px;
+        font-weight: normal;
+        color: colors.$textLight;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        display: inline-block;
+        flex: 1;
+
+        overflow: hidden;
+      }
+
+      .show-hide-list {
+        padding: 15px;
+        margin: 0;
+
+        list-style: none;
+
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        li {
+          display: flex;
+          flex-direction: column;
+
+          input {
+            margin-right: 5px;
+            margin-top: 0;
+          }
+
+          label {
+            display: flex;
+            cursor: pointer;
+          }
+
+          .parent-column {
+            margin-bottom: 5px;
+          }
+
+          .child-columns {
+            padding: 0 0 0 15px;
+
+            list-style: none;
+
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            li {
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+
+    .pagination-options {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 15px;
+
+      .count {
+        font-size: 14px;
+        font-weight: 500;
+        font-style: italic;
+        color: colors.$textLight;
+      }
+    }
+
+    .button-bar {
+      padding: 0;
+      margin: 0;
+      border: 1px solid black;
+      border-radius: 8px;
+
+      width: fit-content;
+
+      list-style: none;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      li {
+        border-left: 1px solid colors.$fbInputBlue;
+        height: 30px;
+
+        &:first-child {
+          border: none;
+        }
+      }
+
+      button {
+        border: none;
+
+        height: 30px;
+        width: 30px;
+
+        background: white;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          fill: colors.$fbInputBlue;
+          height: 10px;
+        }
+
+        &:enabled:hover {
+          background-color: darken(white, 10%);
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          background-color: darken(white, 10%);
+
+          svg {
+            fill: colors.$text;
+          }
+        }
+      }
+
+      .radio-button {
+        padding: 0 5px;
+
+        height: 30px;
+        min-width: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: white;
+        cursor: pointer;
+
+        color: colors.$fbInputBlue;
+        line-height: normal;
+        white-space: nowrap;
+
+        &:not(:has(input:checked)):hover {
+          background-color: darken(white, 10%);
+        }
+
+        &:has(input:checked) {
+          background-color: colors.$fbInputBlue;
+          color: white;
+        }
+
+        input {
+          margin: 0;
+          padding: 0;
+
+          height: 0;
+          width: 0;
+
+          visibility: hidden;
+        }
+      }
+    }
+  }
+
+  .table-wrapper {
+    //width: 100%;
+    max-height: calc(100% - 50px);
+
+    overflow: auto;
+    scroll-behavior: smooth;
+
+    table {
+      border-spacing: 0;
+      border-collapse: separate;
+
+      thead {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+
+        tr {
+          th {
+            border-top: 2px solid colors.$fbTanBorder;
+            padding: 5px 15px;
+
+            background-color: colors.$fbTan;
+
+            color: colors.$text;
+            font-weight: 700;
+            font-size: 15px;
+            line-height: normal;
+
+            &.right-aligned > svg {
+              margin-left: -20px;
+            }
+
+            > svg {
+              height: 15px;
+              padding: 1px 5px 0 5px;
+              margin-bottom: -2px;
+              position: absolute;
+            }
+
+            svg.up-down-arrow-icon {
+              height: 0;
+            }
+
+            &:hover svg.up-down-arrow-icon {
+              height: 15px;
+            }
+
+            div.multi-text-input {
+              form {
+                min-width: 70px;
+
+                input {
+                  width: 0;
+                }
+              }
+            }
+          }
+        }
+
+        tr.group-header:first-child th {
+          border: 1px solid colors.$fbTanBorder;
+        }
+
+        tr.group-header:nth-last-child(1 of .group-header) th {
+          border-left: none;
+          border-right: none;
+          border-bottom: none;
+        }
+
+        tr:last-child th {
+          border-top: none;
+        }
+      }
+
+      tbody {
+        height: 100%;
+        overflow-x: scroll;
+
+        tr {
+          td {
+            padding: 5px 15px;
+            border-top: 1px solid colors.$fbTanBorder;
+
+            a {
+              color: colors.$fbBrightBlue;
+
+              &:not(:hover) {
+                text-decoration: none;
+              }
+            }
+          }
+        }
+
+        tr.first-of-group td {
+          border-top: 1px solid colors.$fbTanBorderDark;
+        }
+
+        tr.first-of-group:first-child td {
+          border-top: none;
+        }
+      }
+    }
+  }
+}

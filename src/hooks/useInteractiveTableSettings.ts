@@ -1,6 +1,6 @@
 import useSmartStorage from "./useSmartStorage";
 import {Row, RowData, Table, TableState, VisibilityState} from "@tanstack/react-table";
-import {useEffect, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 
 const DEFAULT_TABLE_STATE: TableState = {
     columnFilters: [],
@@ -25,7 +25,7 @@ const DEFAULT_TABLE_STATE: TableState = {
     globalFilter: null
 };
 
-const getDefaultSettingsForTable = <TData extends RowData>(table: Table<TData>, userDefaults: Partial<TableState>): TableState =>
+export const getDefaultSettingsForTable = <TData extends RowData>(table: Table<TData>, userDefaults: Partial<TableState>): TableState =>
     overrideSettings(DEFAULT_TABLE_STATE, {
         columnOrder: table.getAllLeafColumns().map(c=>c.id),
         ...userDefaults,
@@ -171,5 +171,84 @@ const useInteractiveTableSettings = <TData extends RowData>(tableId: string, tab
 
     return [defaultApplied ? localSettings : {} as TableState, updateSettings, deleteSettings, resetSettings];
 };
+
+type InteractiveTableSettingsReducerState = {
+    tableState: TableState;
+    localSettingsBehind: boolean;
+};
+
+type InteractiveTableSettingsReducerAction = {
+    type: "SYNC_LOCAL_SETTINGS"
+} | {
+    type: "UPDATE" | "LOCAL_SETTINGS_UPDATED",
+    newTableState: TableState
+};
+
+const tableSettingsReducer = (state: InteractiveTableSettingsReducerState, action: InteractiveTableSettingsReducerAction): InteractiveTableSettingsReducerState => {
+    switch (action.type) {
+        case "UPDATE": return {
+            tableState: action.newTableState,
+            localSettingsBehind: true
+        };
+        case "SYNC_LOCAL_SETTINGS": return {
+            tableState: state.tableState,
+            localSettingsBehind: false
+        };
+        case "LOCAL_SETTINGS_UPDATED": return {
+            tableState: action.newTableState,
+            localSettingsBehind: false
+        };
+    }
+}
+
+export const useAllianceInteractiveTableSettings = <TData extends RowData>(tableId: string, table: Table<TData>, initialSettings: Partial<TableState> = {}, useLocalStorage: boolean = false): { tableState: TableState, updateTableState: (newTableState: TableState) => void, resetTableState: () => void} => {
+    const [localSettings, updateLocalSettings] = useSmartStorage<TableState>(`interactiveTableSettings.${tableId}`);
+
+    let defaultState = getDefaultSettingsForTable(table, initialSettings);
+    if(useLocalStorage) {
+        const sanitizedLocalSettings = sanitizeLocalSettings(table, localSettings);
+        defaultState = overrideSettings(defaultState, sanitizedLocalSettings);
+    }
+
+    const [{ tableState, localSettingsBehind }, dispatch] = useReducer(tableSettingsReducer, {
+        tableState: defaultState,
+        localSettingsBehind: true
+    });
+
+    table.setOptions(prev => {
+        return {
+            ...prev,
+            state: tableState,
+            onStateChange: newState => {
+                dispatch({ type: "UPDATE", newTableState: typeof newState === "function" ? newState(tableState) : newState})
+            },
+        };
+    });
+
+    useEffect(() => {
+        if(localSettingsBehind) {
+            dispatch({ type: "SYNC_LOCAL_SETTINGS" });
+
+            if(useLocalStorage) {
+                updateLocalSettings("", tableState);
+            }
+        }
+    }, [localSettingsBehind, tableState, dispatch, updateLocalSettings, useLocalStorage])
+
+    useEffect(() => {
+        if(useLocalStorage && !localSettingsBehind && JSON.stringify(localSettings) !== JSON.stringify(tableState)) {
+            dispatch({ type: "LOCAL_SETTINGS_UPDATED", newTableState: localSettings });
+        }
+    }, [useLocalStorage, localSettingsBehind, localSettings, tableState, dispatch]);
+
+    const resetTableState = () => dispatch({ type: "UPDATE", newTableState: getDefaultSettingsForTable(table, initialSettings)});
+    const updateTableState = (newTableState: TableState) => dispatch({ type: "UPDATE", newTableState });
+
+    return {
+        tableState,
+        resetTableState,
+        updateTableState
+    };
+}
 
 export default useInteractiveTableSettings;
