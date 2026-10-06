@@ -2935,6 +2935,7 @@ export type GeneHumanOrthologv2Condition = {
   accession?: InputMaybe<Scalars['String']['input']>;
   /** Checks for equality with the object’s `dioptScore` field. */
   dioptScore?: InputMaybe<Scalars['Int']['input']>;
+  geneGroupMinimumDioptScore?: InputMaybe<Scalars['Int']['input']>;
   /** Checks for equality with the object’s `geneId` field. */
   geneId?: InputMaybe<Scalars['String']['input']>;
   /** Checks for equality with the object’s `name` field. */
@@ -4272,7 +4273,8 @@ export type PubpropsEdge = {
   node: Pubprop;
 };
 
-export type Query = {
+/** The root query type which gives access points into the data universe. */
+export type Query = Node & {
   __typename?: 'Query';
   allele?: Maybe<Allele>;
   /** Reads a single `Allele` using its globally unique `ID`. */
@@ -4538,26 +4540,31 @@ export type Query = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleClassArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleClassByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleClassesArgs = {
   condition?: InputMaybe<AlleleClassCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4566,6 +4573,7 @@ export type QueryAlleleClassesArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleClassesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4577,16 +4585,19 @@ export type QueryAlleleClassesConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleDiseaseVariantArgs = {
   alleleDiseaseVariantId: Scalars['BigInt']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleDiseaseVariantByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleDiseaseVariantsArgs = {
   condition?: InputMaybe<AlleleDiseaseVariantCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4595,6 +4606,7 @@ export type QueryAlleleDiseaseVariantsArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleDiseaseVariantsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4606,16 +4618,19 @@ export type QueryAlleleDiseaseVariantsConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleMutagenArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleMutagenByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleMutagensArgs = {
   condition?: InputMaybe<AlleleMutagenCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4624,6 +4639,7 @@ export type QueryAlleleMutagensArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleMutagensConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4635,16 +4651,19 @@ export type QueryAlleleMutagensConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleStockArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleStockByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleStocksArgs = {
   condition?: InputMaybe<AlleleStockCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4653,6 +4672,7 @@ export type QueryAlleleStocksArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleStocksConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4664,17 +4684,20 @@ export type QueryAlleleStocksConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleTransgenicProductClassArgs = {
   alleleId: Scalars['Int']['input'];
   soId: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleTransgenicProductClassByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleTransgenicProductClassesArgs = {
   condition?: InputMaybe<AlleleTransgenicProductClassCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4683,6 +4706,7 @@ export type QueryAlleleTransgenicProductClassesArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAlleleTransgenicProductClassesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4694,6 +4718,7 @@ export type QueryAlleleTransgenicProductClassesConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelesArgs = {
   condition?: InputMaybe<AlleleCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4702,6 +4727,7 @@ export type QueryAllelesArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelesByFbalArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   ids?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -4709,6 +4735,7 @@ export type QueryAllelesByFbalArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelesByFbalConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4719,6 +4746,7 @@ export type QueryAllelesByFbalConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4730,16 +4758,19 @@ export type QueryAllelesConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelev2Args = {
   id: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelev2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelev2sArgs = {
   condition?: InputMaybe<Allelev2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4748,6 +4779,7 @@ export type QueryAllelev2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryAllelev2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4759,16 +4791,19 @@ export type QueryAllelev2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryConstructArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryConstructByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryConstructsArgs = {
   condition?: InputMaybe<ConstructCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4777,6 +4812,7 @@ export type QueryConstructsArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryConstructsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4788,27 +4824,32 @@ export type QueryConstructsConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryCurrentFullnameArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryCurrentSymbolArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryCurrentSynonymArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
   synonymType?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDataClassArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseaseVariantsByFbgnArgs = {
   fbgn?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4816,6 +4857,7 @@ export type QueryDiseaseVariantsByFbgnArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseaseVariantsByFbgnConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4826,6 +4868,7 @@ export type QueryDiseaseVariantsByFbgnConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseaseVariantsByFbhhArgs = {
   fbhh?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4833,6 +4876,7 @@ export type QueryDiseaseVariantsByFbhhArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseaseVariantsByFbhhConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4843,16 +4887,19 @@ export type QueryDiseaseVariantsByFbhhConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseasev2Args = {
   id: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseasev2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseasev2sArgs = {
   condition?: InputMaybe<Diseasev2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4861,6 +4908,7 @@ export type QueryDiseasev2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryDiseasev2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4872,16 +4920,19 @@ export type QueryDiseasev2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryEnzymev2Args = {
   id: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryEnzymev2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryEnzymev2sArgs = {
   condition?: InputMaybe<Enzymev2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4890,6 +4941,7 @@ export type QueryEnzymev2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryEnzymev2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4901,11 +4953,13 @@ export type QueryEnzymev2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneArgs = {
   featureId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneAllelev2Args = {
   alleleId: Scalars['String']['input'];
   geneId: Scalars['String']['input'];
@@ -4913,11 +4967,13 @@ export type QueryGeneAllelev2Args = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneAllelev2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneAllelev2sArgs = {
   condition?: InputMaybe<GeneAllelev2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4926,6 +4982,7 @@ export type QueryGeneAllelev2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneAllelev2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4937,11 +4994,13 @@ export type QueryGeneAllelev2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneDiseasev2Args = {
   diseaseId: Scalars['String']['input'];
   geneId: Scalars['String']['input'];
@@ -4950,11 +5009,13 @@ export type QueryGeneDiseasev2Args = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneDiseasev2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneDiseasev2sArgs = {
   condition?: InputMaybe<GeneDiseasev2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4963,6 +5024,7 @@ export type QueryGeneDiseasev2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneDiseasev2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -4974,17 +5036,20 @@ export type QueryGeneDiseasev2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneEnzymev2Args = {
   enzymeId: Scalars['String']['input'];
   geneId: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneEnzymev2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneEnzymev2sArgs = {
   condition?: InputMaybe<GeneEnzymev2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -4993,6 +5058,7 @@ export type QueryGeneEnzymev2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneEnzymev2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5004,6 +5070,7 @@ export type QueryGeneEnzymev2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGoMolecularFunctionv2Args = {
   geneId: Scalars['String']['input'];
   goId: Scalars['String']['input'];
@@ -5011,11 +5078,13 @@ export type QueryGeneGoMolecularFunctionv2Args = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGoMolecularFunctionv2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGoMolecularFunctionv2sArgs = {
   condition?: InputMaybe<GeneGoMolecularFunctionv2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5024,6 +5093,7 @@ export type QueryGeneGoMolecularFunctionv2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGoMolecularFunctionv2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5035,6 +5105,7 @@ export type QueryGeneGoMolecularFunctionv2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMembersArgs = {
   fbgg?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5043,6 +5114,7 @@ export type QueryGeneGroupMembersArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMembersConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5054,6 +5126,7 @@ export type QueryGeneGroupMembersConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMembershipsArgs = {
   condition?: InputMaybe<GeneGroupMembershipCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5062,6 +5135,7 @@ export type QueryGeneGroupMembershipsArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMembershipsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5073,11 +5147,13 @@ export type QueryGeneGroupMembershipsConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMemberv2Args = {
   id: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMemberv2ByGeneIdAndGeneGroupIdAndSubgroupIdArgs = {
   geneGroupId: Scalars['String']['input'];
   geneId: Scalars['String']['input'];
@@ -5085,11 +5161,13 @@ export type QueryGeneGroupMemberv2ByGeneIdAndGeneGroupIdAndSubgroupIdArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMemberv2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMemberv2sArgs = {
   condition?: InputMaybe<GeneGroupMemberv2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5098,6 +5176,7 @@ export type QueryGeneGroupMemberv2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupMemberv2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5109,16 +5188,19 @@ export type QueryGeneGroupMemberv2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupv2Args = {
   id: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupv2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupv2sArgs = {
   condition?: InputMaybe<GeneGroupv2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5127,6 +5209,7 @@ export type QueryGeneGroupv2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneGroupv2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5138,17 +5221,20 @@ export type QueryGeneGroupv2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneHumanOrthologv2Args = {
   geneId: Scalars['String']['input'];
   orthologId: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneHumanOrthologv2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneHumanOrthologv2sArgs = {
   condition?: InputMaybe<GeneHumanOrthologv2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5157,6 +5243,7 @@ export type QueryGeneHumanOrthologv2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGeneHumanOrthologv2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5168,6 +5255,7 @@ export type QueryGeneHumanOrthologv2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGenesArgs = {
   condition?: InputMaybe<GeneCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5176,6 +5264,7 @@ export type QueryGenesArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGenesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5187,16 +5276,19 @@ export type QueryGenesConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGenev2Args = {
   id: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGenev2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGenev2sArgs = {
   condition?: InputMaybe<Genev2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5205,6 +5297,7 @@ export type QueryGenev2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGenev2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5216,18 +5309,21 @@ export type QueryGenev2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetAllianceVariantsByAlleleArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
   params?: InputMaybe<AllianceVariantsByAllele>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetAllianceVariantsByGeneArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
   params?: InputMaybe<AllianceVariantsByGene>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetFeaturepropArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
@@ -5236,6 +5332,7 @@ export type QueryGetFeaturepropArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetFeaturepropConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5247,6 +5344,7 @@ export type QueryGetFeaturepropConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetGeneOntologyTermsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   goAspect?: InputMaybe<Scalars['String']['input']>;
@@ -5255,6 +5353,7 @@ export type QueryGetGeneOntologyTermsArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetGeneOntologyTermsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5266,6 +5365,7 @@ export type QueryGetGeneOntologyTermsConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetGrpmemberpropArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   grpmemberId?: InputMaybe<Scalars['Int']['input']>;
@@ -5274,6 +5374,7 @@ export type QueryGetGrpmemberpropArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetGrpmemberpropConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5285,6 +5386,7 @@ export type QueryGetGrpmemberpropConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetPubpropArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
@@ -5293,6 +5395,7 @@ export type QueryGetPubpropArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryGetPubpropConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5304,16 +5407,19 @@ export type QueryGetPubpropConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryInsertionArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryInsertionByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryInsertionsArgs = {
   condition?: InputMaybe<InsertionCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5322,6 +5428,7 @@ export type QueryInsertionsArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryInsertionsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5333,32 +5440,38 @@ export type QueryInsertionsConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryIsGoEvidenceExperimentalArgs = {
   evidenceCode?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryIsPathwayArgs = {
   cvid?: InputMaybe<Scalars['String']['input']>;
   fbgg?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryNodeArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryOrthologv2Args = {
   id: Scalars['String']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryOrthologv2ByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryOrthologv2sArgs = {
   condition?: InputMaybe<Orthologv2Condition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5367,6 +5480,7 @@ export type QueryOrthologv2sArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryOrthologv2sConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5378,16 +5492,19 @@ export type QueryOrthologv2sConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayArgs = {
   grpId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayDiseasesArgs = {
   condition?: InputMaybe<PathwayDiseaseCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5396,6 +5513,7 @@ export type QueryPathwayDiseasesArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayDiseasesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5407,16 +5525,19 @@ export type QueryPathwayDiseasesConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayMemberArgs = {
   id: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayMemberByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayMembersArgs = {
   condition?: InputMaybe<PathwayMemberCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5425,6 +5546,7 @@ export type QueryPathwayMembersArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwayMembersConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5436,6 +5558,7 @@ export type QueryPathwayMembersConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwaysArgs = {
   condition?: InputMaybe<PathwayCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5444,6 +5567,7 @@ export type QueryPathwaysArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPathwaysConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5455,44 +5579,52 @@ export type QueryPathwaysConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPubCountArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryPubCountByTypeArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
   pubType?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySearchExpressionToolsArgs = {
   expression?: InputMaybe<ExpressionSearchInput>;
   gene?: InputMaybe<Scalars['String']['input']>;
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationComponentAlleleArgs = {
   alleleId: Scalars['Int']['input'];
   splitSystemCombinationId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationComponentAlleleByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationComponentAllelesArgs = {
   condition?: InputMaybe<SplitSystemCombinationComponentAlleleCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5501,6 +5633,7 @@ export type QuerySplitSystemCombinationComponentAllelesArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationComponentAllelesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5512,6 +5645,7 @@ export type QuerySplitSystemCombinationComponentAllelesConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationsArgs = {
   condition?: InputMaybe<SplitSystemCombinationCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5520,6 +5654,7 @@ export type QuerySplitSystemCombinationsArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationsByFbalArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   ids?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -5527,6 +5662,7 @@ export type QuerySplitSystemCombinationsByFbalArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationsByFbalConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5537,6 +5673,7 @@ export type QuerySplitSystemCombinationsByFbalConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QuerySplitSystemCombinationsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5548,26 +5685,31 @@ export type QuerySplitSystemCombinationsConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolUseArgs = {
   postgresId: Scalars['Int']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolUseByNodeIdArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolUsesArgs = {
   condition?: InputMaybe<ToolUseCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5576,6 +5718,7 @@ export type QueryToolUsesArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolUsesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -5587,6 +5730,7 @@ export type QueryToolUsesConnectionArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolsArgs = {
   condition?: InputMaybe<ToolCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -5595,6 +5739,7 @@ export type QueryToolsArgs = {
 };
 
 
+/** The root query type which gives access points into the data universe. */
 export type QueryToolsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -6119,7 +6264,7 @@ export type VariantsByGeneResult = {
 
 export type FullAlleleFragment = { __typename?: 'Allele', id?: string | null, symbol?: string | null, isConstruct?: boolean | null, stocksCount?: any | null, pubCount?: any | null, knownLesion?: boolean | null, hasImage?: boolean | null, geneIsRegulatoryRegion?: boolean | null, mutagens: Array<{ __typename?: 'AlleleMutagen', id?: string | null, name?: string | null }>, classes: Array<{ __typename?: 'AlleleClass', id?: string | null, name?: string | null }>, insertions: Array<{ __typename?: 'Insertion', id?: string | null, symbol?: string | null }>, constructs: Array<{ __typename?: 'Construct', id?: string | null, symbol?: string | null }>, insertedElementTypes?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, regRegions?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, encodedTools?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, encodedToolUses?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, taggedWith?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, tagUses?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, alsoCarries?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null } & { ' $fragmentName'?: 'FullAlleleFragment' };
 
-export type GeneGroupMemberFragment = { __typename?: 'GeneGroupMemberv2', geneGroupPubs?: any | null, gene?: { __typename?: 'Genev2', id: string, symbol?: string | null, symbolSgml?: string | null, name?: string | null, nameSgml?: string | null, aka?: string | null, pubs?: Array<string | null> | null, antibody?: boolean | null, testisSpecificityIndex?: string | null, cytogenicMap?: Array<string | null> | null, transgenicConstructs: Array<{ __typename?: 'GeneAllelev2', allele?: { __typename?: 'Allelev2', id: string, symbol?: string | null } | null }>, classicalAndInsertionAlleles: Array<{ __typename?: 'GeneAllelev2', allele?: { __typename?: 'Allelev2', id: string, symbol?: string | null } | null }>, geneGroups: Array<{ __typename?: 'GeneGroupMemberv2', geneGroup?: { __typename?: 'GeneGroupv2', id: string, symbol?: string | null, name?: string | null, type?: string | null } | null }>, experimentalDiseaseModels: Array<{ __typename?: 'GeneDiseasev2', disease?: { __typename?: 'Diseasev2', id: string, name?: string | null } | null }>, potentialDiseaseModels: Array<{ __typename?: 'GeneDiseasev2', disease?: { __typename?: 'Diseasev2', id: string, name?: string | null } | null }>, humanOrthologs: Array<{ __typename?: 'GeneHumanOrthologv2', dioptScore?: number | null, name?: string | null, url?: string | null, ortholog?: { __typename?: 'Orthologv2', id: string, symbol?: string | null, organismId?: number | null } | null }>, enzymes: Array<{ __typename?: 'Enzymev2', id: string, name?: string | null }>, experimentalGoMolecularFunctions: Array<{ __typename?: 'GeneGoMolecularFunctionv2', goId: string, goMolecularFunction?: string | null }>, nonExperimentalGoMolecularFunctions: Array<{ __typename?: 'GeneGoMolecularFunctionv2', goId: string, goMolecularFunction?: string | null }> } | null } & { ' $fragmentName'?: 'GeneGroupMemberFragment' };
+export type GeneGroupMemberFragment = { __typename?: 'GeneGroupMemberv2', geneGroupPubs?: any | null, gene?: { __typename?: 'Genev2', id: string, symbol?: string | null, symbolSgml?: string | null, name?: string | null, nameSgml?: string | null, aka?: string | null, pubs?: Array<string | null> | null, antibody?: boolean | null, testisSpecificityIndex?: string | null, cytogenicMap?: Array<string | null> | null, transgenicConstructsCount: { __typename?: 'GeneAllelev2sConnection', totalCount: number }, classicalAndInsertionAllelesCount: { __typename?: 'GeneAllelev2sConnection', totalCount: number }, geneGroups: Array<{ __typename?: 'GeneGroupMemberv2', geneGroup?: { __typename?: 'GeneGroupv2', id: string, symbol?: string | null, name?: string | null, type?: string | null } | null }>, experimentalDiseaseModels: Array<{ __typename?: 'GeneDiseasev2', disease?: { __typename?: 'Diseasev2', id: string, name?: string | null } | null }>, potentialDiseaseModels: Array<{ __typename?: 'GeneDiseasev2', disease?: { __typename?: 'Diseasev2', id: string, name?: string | null } | null }>, humanOrthologs: Array<{ __typename?: 'GeneHumanOrthologv2', dioptScore?: number | null, name?: string | null, url?: string | null, ortholog?: { __typename?: 'Orthologv2', id: string, symbol?: string | null, organismId?: number | null } | null }>, enzymes: Array<{ __typename?: 'Enzymev2', id: string, name?: string | null }>, experimentalGoMolecularFunctions: Array<{ __typename?: 'GeneGoMolecularFunctionv2', goId: string, goMolecularFunction?: string | null }>, nonExperimentalGoMolecularFunctions: Array<{ __typename?: 'GeneGoMolecularFunctionv2', goId: string, goMolecularFunction?: string | null }> } | null } & { ' $fragmentName'?: 'GeneGroupMemberFragment' };
 
 export type GeneToolKitMostCommonlyUsedQueryVariables = Exact<{
   geneId?: InputMaybe<Scalars['String']['input']>;
@@ -6170,9 +6315,9 @@ export type FindToolsQueryVariables = Exact<{
 export type FindToolsQuery = { __typename?: 'Query', alleles?: Array<{ __typename?: 'ExpressionToolSearchResult', id: string, expression_terms: Array<{ __typename?: 'AllianceCVTerm', id: string, name?: string | null } | null> } | null> | null };
 
 export const FullAlleleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<FullAlleleFragment, unknown>;
-export const GeneGroupMemberFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GeneGroupMember"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GeneGroupMemberv2"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupPubs"}},{"kind":"Field","name":{"kind":"Name","value":"gene"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"aka"}},{"kind":"Field","name":{"kind":"Name","value":"pubs"}},{"kind":"Field","name":{"kind":"Name","value":"antibody"}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructs"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionAlleles"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"geneGroups"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroup"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"potentialDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"humanOrthologs"},"name":{"kind":"Name","value":"geneHumanOrthologv2sByGeneId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dioptScore"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"ortholog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"organismId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"testisSpecificityIndex"}},{"kind":"Field","alias":{"kind":"Name","value":"enzymes"},"name":{"kind":"Name","value":"enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"nonExperimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cytogenicMap"}}]}}]}}]} as unknown as DocumentNode<GeneGroupMemberFragment, unknown>;
+export const GeneGroupMemberFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GeneGroupMember"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GeneGroupMemberv2"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupPubs"}},{"kind":"Field","name":{"kind":"Name","value":"gene"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"aka"}},{"kind":"Field","name":{"kind":"Name","value":"pubs"}},{"kind":"Field","name":{"kind":"Name","value":"antibody"}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructsCount"},"name":{"kind":"Name","value":"geneAllelev2SByGeneIdConnection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionAllelesCount"},"name":{"kind":"Name","value":"geneAllelev2SByGeneIdConnection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"geneGroups"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroup"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"potentialDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"humanOrthologs"},"name":{"kind":"Name","value":"geneHumanOrthologv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"geneGroupMinimumDioptScore"},"value":{"kind":"IntValue","value":"2"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dioptScore"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"ortholog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"organismId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"testisSpecificityIndex"}},{"kind":"Field","alias":{"kind":"Name","value":"enzymes"},"name":{"kind":"Name","value":"enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"nonExperimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cytogenicMap"}}]}}]}}]} as unknown as DocumentNode<GeneGroupMemberFragment, unknown>;
 export const GeneToolKitMostCommonlyUsedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeneToolKitMostCommonlyUsed"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionsAlleles"},"name":{"kind":"Name","value":"genes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"geneIsRegulatoryRegion"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"paperCount"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructs"},"name":{"kind":"Name","value":"genes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}},{"kind":"ObjectField","name":{"kind":"Name","value":"geneIsRegulatoryRegion"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"paperCount"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"transgenicProductClasses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transgenicProductClass"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GeneToolKitMostCommonlyUsedQuery, GeneToolKitMostCommonlyUsedQueryVariables>;
 export const GetAllelesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAlleles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"alleles"},"name":{"kind":"Name","value":"allelesByFbal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullAllele"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<GetAllelesQuery, GetAllelesQueryVariables>;
-export const GeneGroupTablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeneGroupTables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupv2"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"subgroups"},"name":{"kind":"Name","value":"geneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","alias":{"kind":"Name","value":"memberships"},"name":{"kind":"Name","value":"geneGroupMemberv2sBySubgroupId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"geneGroupId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GeneGroupMember"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"memberships"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneGroupId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GeneGroupMember"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GeneGroupMember"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GeneGroupMemberv2"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupPubs"}},{"kind":"Field","name":{"kind":"Name","value":"gene"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"aka"}},{"kind":"Field","name":{"kind":"Name","value":"pubs"}},{"kind":"Field","name":{"kind":"Name","value":"antibody"}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructs"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionAlleles"},"name":{"kind":"Name","value":"geneAllelev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allele"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"geneGroups"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroup"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"potentialDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"humanOrthologs"},"name":{"kind":"Name","value":"geneHumanOrthologv2sByGeneId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dioptScore"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"ortholog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"organismId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"testisSpecificityIndex"}},{"kind":"Field","alias":{"kind":"Name","value":"enzymes"},"name":{"kind":"Name","value":"enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"nonExperimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cytogenicMap"}}]}}]}}]} as unknown as DocumentNode<GeneGroupTablesQuery, GeneGroupTablesQueryVariables>;
+export const GeneGroupTablesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeneGroupTables"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupv2"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","alias":{"kind":"Name","value":"subgroups"},"name":{"kind":"Name","value":"geneGroupv2sByGeneGroupMemberv2GeneGroupIdAndSubgroupIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","alias":{"kind":"Name","value":"memberships"},"name":{"kind":"Name","value":"geneGroupMemberv2sBySubgroupId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"geneGroupId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"FBgg"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GeneGroupMember"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"memberships"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneGroupId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GeneGroupMember"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GeneGroupMember"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GeneGroupMemberv2"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroupPubs"}},{"kind":"Field","name":{"kind":"Name","value":"gene"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"symbolSgml"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"nameSgml"}},{"kind":"Field","name":{"kind":"Name","value":"aka"}},{"kind":"Field","name":{"kind":"Name","value":"pubs"}},{"kind":"Field","name":{"kind":"Name","value":"antibody"}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructsCount"},"name":{"kind":"Name","value":"geneAllelev2SByGeneIdConnection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionAllelesCount"},"name":{"kind":"Name","value":"geneAllelev2SByGeneIdConnection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"geneGroups"},"name":{"kind":"Name","value":"geneGroupMemberv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subgroupId"},"value":{"kind":"NullValue"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"geneGroup"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"potentialDiseaseModels"},"name":{"kind":"Name","value":"geneDiseasev2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disease"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"humanOrthologs"},"name":{"kind":"Name","value":"geneHumanOrthologv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"geneGroupMinimumDioptScore"},"value":{"kind":"IntValue","value":"2"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dioptScore"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"ortholog"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"organismId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"testisSpecificityIndex"}},{"kind":"Field","alias":{"kind":"Name","value":"enzymes"},"name":{"kind":"Name","value":"enzymev2sByGeneEnzymev2GeneIdAndEnzymeIdList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"experimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"nonExperimentalGoMolecularFunctions"},"name":{"kind":"Name","value":"geneGoMolecularFunctionv2sByGeneId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isExperimental"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"goId"}},{"kind":"Field","name":{"kind":"Name","value":"goMolecularFunction"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cytogenicMap"}}]}}]}}]} as unknown as DocumentNode<GeneGroupTablesQuery, GeneGroupTablesQueryVariables>;
 export const GetSplitSystemCombinationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSplitSystemCombinations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"splitSystemCombinations"},"name":{"kind":"Name","value":"splitSystemCombinationsByFbal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"componentAlleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isAlleleof"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullAllele"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<GetSplitSystemCombinationsQuery, GetSplitSystemCombinationsQueryVariables>;
 export const FindToolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"findTools"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"expression"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ExpressionSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"gene"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"alleles"},"name":{"kind":"Name","value":"searchExpressionTools"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"expression"},"value":{"kind":"Variable","name":{"kind":"Name","value":"expression"}}},{"kind":"Argument","name":{"kind":"Name","value":"gene"},"value":{"kind":"Variable","name":{"kind":"Name","value":"gene"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"expression_terms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<FindToolsQuery, FindToolsQueryVariables>;

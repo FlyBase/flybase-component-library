@@ -22,8 +22,8 @@ export type OrthologWithDioptScoreAndName = Orthologv2 & {
 const getFilteredGeneGroupMember = (geneGroupMember: GeneGroupMemberFragment, excludeGeneGroupIds?: string[]): GeneWithGeneGroupPubs => ({
     ...geneGroupMember.gene,
     geneGroupPubs: unique(geneGroupMember.geneGroupPubs, pub => pub.id) || [],
-    transgenicConstructs: geneGroupMember.gene?.transgenicConstructs.map(construct => construct.allele as Allelev2) || [],
-    classicalAndInsertionAlleles: geneGroupMember.gene?.classicalAndInsertionAlleles.map(construct => construct.allele as Allelev2) || [],
+    transgenicConstructsCount: geneGroupMember.gene?.transgenicConstructsCount.totalCount || 0,
+    classicalAndInsertionAllelesCount: geneGroupMember.gene?.classicalAndInsertionAllelesCount.totalCount || 0,
     geneGroups: geneGroupMember.gene?.geneGroups
         .map(group => group.geneGroup as GeneGroupv2)
         .filter(group => excludeGeneGroupIds === undefined || !excludeGeneGroupIds.includes(group.id)) || [],
@@ -41,14 +41,14 @@ const getFilteredGeneGroupMember = (geneGroupMember: GeneGroupMemberFragment, ex
 
 export type GeneWithGeneGroupPubs = DataClass & Omit<
     Required<NonNullable<GeneGroupMemberFragment['gene']>>,
-    "transgenicConstructs" | "classicalAndInsertionAlleles" | "geneGroups" | "experimentalDiseaseModels" | "potentialDiseaseModels" | "humanOrthologs"
+    "transgenicConstructsCount" | "classicalAndInsertionAllelesCount" | "geneGroups" | "experimentalDiseaseModels" | "potentialDiseaseModels" | "humanOrthologs"
 > & {
     geneGroupPubs: {
         id: string,
         name: string
     }[],
-    transgenicConstructs: Allelev2[],
-    classicalAndInsertionAlleles: Allelev2[],
+    transgenicConstructsCount: number,
+    classicalAndInsertionAllelesCount: number,
     geneGroups: GeneGroupv2[],
     experimentalDiseaseModels: Diseasev2[],
     potentialDiseaseModels: Diseasev2[],

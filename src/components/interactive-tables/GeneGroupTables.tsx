@@ -74,19 +74,19 @@ const GENE_GROUP_TABLE_COLUMNS = [
             defaultVisibility: "hidden"
         }
     }),
-    geneGroupTableHelper.accessor(gene => gene.classicalAndInsertionAlleles.length, {
+    geneGroupTableHelper.accessor(gene => gene.classicalAndInsertionAllelesCount, {
         id: "classicalInsertionAlleles",
         header: "Classical/Insertion Alleles",
-        cell: props => <DataClassLink data={props.row.original} formatter={gene => gene.classicalAndInsertionAlleles.length+""} subsection="alleles_main" />,
+        cell: props => <DataClassLink data={props.row.original} formatter={gene => gene.classicalAndInsertionAllelesCount+""} subsection="alleles_main" />,
         meta: {
             align: "right",
             defaultVisibility: "hidden"
         }
     }),
-    geneGroupTableHelper.accessor(gene => gene.transgenicConstructs.length, {
+    geneGroupTableHelper.accessor(gene => gene.transgenicConstructsCount, {
         id: "transgenicConstructs",
         header: "Transgenic Constructs",
-        cell: props => <DataClassLink data={props.row.original} formatter={gene => gene.transgenicConstructs.length+""} subsection="alleles_main" />,
+        cell: props => <DataClassLink data={props.row.original} formatter={gene => gene.transgenicConstructsCount+""} subsection="alleles_main" />,
         meta: {
             align: "right",
             defaultVisibility: "hidden"

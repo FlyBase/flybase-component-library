@@ -59,7 +59,7 @@ const ReportRibbon: React.FC<ReportRibbonProps> = ({id, ontology, aspect, data, 
         <Ribbon
             data={data}
             title={ribbonTitle}
-            itemTitle={data => {
+            itemTitle={(data: RibbonData) => {
                 if (aspect === 'stages') return null
                 if( aspect.match(/modENCODE|FlyAtlas/) ) {
                     return data.descendant_terms.length;

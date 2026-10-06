@@ -12,18 +12,8 @@ const GeneGroupMember = gql(/* GraphQL */ `
             aka
             pubs
             antibody
-            transgenicConstructs: geneAllelev2sByGeneId(condition: { isConstruct: true }) {
-                allele {
-                    id
-                    symbol
-                }
-            }
-            classicalAndInsertionAlleles: geneAllelev2sByGeneId(condition: { isConstruct: false }) {
-                allele {
-                    id
-                    symbol
-                }
-            }
+            transgenicConstructsCount: geneAllelev2SByGeneIdConnection(condition: { isConstruct: true }) { totalCount }
+            classicalAndInsertionAllelesCount: geneAllelev2SByGeneIdConnection(condition: { isConstruct: false }) { totalCount }
             geneGroups: geneGroupMemberv2sByGeneId(condition: { subgroupId: null }) {
                 geneGroup {
                     id
@@ -44,7 +34,7 @@ const GeneGroupMember = gql(/* GraphQL */ `
                     name
                 }
             }
-            humanOrthologs: geneHumanOrthologv2sByGeneId {
+            humanOrthologs: geneHumanOrthologv2sByGeneId(condition: { geneGroupMinimumDioptScore: 2 }) {
                 dioptScore
                 name
                 url
